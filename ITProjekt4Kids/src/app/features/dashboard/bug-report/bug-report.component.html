@@ -1,0 +1,41 @@
+<div *ngIf ="write === true" class="content">
+    
+    <div style = "margin: auto; ">
+        <label for="textarea">Beschreiben Sie bitte Ihr Feedback. Erwähnen Sie dabei auch, für welche Nutzer das Feedback relevant ist (Lehrer, Schüler, beide):</label>  
+       <div class="col-75">
+        <textarea id="textarea" name="subject" placeholder="Hier den Text zur Fehlerbeschreibung eingeben..." style="height:200px"></textarea>
+      </div>
+    </div>
+    <div style = "margin-top: 35px">
+        <button (click)="onSubmit()" class = "btn login-button-style">Feedback absenden</button>
+        <button style="margin-top: 20px;" (click)="changeView();" class = "btn login-button-style">Meine Feedback-Berichte ansehen</button>
+    </div>
+
+    <div style="display: table" class ="d-flex justify-content-center">
+        <div *ngIf = "posted === true && success === true" class="alert alert-success response" role="alert" style="margin-top: 35px;">
+            {{response}}
+        </div>
+    </div>
+    <div style="display: table" class ="d-flex justify-content-center">
+        <div *ngIf = "posted === true && success === false" class="alert alert-danger response" role="alert" style="margin-top: 35px;">
+            {{response}}
+        </div>
+        
+    </div>
+    
+</div>
+
+
+
+<div class = "container">
+    <div class="bugreport-list" *ngIf = "write === false">
+        <h3 style="text-align: center;">Feedback Reports von {{currentUser.firstname}} {{currentUser.lastname}}</h3>
+        <ul *ngFor="let bugreport of bugreports;  index as i" style="padding-top: -50px;">
+            <li style="margin-top: 30px;">
+                {{i+1}} Status: {{bugreport.status}} vom {{dates[i]}}: {{bugreport.description}}
+                
+            </li>
+        </ul>
+        <button (click)="changeView();" class = "btn login-button-style">Feedback geben</button>
+    </div>
+</div>

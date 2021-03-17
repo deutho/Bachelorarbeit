@@ -1,0 +1,183 @@
+
+div {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.colouring-0 {
+    background-color: #D04040;
+}
+
+.colouring-1 {
+    background-color: #E5E926;
+}
+
+.colouring-2 {
+    background-color: #404FD0;
+}
+
+.colouring-3 {
+    background-color: #40D04F;
+}
+
+input {
+    border: 0;
+    outline: 0;
+    background: transparent;
+    border-bottom: 1px solid black;
+    text-align:left
+  }
+
+.navigationBar {
+    display: flex;
+    width:40%;
+    background-color: transparent;
+    flex-direction: row; 
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 30px;
+    filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.25));
+    min-width: 300px;
+}
+
+.overlay {
+    position: fixed; /* Sit on top of the page content */
+    display: block; /* Hidden by default */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: black; /* Black background with opacity */
+    opacity: 0.5;
+    z-index: 3; /* Specify a stack order in case you're using a different order for other elements */
+    cursor: default; /* Add a pointer on hover */
+  }
+
+.superOverlay {
+    position: fixed; /* Sit on top of the page content */
+    display: flex; /* Hidden by default */
+    width: 30%; /* Full width (cover the whole page) */
+    background-color: white; /* Black background with opacity */
+    z-index: 4; /* Specify a stack order in case you're using a different order for other elements */
+    cursor: default; /* Add a pointer on hover */
+    justify-content: center;
+    align-items: center;
+    min-width: 320px;
+    border-radius: 15px; 
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.25));
+}
+
+.fullscreen {
+    position: fixed; /* Sit on top of the page content */
+    display: flex; /* Hidden by default */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+    cursor: default; /* Add a pointer on hover */
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+}
+
+.content {
+    width: 80%;
+    display: block;
+    margin: 0 auto;
+    padding: 20px 0px;
+    min-width: 280px;
+}
+
+.submit-button {
+    display: block;
+    margin: 0 auto;
+    width: 40%;
+    min-width: 200px;
+    border-radius: 23px;
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.25));
+    background-color: #40d04f;
+}
+
+.ng-valid:not(form) {
+    border: solid 2px lightgreen;
+  }
+  
+.ng-invalid:not(form).form-submitted {
+border: solid 2px lightcoral;
+}
+
+.dropshadow {
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.25));
+}
+
+.form {
+    margin: 0 auto;
+}
+
+.container {
+    display: flex;
+    border-radius: 20px;
+    width: 40%;
+    margin-top: 30px;
+    min-width: 300px;  
+    cursor: pointer;
+}
+  
+.item-left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 68px; /* A fixed width as the default */
+    width: 68px;
+    border-radius: 20px 0px 0px 20px;
+
+}
+
+.item-center { 
+    flex-grow: 1; /* Set the middle element to grow and stretch */
+    background-color: white;
+    padding: 20px 20px;
+    vertical-align: middle;
+    overflow-wrap: break-word;
+    max-width: calc(100% - 136px);
+}
+
+.item-right {
+    min-width: 68px;
+    width: 68px; /* A fixed width as the default */
+    border-radius: 0px 20px 20px 0px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon{
+    height:28px; 
+    width: 28px; 
+    opacity:0.5;
+    padding: 0px 5px 0px 5px;
+}
+
+.selectionOfDropdown {
+    padding: 0px 10px 0px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.textOfDropwdown {
+    padding: 0px 10px 0px 5px;
+}
+
+h4 {
+    font-size:calc(15px + 1vw);
+    
+}

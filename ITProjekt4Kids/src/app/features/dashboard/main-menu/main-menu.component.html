@@ -1,0 +1,318 @@
+<div *ngIf = "loaded == true">
+    
+    <div *ngIf= "currentUser.role != 1">        
+        <!-------------------------
+
+            Pfad des Ordners 
+
+        ------------------------->
+
+         <!-------------------------
+        Aufwertspfeil auskommentiert
+        <ul *ngIf = "parentDocKey !== 'root'" style="display: flex; justify-content: center;">
+            <li class="navigationBar">
+                <div class ="btn" (click)= goUpOneLevel() style="display: flex;  width: 68px; cursor: pointer">
+                    <svg width="20" height="20" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="reply" class="svg-inline--fa fa-reply fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                        <path fill="currentColor" d="M8.309 189.836L184.313 37.851C199.719 24.546 224 35.347 224 56.015v80.053c160.629 1.839 288 34.032 288 186.258 0 61.441-39.581 122.309-83.333 154.132-13.653 9.931-33.111-2.533-28.077-18.631 45.344-145.012-21.507-183.51-176.59-185.742V360c0 20.7-24.3 31.453-39.687 18.164l-176.004-152c-11.071-9.562-11.086-26.753 0-36.328z">
+                        </path>
+                    </svg>                     
+                </div>
+                <div style="display: inline-block; overflow-wrap: break-word; max-width: calc(100% - 68px);">
+                    
+                </div>
+            </li>
+        </ul>
+
+        <ul *ngIf = "level == 0" style="display: flex; justify-content: center;">
+            <li style = "height: 34px" class="navigationBar">
+            </li>
+        </ul>
+        ------------------------->
+
+        <!-- Ansicht Schüler -->
+        <div *ngIf="currentUser.role == 3">
+            <div class="container dropshadow" *ngFor="let item of currentFolders;  index as i">
+                <div class="item-left colouring-{{i%4}} " (click)=itemclick(item)>
+                    <svg *ngIf="item.type == 'folder'" style="display:inline-block; margin: 0 auto;" width="30px" height="24" viewBox="0 0 30 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15.8668 4.57071L15.8961 4.6H15.9375H27.1875C28.6856 4.6 29.9 5.81441 29.9 7.3125V20.4375C29.9 21.9356 28.6856 23.15 27.1875 23.15H2.8125C1.31441 23.15 0.1 21.9356 0.1 20.4375V3.5625C0.1 2.06441 1.31441 0.85 2.8125 0.85H12.1461L15.8668 4.57071Z" fill="white" stroke="black" stroke-width="0.2"/>
+                    </svg>    
+                    
+                    <svg *ngIf="item.type == 'task'" width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M26.1859 3.98434L26.1861 3.98453C27.1381 4.93146 27.1384 6.47112 26.1859 7.42358L23.7549 9.85463C23.5461 10.0634 23.2086 10.0634 22.9998 9.85463L17.1463 4.00112C16.9375 3.79232 16.9375 3.45486 17.1463 3.24606L19.5774 0.815009C20.5243 -0.131933 22.0642 -0.132237 23.0167 0.815098C23.0167 0.815131 23.0168 0.815165 23.0168 0.815198L26.1859 3.98434ZM0.119782 25.5363L0.119821 25.5361L1.23235 19.16L15.058 5.33434C15.2663 5.12605 15.6041 5.12489 15.8188 5.33476C15.8189 5.33487 15.819 5.33497 15.8191 5.33508L21.6719 11.1879C21.8807 11.3966 21.8807 11.7341 21.6719 11.9429L7.84617 25.7686L1.4705 26.8863C1.47046 26.8863 1.47043 26.8863 1.47039 26.8863C0.672857 27.0224 -0.0209257 26.332 0.119782 25.5363ZM7.27209 22.3601V22.2601H7.17209H4.74084V19.8288V19.7288H4.64084H2.72658H2.64258L2.62808 19.8116L2.03218 23.213L2.02321 23.2642L2.05997 23.3009L3.70001 24.941L3.73677 24.9777L3.78798 24.9688L7.18935 24.3729L7.27209 24.3584V24.2744V22.3601ZM6.47384 16.8103C6.14475 17.1394 6.14475 17.6668 6.47384 17.9959C6.80293 18.3249 7.33031 18.3249 7.6594 17.9959L15.7805 9.87477C16.1096 9.54567 16.1096 9.0183 15.7805 8.68921C15.4514 8.36011 14.924 8.36011 14.5949 8.68921L6.47384 16.8103Z" fill="white" stroke="black" stroke-width="0.2"/>
+                    </svg>   
+                </div>
+                <div class="item-center " (click)=itemclick(item)> <h4>{{item.name}}</h4></div>
+                <div class="item-right " data-toggle="dropdown">
+                </div>
+                
+            </div>
+            <!-- error message if folder length = 0 -->
+            <div *ngIf="currentFolders.length == 0" style = "margin: 0 auto; font-weight: 400; font-size: x-large;" class = "btn">
+                {{emptyMessage}}
+            </div>
+            <!-- error message general -->
+            <div style="display: table; ">
+                <div *ngIf = "error === true" class="alert alert-danger response" role="alert" style="margin-bottom: 35px; width: 30%; display: block">
+                    {{errorMessage}}
+                </div>
+            </div>
+            <!-- redirect error message -->
+            <div style="min-height: 15px"></div>
+            <div style="display: table; ">
+                <div *ngIf = "redirecterror === true" class="alert alert-danger response" role="alert" style="margin-bottom: 35px; width: 30%; display: block">
+                    {{errorMessage}}
+                </div>
+            </div>
+        </div>
+        
+        <!-------------------------
+           
+            alle Ordern/Items anzeigen 
+        
+        ------------------------->
+        <!-- Ansicht Lehrer
+        
+        
+        -->
+        <div *ngIf="currentUser.role == 2">
+            <div class="container" *ngFor="let item of currentFolders;  index as i">
+                <div class="item-left colouring-{{i%4}} dropshadow" (click)=itemclick(item)>
+                    <svg *ngIf="item.type == 'folder'" style="display:inline-block; margin: 0 auto;" width="30px" height="24" viewBox="0 0 30 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15.8668 4.57071L15.8961 4.6H15.9375H27.1875C28.6856 4.6 29.9 5.81441 29.9 7.3125V20.4375C29.9 21.9356 28.6856 23.15 27.1875 23.15H2.8125C1.31441 23.15 0.1 21.9356 0.1 20.4375V3.5625C0.1 2.06441 1.31441 0.85 2.8125 0.85H12.1461L15.8668 4.57071Z" fill="white" stroke="black" stroke-width="0.2"/>
+                    </svg>    
+                    
+                    <svg *ngIf="item.type == 'task'" width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M26.1859 3.98434L26.1861 3.98453C27.1381 4.93146 27.1384 6.47112 26.1859 7.42358L23.7549 9.85463C23.5461 10.0634 23.2086 10.0634 22.9998 9.85463L17.1463 4.00112C16.9375 3.79232 16.9375 3.45486 17.1463 3.24606L19.5774 0.815009C20.5243 -0.131933 22.0642 -0.132237 23.0167 0.815098C23.0167 0.815131 23.0168 0.815165 23.0168 0.815198L26.1859 3.98434ZM0.119782 25.5363L0.119821 25.5361L1.23235 19.16L15.058 5.33434C15.2663 5.12605 15.6041 5.12489 15.8188 5.33476C15.8189 5.33487 15.819 5.33497 15.8191 5.33508L21.6719 11.1879C21.8807 11.3966 21.8807 11.7341 21.6719 11.9429L7.84617 25.7686L1.4705 26.8863C1.47046 26.8863 1.47043 26.8863 1.47039 26.8863C0.672857 27.0224 -0.0209257 26.332 0.119782 25.5363ZM7.27209 22.3601V22.2601H7.17209H4.74084V19.8288V19.7288H4.64084H2.72658H2.64258L2.62808 19.8116L2.03218 23.213L2.02321 23.2642L2.05997 23.3009L3.70001 24.941L3.73677 24.9777L3.78798 24.9688L7.18935 24.3729L7.27209 24.3584V24.2744V22.3601ZM6.47384 16.8103C6.14475 17.1394 6.14475 17.6668 6.47384 17.9959C6.80293 18.3249 7.33031 18.3249 7.6594 17.9959L15.7805 9.87477C16.1096 9.54567 16.1096 9.0183 15.7805 8.68921C15.4514 8.36011 14.924 8.36011 14.5949 8.68921L6.47384 16.8103Z" fill="white" stroke="black" stroke-width="0.2"/>
+                    </svg>   
+                </div>
+                <div class="item-center dropshadow" (click)=itemclick(item)> <h4>{{item.name}}</h4></div>
+
+                <div class="item-right dropshadow" data-toggle="dropdown">
+                    <svg width="27" height="27" style="opacity: 0.6;" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="ellipsis-h" class="svg-inline--fa fa-ellipsis-h fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                        <path fill="currentColor" d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z">
+                        </path>
+                    </svg>
+                </div>
+                <!-- dropdown -->
+                <ul  class="dropdown-menu dropdown-menu-right" >
+                    <li class="selectionOfDropdown" type="button" (click)="createLink(item)">                    
+                        <div style="display: flex; flex-direction: row; align-items: flex-end;">
+                            <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="share-alt" class="svg-inline--fa fa-share-alt fa-w-14 icon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M352 320c-22.608 0-43.387 7.819-59.79 20.895l-102.486-64.054a96.551 96.551 0 0 0 0-41.683l102.486-64.054C308.613 184.181 329.392 192 352 192c53.019 0 96-42.981 96-96S405.019 0 352 0s-96 42.981-96 96c0 7.158.79 14.13 2.276 20.841L155.79 180.895C139.387 167.819 118.608 160 96 160c-53.019 0-96 42.981-96 96s42.981 96 96 96c22.608 0 43.387-7.819 59.79-20.895l102.486 64.054A96.301 96.301 0 0 0 256 416c0 53.019 42.981 96 96 96s96-42.981 96-96-42.981-96-96-96z"></path></svg>
+                            <a class="textOfDropdown" > Link zum Teilen erstellen</a>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                    </li>
+                    <li *ngIf = "item.owner == currentUser.uid || item.editors.includes(currentUser.uid)" class="selectionOfDropdown" type="button" (click)="editElement(item)">                    
+                        <div style="display: flex; flex-direction: row; align-items: flex-end;">
+                            <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="edit" class="svg-inline--fa fa-edit fa-w-18 icon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M402.3 344.9l32-32c5-5 13.7-1.5 13.7 5.7V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h273.5c7.1 0 10.7 8.6 5.7 13.7l-32 32c-1.5 1.5-3.5 2.3-5.7 2.3H48v352h352V350.5c0-2.1.8-4.1 2.3-5.6zm156.6-201.8L296.3 405.7l-90.4 10c-26.2 2.9-48.5-19.2-45.6-45.6l10-90.4L432.9 17.1c22.9-22.9 59.9-22.9 82.7 0l43.2 43.2c22.9 22.9 22.9 60 .1 82.8zM460.1 174L402 115.9 216.2 301.8l-7.3 65.3 65.3-7.3L460.1 174zm64.8-79.7l-43.2-43.2c-4.1-4.1-10.8-4.1-14.8 0L436 82l58.1 58.1 30.9-30.9c4-4.2 4-10.8-.1-14.9z"></path></svg>
+                            <a class="textOfDropdown" > Umbenennen</a>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                    </li>
+                    <li *ngIf = "item.owner == currentUser.uid" class="selectionOfDropdown" type="button" (click)="deleteElement(item)">                    
+                        <div style="display: flex; flex-direction: row; align-items: flex-end;">
+                            <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="trash-alt" class="svg-inline--fa fa-trash-alt fa-w-14 icon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"></path></svg>
+                            <a class="textOfDropdown" > Löschen</a>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                    </li>
+                </ul>
+            </div>
+            <!-- teacher can also add Elements -->
+            <div type="button" (click)="addElement()" *ngIf="creating == false && isEditorOfCurrentFolder == true" class="container dropshadow" style="padding-bottom: 100px;">
+                <div class="item-left" style="background-color: #85898C">
+                    <svg  width="34px" height="34px" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0.5375 14C0.5375 6.56304 6.56304 0.5375 14 0.5375C21.437 0.5375 27.4625 6.56304 27.4625 14C27.4625 21.437 21.437 27.4625 14 27.4625C6.56304 27.4625 0.5375 21.437 0.5375 14ZM21.2188 16.2875C21.6349 16.2875 21.975 15.9474 21.975 15.5312V12.4688C21.975 12.0526 21.6349 11.7125 21.2188 11.7125H16.2875V6.78125C16.2875 6.36508 15.9474 6.025 15.5312 6.025H12.4688C12.0526 6.025 11.7125 6.36508 11.7125 6.78125V11.7125H6.78125C6.36508 11.7125 6.025 12.0526 6.025 12.4688V15.5312C6.025 15.9474 6.36508 16.2875 6.78125 16.2875H11.7125V21.2188C11.7125 21.6349 12.0526 21.975 12.4688 21.975H15.5312C15.9474 21.975 16.2875 21.6349 16.2875 21.2188V16.2875H21.2188Z" fill="white" stroke="black" stroke-width="0.2"/>
+                    </svg>        
+                </div>
+                <div class="item-center" > <h4 style="opacity: 0.6;">Neues Element</h4></div>
+                <div class="item-right"></div>
+            </div>
+            <!-- error message generel -->
+            <div style="min-height: 15px"></div>
+            <div style="display: table; ">
+                <div *ngIf = "error === true" class="alert alert-danger response" role="alert" style="margin-bottom: 35px; width: 30%; display: block">
+                    {{errorMessage}}
+                </div>
+            </div>
+
+             <!-- redirect error message -->
+             <div style="min-height: 15px"></div>
+             <div style="display: table; ">
+                 <div *ngIf = "redirecterror === true" class="alert alert-danger response" role="alert" style="margin-bottom: 35px; width: 30%; display: block">
+                     {{errorMessage}}
+                 </div>
+             </div>
+        </div>
+
+        <!-- Overlays for dropdown -->
+        <!-- deleting element overlay -->
+        <div class="fullscreen" *ngIf="deleteElementOverlay == true">
+            <div class="overlay" (click)="deleteElementOverlay = false"></div>
+            <div class="superOverlay" style="display: flex; justify-content: space-around; flex-direction: column;">
+                <div style="display: flex; justify-content: flex-end;" (click)="deleteElementOverlay = false">
+                    <i class="fas fa-times" style="display: flex; opacity: 0.6; align-content: flex-end; cursor: pointer; padding: 10px 10px 0px 0px;">
+                    </i>
+                </div>
+                <div class="content" style="display: flex; justify-content: space-between; flex-direction: column; ">
+                    Das Element kann danach nicht mehr hergestellt werden. Es werden untergeordnete Elemente mitgelöscht.
+                    <div style="height: 10px;"></div>
+                    <!-- <div (click)="delete()" class="btn dropshadow submit-button" style="background-color: #D04040;">
+                        Löschen
+                    </div> -->
+                    <div style="padding: 20px 0px; width: 100%; display: flex; justify-content: space-between;">
+                        <div class="btn dropshadow" style="display: inline-block; background-color: lightgray; width: 30%; min-width: 110px; ">
+                            Abbrechen
+                        </div>
+                        <div (click)="delete()" class="btn dropshadow" style="display: inline-block; background-color:#ff0f0f; width: 30%; min-width: 110px;">
+                            Löschen
+                        </div>
+                    </div>
+                    <div style="height: 10px;"></div>
+                    <div *ngIf="deleting == true" class="loader" style="width : 40px;"></div>
+                </div>
+           </div>
+        </div>
+
+
+        <!-- share link overlay -->
+        <div class="fullscreen" *ngIf="shareGameOverlay == true">
+            <div class="overlay" (click)="shareGameOverlay = false"></div>
+            <div class="superOverlay" style="display: flex; justify-content: space-around; flex-direction: column;">
+                <div style="display: flex; justify-content: flex-end;" (click)="shareGameOverlay = false">
+                    <i class="fas fa-times" style="display: flex; opacity: 0.6; align-content: flex-end; cursor: pointer; padding: 10px 10px 0px 0px;">
+                    </i>
+                </div>
+                <div class="content" style="display: flex; justify-content: space-between; flex-direction: column; ">
+                    <input value={{directurl}} style="width: 100%;">
+                    <div style="height: 10px;"></div>
+                    <div (click)="copied()" class="btn dropshadow submit-button">
+                        Link in die Zwischenablage kopieren
+                    </div>
+                </div>
+            </div>
+            <!-- notification copied link to shared game -->
+            <div style="  display: inline-flex;
+            flex-direction: column;
+            width: 100%;
+            height: calc(100% - 10vh);
+            justify-content: flex-end;">
+                <div *ngIf = "linkCopied == true" class="item-final alert alert-primary text-center" role="alert" style="width: 80%; margin:0 auto; z-index: 5; align-self: flex-end;">
+                    Link kopiert!
+                </div>
+            </div>
+        </div>   
+    </div>
+
+
+
+    <!-------------------------
+        
+        Admin View 
+
+    ------------------------->
+    <div *ngIf = "currentUser.role == 1">
+        <p>Adminaccount der Volksschule xxx</p>
+
+    </div>
+
+
+
+
+
+    <!-------------------------       
+        
+        overlay creating new Element 
+    
+    ------------------------->
+    <div *ngIf="creating == true" class="fullscreen">
+        <!-- grey background -->
+        <div *ngIf="creating == true" class="overlay" (click)="creating = false;"></div>
+        <!-- white div, which contains all the input fields -->
+        <div *ngIf="creating == true" class="superOverlay">
+            <div class="content">               
+                <!-- formular -->
+                <form [formGroup]="addElementForm" (ngSubmit) = "createNewElement()">
+                    <div style="display: flex; justify-content: flex-end;" (click)="creating = false;">
+                        <i class="fas fa-times" style="display: flex; opacity: 0.6; align-content: flex-end; cursor: pointer;">
+                        </i>
+                    </div>
+                    <div>
+                        <!-- Name of element -->
+                        <h6>Name des neuen Elements:</h6>
+                        <input placeholder="z.B. Tiere im Winter" type="text" name = "name" formControlName ="name" style="width: 100%;">
+                    </div>
+                    <!-- Choice to create Folder or Task -->
+                    <div *ngIf="gameSelected == false"  style="padding: 20px 0px; width: 100%; display: flex; justify-content: space-between;">
+                        <div class="btn dropshadow" style="display: inline-block; background-color: #40d04f; width: 25%;">
+                            Ordner
+                        </div>
+                        <div (click)="gameSelected = true" class="btn dropshadow" style="display: inline-block; background-color: lightgray; width: 25%;">
+                            Spiel
+                        </div>
+                    </div>
+                    <!-- Choice to create Folder or Task (just changed the active choice(coloring) in this one) -->
+                    <div *ngIf="gameSelected == true"  style="padding: 20px 0px; width: 100%; display: flex; justify-content: space-between;">
+                        <div (click)="gameSelected = false" class="btn dropshadow" style="display: inline-block; background-color: lightgray; width: 25%;">
+                            Ordner
+                        </div>
+                        <div  class="btn dropshadow" style="display: inline-block; background-color: #40d04f; width: 25%;">
+                            Spiel
+                        </div>
+                    </div>         
+                    <!-- dropdown Menue -->
+                    <div *ngIf="gameSelected"  style="padding: 20px 0px;">
+                        <!-- formControlName="game" -->
+                        <select id="gameTypeSelector" class="form-control custom-select drop-shadow">                            
+                            <option value="" selected disabled hidden>Wähle die Art des Lernspiels</option>
+                            <option value="vocabular-game">Quiz</option>
+                            <!-- comment for deploy -->
+                            <option  value="personal-forms-game">Personalformen</option>
+                            <option  value="verb-position-game">Satzstellung</option>
+                         </select>
+                    </div>
+                    <!-- add button -->
+                    <div style="padding: 20px 0px;">
+                        <div style="text-align: center; "  class="btn submit-button" (click)="createNewElement()">Element anlegen</div>
+                    </div>    
+                    <!-- error message -->
+
+                </form>
+                <div *ngIf = "creatingElementError == true" class="item-final alert alert-danger text-center" role="alert" style="width: 80%; margin:0 auto; z-index: 5; align-self: flex-end;">
+                    Etwas wurde nicht richtig ausgefüllt!
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-------------------------
+
+        overlay editing of Element
+
+    ------------------------->
+    <div *ngIf="editing == true" class="fullscreen">
+        <!-- grey background -->
+        <div *ngIf="editing == true" class="overlay" (click)="editing = false;"></div>
+        <!-- white div, which contains all the input fields -->
+        <div *ngIf="editing == true" class="superOverlay" style="border-radius: 15px; filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.25));">
+            <div class="content">               
+                <!-- formular -->
+                <form [formGroup]="editElementForm" (ngSubmit) = "edit()">
+                    <div style="display: flex; justify-content: flex-end;" (click)="editing = false;">
+                        <i class="fas fa-times" style="display: flex; opacity: 0.6; align-content: flex-end; cursor: pointer;">
+                        </i>
+                    </div>
+                    <div>
+                        <!-- Name of element -->
+                        <h6>Name:</h6>
+                        <input type="text" name = "name" formControlName ="name" style="width: 100%;">
+                    </div>                    
+                    <!-- save button -->
+                    <div style="padding: 20px 0px;">
+                        <input type="submit" value="Speichern" style="text-align: center; "  class="btn submit-button">
+                    </div>    
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

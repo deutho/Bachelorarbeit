@@ -1,0 +1,19 @@
+<div class="flex-center-column">
+ <div class="dropzone" 
+      dropzone
+      (hovered)="toggleHover($event)"
+      (dropped)="onDrop($event)"
+      [class.hovering]="isHovering"
+      >
+
+      <input style="display: none;" type="file" id="file" (change)="onDrop($event.target.files)"/>
+      <label style="cursor: pointer;"for="file"><span class="chooseAFile">Klicke hier,</span><span> zieh eine Datei in diese Box oder gib die URL des Bildes unten ein!</span></label>
+      <div *ngIf = "this.tooManyFiles == true" class="item-final alert alert-danger text-center" role="alert" style="width: 80%; margin:0 auto; font-size: 80%;">
+          Man darf nur eine Datei wählen!
+      </div>
+      <div *ngFor="let file of files">
+          <upload-task path = {{path}} currentGameUID="{{currentGameUID}}" [file]="file"></upload-task>
+        </div>
+        
+  </div>  
+</div>
