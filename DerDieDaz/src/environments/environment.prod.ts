@@ -11,6 +11,7 @@ export const environment = {
     measurementId: "G-N3XRT4ZVQ9",
   },
 
+
   shareableURL: 'www.derdiedaz.at',
   isDeployment: true
 };

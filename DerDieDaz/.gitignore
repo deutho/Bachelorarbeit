@@ -5,6 +5,7 @@
 /tmp
 /out-tsc
 /.firebase
+/public
 # Only exists if Bazel was run
 /bazel-out
 

@@ -1,12 +1,20 @@
 {
   "projects": {
-    "default": "kids-8b916"
+    "default": "kids-8b916",
+    "dev": "kids-reloaded"
   },
   "targets": {
     "kids-8b916": {
       "hosting": {
         "ITProjekt4Kids": [
           "kids-8b916"
+        ]
+      }
+    },
+    "kids-reloaded": {
+      "hosting": {
+        "4kids-dev": [
+          "kids-reloaded"
         ]
       }
     }
