@@ -43,7 +43,7 @@ export class ProfileComponent implements OnInit {
     else if (this.currentUser.role == 3) this.accountTyp = "Schüler";
 
     this.app.myHeader("Profil");
-    this.imageURL = this.currentUser.photoID;
+    this.imageURL = this.currentUser.avatarID;
     this.loaded = true;
 
   }
@@ -66,7 +66,7 @@ export class ProfileComponent implements OnInit {
       });
     }
     this.editingPicture = false;
-    this.imageURL = this.currentUser.photoID;
+    this.imageURL = this.currentUser.avatarID;
   }
 
 

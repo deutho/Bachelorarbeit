@@ -4,7 +4,7 @@ import {AngularFireAuth} from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
 import { FirestoreDataService } from 'src/app/services/firestore-data.service';
-import { User } from 'src/app/models/users.model';
+import { Teacher, Student, User } from 'src/app/models/users.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { environment } from 'src/environments/environment';
 import { take } from 'rxjs/operators';
@@ -69,13 +69,44 @@ export class AddUserComponent implements OnInit {
       if (this.currentUser.role == 1){
         var role = 2;
         var classid = "-1";
+        this.newUser = <Teacher> {
+          uid: "",
+          username: username,
+          firstname: firstname,
+          lastname: lastname,
+          role: role,
+          parent: this.currentUser.uid,
+          schoolclass: classid,
+          school: "Testschule",
+          avatarID: "1",
+          classtargets: new Map<string, number>(),
+          individualtargets: new Map<string, number>(),
+          dailyloginreward: 50,
+        };
       } 
       else{
+        let teacher: Teacher = this.currentUser as Teacher;
         var role = 3;
         var classid = "1A";
+        this.newUser = <Student> {
+          uid: "",
+          username: username,
+          firstname: firstname,
+          lastname: lastname,
+          role: role,
+          parent: this.currentUser.uid,
+          schoolclass: classid,
+          school: "Testschule",
+          avatarID: "1",
+          challangesDone: [],
+          starbalance: 0,
+          loginStreak: 0,
+          lastReward: 0, //UTC Timestamp
+          gameresults: [],
+          dailyloginreward: teacher.dailyloginreward
+        };
       } 
-      this.newUser = new User("", username, firstname,lastname, "1", role, this.currentUser.uid, classid, "Testschule"); 
-      
+
       //secondary App to Create User Without Logging out the current one
       var secondaryApp = this.auth_service.GetSecondaryFirebaseApp();
 

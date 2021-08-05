@@ -94,6 +94,7 @@ export class MainMenuComponent implements OnInit {
     console.log(id);
     if (id === " ") {
       console.log(this.currentUser.role);
+      console.log(this.currentUser)
       if (this.currentUser.role == 3) this.router.navigate([this.currentUser.parent])
       if (this.currentUser.role == 2) this.router.navigate([this.currentUser.uid])
     } else {
