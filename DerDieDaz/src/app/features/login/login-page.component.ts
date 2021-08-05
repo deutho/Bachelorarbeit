@@ -16,12 +16,12 @@ import { AppService } from 'src/app/services/app.service';
 export class LoginPageComponent implements OnInit {
 
 loginform: FormGroup;
-
   constructor(private fb: FormBuilder, private router: Router, private auth: AuthService, private app: AppService, private afs: FirestoreDataService) { }
 
   errorMessage = '';
   error;
   firebaseErrors;
+
 
   ngOnInit(): void {
     firebase.auth().signOut(); //use the firebase auth here and not the service, so there is not redirect

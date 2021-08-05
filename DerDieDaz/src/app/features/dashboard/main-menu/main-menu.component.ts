@@ -19,7 +19,6 @@ import {v4 as uuidv4} from 'uuid';
   styleUrls: ['./main-menu.component.css']
 })
 export class MainMenuComponent implements OnInit {
-
   constructor(private fb: FormBuilder, private router: Router, private appService: AppService, private afs: FirestoreDataService, private cboardService: ClipboardService, private auth: AuthService, private route: ActivatedRoute) {
  
    }
@@ -148,7 +147,11 @@ export class MainMenuComponent implements OnInit {
       //get derdiedaz folders only on the startpage of the respective user
       let level0: boolean = false;
       if ((this.currentUser.role == 2 && this.currentUser.uid === id) || (this.currentUser.role == 3 && this.currentUser.parent === id)) {
-        await this.afs.getFolderElement("Standardübungen").then(data => this.derdiedazFolder = data.folders);
+        await this.afs.getFolderElement("Standardübungen").then(data => {
+          if(data != undefined) {
+            this.derdiedazFolder = data.folders
+          }
+        });
         level0 = true;
       }
       

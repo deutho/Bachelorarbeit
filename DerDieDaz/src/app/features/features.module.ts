@@ -29,6 +29,7 @@ import { AccessDeniedComponent } from './access-denied/access-denied.component';
 import { GameRedirectComponent } from './games/game-redirect/game-redirect.component';
 import { StudentlistComponent } from './dashboard/studentlist/studentlist.component';
 import { PasswordChangeComponent } from './dashboard/profile/password-change/password-change.component';
+import { InfoTileComponent } from './info-tile/info-tile.component';
 
 
 
@@ -55,7 +56,8 @@ declarations: [
   AccessDeniedComponent,
   GameRedirectComponent,
   StudentlistComponent,
-  PasswordChangeComponent],
+  PasswordChangeComponent,
+  InfoTileComponent],
 imports: [
   CommonModule,
   RouterModule,
