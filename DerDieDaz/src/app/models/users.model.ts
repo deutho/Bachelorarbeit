@@ -1,15 +1,32 @@
+import { Result } from "./result";
 
-export class User {
-    
-public constructor(public uid: string,
-    public username: string,
-    public firstname: string,
-    public lastname: string,
-    public photoID: string,
-    public role: number,
-    public parent: string,
-    public schoolclass: string,
-    public school: string) {}
+export interface User {
+    uid: string,
+    username: string,
+    firstname: string,
+    lastname: string,
+    avatarID: string,
+    role: number,
+    parent: string,
+    schoolclass: string,
+    school: string,
+}
 
 
+export interface Student extends User {
+    challangesDone: string[],
+    starbalance: number,
+    loginStreak: number,
+    lastReward: number,
+    gameresults: Result[],
+    dailyloginreward: number,
+}
+
+export interface Teacher extends User {
+    classtargets: Map<string, number>,
+    individualtargets: Map<string, number>,
+    dailyloginreward: number,
+}
+
+export interface Admin extends User {
 }
