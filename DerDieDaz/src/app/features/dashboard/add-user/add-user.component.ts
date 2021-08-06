@@ -81,6 +81,7 @@ export class AddUserComponent implements OnInit {
           avatarID: "1",
           classtargets: new Map<string, number>(),
           classtargetBalance: 0,
+          classtargetAchieved: false,
           individualtargets: new Map<string, number>(),
           dailyloginreward: 50,
         };
