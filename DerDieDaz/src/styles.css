@@ -98,6 +98,7 @@ html, body {
     flex-wrap: wrap; 
     justify-content: center;
     height: 100%;
+    max-width: 70%;
 }
 
 .dropshadow {
