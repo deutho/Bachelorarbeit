@@ -10,6 +10,7 @@ import { take } from 'rxjs/operators';
 import { BugReport } from '../models/bugreport.model';
 import { BehaviorSubject } from 'rxjs';
 import { formatDate } from '@angular/common';
+import { Challange } from '../models/challange.model';
 
 
 
@@ -224,6 +225,11 @@ export class FirestoreDataService {
             header: header,
             imageURL: imageURL
         });
+    }
+
+    async getAllChallanges(): Promise<Challange[]> {
+        let ref: any = this._afs.collection("challanges");
+        return await ref.valueChanges().pipe(take(1)).toPromise()
     }
     
 }

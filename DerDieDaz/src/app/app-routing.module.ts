@@ -18,6 +18,8 @@ import { GameRedirectComponent } from './features/games/game-redirect/game-redir
 import { AuthGuard } from './services/AuthGuard';
 import { StudentlistComponent } from './features/dashboard/studentlist/studentlist.component';
 import { PasswordChangeComponent } from './features/dashboard/profile/password-change/password-change.component';
+import { ChallangesComponent } from './features/challanges/challanges.component';
+
 
 
 const routes: Routes = [
@@ -52,6 +54,11 @@ const routes: Routes = [
 
   { path: "bug-report",
   component: BugReportComponent,
+  canActivate: [AuthGuard]
+},
+
+  { path: "challanges",
+  component: ChallangesComponent,
   canActivate: [AuthGuard]
 },
 

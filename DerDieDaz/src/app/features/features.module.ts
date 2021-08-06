@@ -30,6 +30,7 @@ import { GameRedirectComponent } from './games/game-redirect/game-redirect.compo
 import { StudentlistComponent } from './dashboard/studentlist/studentlist.component';
 import { PasswordChangeComponent } from './dashboard/profile/password-change/password-change.component';
 import { InfoTileComponent } from './info-tile/info-tile.component';
+import { ChallangesComponent } from './challanges/challanges.component';
 
 
 
@@ -57,7 +58,8 @@ declarations: [
   GameRedirectComponent,
   StudentlistComponent,
   PasswordChangeComponent,
-  InfoTileComponent],
+  InfoTileComponent,
+  ChallangesComponent],
 imports: [
   CommonModule,
   RouterModule,
