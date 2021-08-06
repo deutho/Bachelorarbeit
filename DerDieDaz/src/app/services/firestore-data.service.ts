@@ -208,6 +208,23 @@ export class FirestoreDataService {
     deleteFromStorageByUrl(url: string): Promise<any> {
         return this.storage.refFromURL(url).delete();
     }
+
+    /**adds a challange
+     * 
+     * @param uid name of challange
+     * @param descriptionDone description which notifies user when completing the challange
+     * @param descriptionOpen description of challange which describes how to get the reward
+     * @param header header of the challange on the card
+     * @param imageURL image of the challange and therefore also the reward
+     */
+    addChallangeDocument(uid: string, descriptionDone: string, descriptionOpen: string, header: string, imageURL: string): void{
+        this.db.collection("challanges").doc(uid).set({
+            descriptionDone: descriptionDone,
+            descriptionOpen: descriptionOpen,
+            header: header,
+            imageURL: imageURL
+        });
+    }
     
 }
 
