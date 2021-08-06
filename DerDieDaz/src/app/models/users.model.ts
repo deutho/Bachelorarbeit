@@ -20,10 +20,12 @@ export interface Student extends User {
     lastReward: number,
     gameresults: Result[],
     dailyloginreward: number,
+    totalGamesWon: number,
 }
 
 export interface Teacher extends User {
     classtargets: Map<string, number>,
+    classtargetBalance: number,
     individualtargets: Map<string, number>,
     dailyloginreward: number,
 }

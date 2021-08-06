@@ -51,8 +51,9 @@ export class FirestoreDataService {
      * 
      * @param uid user id
      */
-    getUserPerID(uid: string): AngularFirestoreCollectionGroup<User> {
-        return this._afs.collectionGroup('users', ref => ref.where('uid', "==", uid));
+    getUserPerID(uid: string): Promise<any>  {
+        let ref: AngularFirestoreCollectionGroup<any> =  this._afs.collectionGroup('users', ref => ref.where('uid', "==", uid));
+        return ref.get().toPromise();
     }
 
     /**
@@ -70,11 +71,11 @@ export class FirestoreDataService {
      * @param user user id
      * @param parent parent id (teacher or admin)
      */
-    addUser(user: User, parent: User) {
+    addUser(user: User, parent: User): Promise<void> {
         if (user.role == 2){
-            this.db.collection("users/"+user.parent+"/users").doc(user.uid).set(JSON.parse(JSON.stringify(user)));
+            return this.db.collection("users/"+user.parent+"/users").doc(user.uid).set(JSON.parse(JSON.stringify(user)));
         } else {
-            this.db.collection("users/"+parent.parent+"/users/"+parent.uid+"/users").doc(user.uid).set(JSON.parse(JSON.stringify(user)));
+            return this.db.collection("users/"+parent.parent+"/users/"+parent.uid+"/users").doc(user.uid).set(JSON.parse(JSON.stringify(user)));
         }
     }
 

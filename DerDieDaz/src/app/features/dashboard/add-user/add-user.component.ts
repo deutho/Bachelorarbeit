@@ -80,6 +80,7 @@ export class AddUserComponent implements OnInit {
           school: "Testschule",
           avatarID: "1",
           classtargets: new Map<string, number>(),
+          classtargetBalance: 0,
           individualtargets: new Map<string, number>(),
           dailyloginreward: 50,
         };
@@ -103,7 +104,8 @@ export class AddUserComponent implements OnInit {
           loginStreak: 0,
           lastReward: 0, //UTC Timestamp
           gameresults: [],
-          dailyloginreward: teacher.dailyloginreward
+          dailyloginreward: teacher.dailyloginreward,
+          totalGamesWon: 0,
         };
       } 
 
