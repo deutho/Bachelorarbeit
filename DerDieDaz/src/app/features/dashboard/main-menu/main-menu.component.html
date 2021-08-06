@@ -1,5 +1,4 @@
-<div *ngIf = "loaded == true">    
-    
+<div *ngIf = "loaded == true">        
     <div *ngIf= "currentUser.role != 1">        
         <!-------------------------
 
@@ -28,6 +27,7 @@
             </li>
         </ul>
         ------------------------->
+
 
         <!-- Ansicht Schüler -->
         <div *ngIf="currentUser.role == 3">
@@ -211,9 +211,7 @@
         Admin View 
 
     ------------------------->
-    <div *ngIf = "currentUser.role == 1">
-        <p style="margin-top: 100px;">Adminaccount der Volksschule xxx</p>
-    </div>
+
 
 
 

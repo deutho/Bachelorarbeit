@@ -156,4 +156,13 @@ export class AddUserComponent implements OnInit {
     }
   }
 
+  // createChallange(){
+  //   var id = (<HTMLInputElement>document.getElementById("challangeName")).value;
+  //   var descriptionDone = (<HTMLInputElement>document.getElementById("descriptionDone")).value;
+  //   var descriptionOpen = (<HTMLInputElement>document.getElementById("descriptionOpen")).value;
+  //   var header = (<HTMLInputElement>document.getElementById("header")).value;
+  //   var imageURL = (<HTMLInputElement>document.getElementById("imageURL")).value;
+  //   console.log("created: " + id)
+  //   this.afs.addChallangeDocument(id, descriptionDone, descriptionOpen, header, imageURL)
+  // }
 }
