@@ -5,6 +5,7 @@ import { ClipboardService } from 'ngx-clipboard';
 import { Folder } from 'src/app/models/folder.model';
 import { Folderelement } from 'src/app/models/folderelement.model';
 import { User } from 'src/app/models/users.model';
+import { AlertService } from 'src/app/services/alertService';
 import { AppService } from 'src/app/services/app.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { FirestoreDataService } from 'src/app/services/firestore-data.service';
@@ -20,7 +21,7 @@ import {v4 as uuidv4} from 'uuid';
   styleUrls: ['./main-menu.component.css']
 })
 export class MainMenuComponent implements OnInit {
-  constructor(private fb: FormBuilder, private router: Router, private appService: AppService, private afs: FirestoreDataService, private cboardService: ClipboardService, private auth: AuthService, private route: ActivatedRoute, private userService: UserService) {
+  constructor(private alert:AlertService, private fb: FormBuilder, private router: Router, private appService: AppService, private afs: FirestoreDataService, private cboardService: ClipboardService, private auth: AuthService, private route: ActivatedRoute, private userService: UserService) {
  
    }
 
@@ -69,6 +70,8 @@ export class MainMenuComponent implements OnInit {
   
 
   async ngOnInit() {
+    this.alert.error("Hallo Welt")
+
     //get the currentuser
     this.afs.currentUserStatus.subscribe(data => this.currentUser = data);
 
