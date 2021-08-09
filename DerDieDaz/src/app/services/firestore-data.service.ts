@@ -51,9 +51,9 @@ export class FirestoreDataService {
     /** gets signed in user from DB 
      * 
      */
-    async getCurrentUser(): Promise<any> {
+    getCurrentUser(): Promise<any> {
         let ref: AngularFirestoreCollectionGroup<any> = this._afs.collectionGroup('users', ref => ref.where('uid', "==", this._auth.getCurrentUser().uid));
-        return await ref.valueChanges().pipe(take(1)).toPromise()
+        return ref.valueChanges().pipe(take(1)).toPromise()
     }
     /**gets the user by id
      * 
@@ -61,7 +61,7 @@ export class FirestoreDataService {
      */
     getUserPerID(uid: string): Promise<any>  {
         let ref: AngularFirestoreCollectionGroup<any> =  this._afs.collectionGroup('users', ref => ref.where('uid', "==", uid));
-        return ref.get().toPromise();
+        return ref.valueChanges().pipe(take(1)).toPromise()
     }
 
     /**

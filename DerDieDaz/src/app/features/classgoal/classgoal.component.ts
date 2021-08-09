@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Teacher } from 'src/app/models/users.model';
 import { AppService } from 'src/app/services/app.service';
+import { FirestoreDataService } from 'src/app/services/firestore-data.service';
 
 @Component({
   selector: 'app-classgoal',
@@ -8,11 +10,17 @@ import { AppService } from 'src/app/services/app.service';
 })
 export class ClassgoalComponent implements OnInit {
 
-  constructor(private app: AppService) { }
+  currentUser;
+  teacher: Teacher;
 
-  ngOnInit(): void {
+  constructor(private app: AppService, private afs: FirestoreDataService) { }
+
+  async ngOnInit() {
     this.app.myHeader("Klassenziel")
-    
+    this.currentUser = this.afs.getUser
+    console.log(this.currentUser)
+    this.teacher = await this.afs.getUserPerID(this.currentUser.parent)
+    console.log(this.teacher[0])
   }
 
 }
