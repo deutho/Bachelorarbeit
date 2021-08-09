@@ -70,8 +70,6 @@ export class MainMenuComponent implements OnInit {
   
 
   async ngOnInit() {
-    this.alert.error("Hallo Welt")
-
     //get the currentuser
     this.afs.currentUserStatus.subscribe(data => this.currentUser = data);
 

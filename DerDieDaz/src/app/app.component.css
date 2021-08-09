@@ -1,0 +1,9 @@
+.alert-overlay{
+    z-index: 2;
+    height: 0%;
+    position: fixed;
+    left: 0;
+    right: 0;
+    margin: auto;
+    top: 90%;
+}

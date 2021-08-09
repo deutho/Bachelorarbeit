@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { AlertComponent } from 'src/app/alert/alert.component';
+import { AlertService } from 'src/app/services/alertService';
 import { FirestoreDataService } from 'src/app/services/firestore-data.service';
 
 @Component({
@@ -18,7 +20,7 @@ export class InfoTileComponent implements OnInit {
   currentUser: any;
 
 
-  constructor(private afs: FirestoreDataService) {
+  constructor(private afs: FirestoreDataService, private alert: AlertService) {
     
    }
 
@@ -71,10 +73,11 @@ export class InfoTileComponent implements OnInit {
     }
     else if(buttonAction =="setAvatar") {
       this.afs.updateUserPicture(this.image, this.currentUser.uid)
+      this.alert.success("Avatar wurde gesetzt")
     }
     else if(buttonAction =="shake") {
-      console.log("shaking")
-      
+      this.alert.error("Avatar wurde noch nicht freigeschalten")
+
     }
   }
 

@@ -1,4 +1,4 @@
-<div class="alert-wrapper">
+<div class="alert-wrapper" (click)="deleteMessage()">
     <div *ngIf="message" [ngClass]="message.cssClass">
         {{message.text}}
     </div>
