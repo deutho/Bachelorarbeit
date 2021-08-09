@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreCollectionGroup, AngularFirestoreDocument, fromDocRef } from '@angular/fire/firestore';
-import { User } from '../models/users.model';
+import { Student, User } from '../models/users.model';
 import { AuthService } from './auth.service';
 import * as firebase from 'firebase';
 import { VocabularyGame } from '../models/VocabularyGame.model';
@@ -166,8 +166,16 @@ export class FirestoreDataService {
         });
     }
 
-
-    async updateStarsAndLoginStreak(stars: number, loginStreak, uid: string) {
+    async updateStarsAndLoginStreak(stars: number, loginStreak: number, lastReward: number, uid: string) {
+        let ref = await this.db.collectionGroup("users").where("uid","==",uid).get();
+        console.log(ref);
+        ref.forEach(doc => {
+            doc.ref.update({
+                starbalance: stars,
+                loginStreak: loginStreak,
+                lastReward: lastReward,
+            });
+        });
 
     }
 
