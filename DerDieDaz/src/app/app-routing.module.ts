@@ -19,6 +19,7 @@ import { AuthGuard } from './services/AuthGuard';
 import { StudentlistComponent } from './features/dashboard/studentlist/studentlist.component';
 import { PasswordChangeComponent } from './features/dashboard/profile/password-change/password-change.component';
 import { ChallangesComponent } from './features/challanges/challanges.component';
+import { ClassgoalComponent } from './features/classgoal/classgoal.component';
 
 
 
@@ -59,6 +60,12 @@ const routes: Routes = [
 
   { path: "challanges",
   component: ChallangesComponent,
+  canActivate: [AuthGuard]
+},
+
+{ 
+  path: "classgoal",
+  component: ClassgoalComponent,
   canActivate: [AuthGuard]
 },
 

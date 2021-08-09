@@ -31,6 +31,7 @@ import { StudentlistComponent } from './dashboard/studentlist/studentlist.compon
 import { PasswordChangeComponent } from './dashboard/profile/password-change/password-change.component';
 import { InfoTileComponent } from './info-tile/info-tile.component';
 import { ChallangesComponent } from './challanges/challanges.component';
+import { ClassgoalComponent } from './classgoal/classgoal.component';
 
 
 
@@ -59,7 +60,8 @@ declarations: [
   StudentlistComponent,
   PasswordChangeComponent,
   InfoTileComponent,
-  ChallangesComponent],
+  ChallangesComponent,
+  ClassgoalComponent],
 imports: [
   CommonModule,
   RouterModule,
