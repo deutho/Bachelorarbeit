@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { FirestoreDataService } from 'src/app/services/firestore-data.service';
 
 @Component({
   selector: 'info-tile',
@@ -14,13 +15,16 @@ export class InfoTileComponent implements OnInit {
   @Input() public buttonAction: string;
   loaded = false
   height = 0;
+  currentUser: any;
 
-  constructor() {
+
+  constructor(private afs: FirestoreDataService) {
     
    }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.loaded = false
+    await this.afs.getCurrentUser().then(data => this.currentUser = data[0]);
   }
 
   // calc height of cards by Typescript because CSS can't do it...
@@ -63,7 +67,13 @@ export class InfoTileComponent implements OnInit {
   buttonClick(buttonAction){
     if(buttonAction =="print") {
       console.log("click")
-      console.log(this.header)
+      console.log(this.header)      
+    }
+    else if(buttonAction =="setAvatar") {
+      this.afs.updateUserPicture(this.image, this.currentUser.uid)
+    }
+    else if(buttonAction =="shake") {
+      console.log("shaking")
       
     }
   }
