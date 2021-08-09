@@ -27,12 +27,15 @@
 }
 
 .amount {
+    z-index: 2;
     background: #f34e54;
-    border-radius: 100px;
+    border-radius: 100px 100px 0px 0px;
     display: block;
     width: 30px;
     position: absolute;
-    bottom: 5px;
+    bottom: 0px;
+    min-height: 0px;
+    max-height: 395px;
 }
 
 strong { 
@@ -75,15 +78,15 @@ strong {
 }
 
 .filler {
-    background: #f34e54;
-    border-radius: 100px 100px 0 0;
+    /* background: #f34e54;
+    border-radius: 300px 300px 0 0;
     display: block;
     height: 50px;
     width: 30px;
     position: relative;
-    top: -95px;
+    top: -65px;
     right: -15px;
-    z-index: 30;
+    z-index: 30; */
 }
 
 .thermometer-wrapper {
@@ -91,3 +94,31 @@ strong {
     margin-top: 30px;
     
 }
+
+
+
+#confettis {
+    overflow: hidden;
+    position: absolute;
+    height: 90%;
+    width: 100%;
+  }
+.confetti {
+    width: 15px;
+    height: 15px;
+    background-color: transparent;
+    position: absolute;
+    left: 50%;
+    animation: confetti 5s ease-in-out -2s infinite;
+    transform-origin: left top;
+    margin-top: -15px;
+}
+
+
+  @keyframes confetti {
+    0% { transform: rotateZ(15deg) rotateY(0deg) translate(0,0); }
+    25% { transform: rotateZ(5deg) rotateY(360deg) translate(-5vw,20vh); }
+    50% { transform: rotateZ(15deg) rotateY(720deg) translate(5vw,60vh); }
+    75% { transform: rotateZ(5deg) rotateY(1080deg) translate(-10vw,80vh); }
+    100% { transform: rotateZ(15deg) rotateY(1440deg) translate(10vw,100vh); }
+  }

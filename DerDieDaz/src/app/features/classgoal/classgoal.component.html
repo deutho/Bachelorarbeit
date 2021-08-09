@@ -1,14 +1,22 @@
 <div class="donation-meter">
-    <strong>2 Stunden Unterricht im Freien</strong>
-    <strong class="goal">1.000.000 Sterne</strong>
+    <strong>{{goalText}}</strong>
+    <strong class="goal">{{goalPrice}} Sterne</strong>
     <div class="thermometer-wrapper">
         <span class="glass">
-            <strong class="total" style="bottom: 45%">20.000 Sterne</strong>
-            <span class="amount" style="height: 50%"></span>
+            <strong class="total" style="bottom: 45%" id="progress-text">{{teacher?.classtargetBalance}} Sterne</strong>
+            <span class="amount" style="height: 50%" id="progress-bar"></span>
         </span>
         <div class="bulb">
             <span class="red-circle"></span>
-            <span class="filler"></span>
+            <span class="filler" ></span>
         </div>
     </div>
-  </div>
+</div>
+
+
+
+
+<div *ngIf="teacher?.classtargetBalance == goalPrice" id="confettis">
+    <div *ngFor="let number of numbers; index as i" class="confetti" id="confetti-{{i}}">
+    </div>
+</div>
