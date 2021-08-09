@@ -1,8 +1,3 @@
-<div class="info-tile-wrapper">
-    <info-tile *ngFor="let challange of challanges" class="info-tile" header="{{challange.header}}" buttonText="freigeschalten" image="{{challange.imageURL}}" buttonAction="print" descriptionBack="{{challange.descriptionOpen}}"></info-tile>
+<div class="info-tile-wrapper ">
+    <info-tile *ngFor="let challange of challanges" [ngClass]="{'not-yet-received': currentUser.challangesDone.indexOf(challange.id) == -1}" class="info-tile" header="{{challange.header}}" buttonText='{{currentUser.challangesDone.indexOf(challange.id) == -1? "gesperrt":"Als Avatar verwenden"}}' image="{{challange.imageURL}}" buttonAction="{{currentUser.challangesDone.indexOf(challange.id) == -1?'shake':'setAvatar'}}" descriptionBack="{{challange.descriptionOpen}}"></info-tile>
 </div> 
-
-<!-- <div class="info-tile-wrapper">
-    <info-tile class="info-tile" header="Du bist Sauklug!" buttonText="freigeschalten" image="./../../../assets/Avatars/Free/Cat.png" buttonAction="print" descriptionBack="Gewinne Fünf Spiele in Folge!" descriptionFront="Dies ist eine seltene Belohnung!"></info-tile>
-    <info-tile class="info-tile" header="Test3" buttonText="freigeschalten" buttonAction="print" descriptionBack="Dies ist die Rückseite, du bekommst jeden Tag eine Belohnung für das erste Spiel!" descriptionFront="Glückwunsch! Du hast dein Tägliche Belohnung erhalten!"></info-tile>
-</div>  -->

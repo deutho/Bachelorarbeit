@@ -1,5 +1,5 @@
 export interface Challange {
-    uid: string,
+    id: string,
     descriptionDone: string, 
     descriptionOpen: string, 
     header: string, 

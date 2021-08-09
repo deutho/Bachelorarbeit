@@ -153,7 +153,7 @@ export class FirestoreDataService {
         console.log(ref);
         ref.forEach(doc => {
             doc.ref.update({
-                photoID: imageURL
+                avatarID: imageURL
             });
         });
     }
