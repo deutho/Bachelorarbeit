@@ -11,6 +11,7 @@ import { BugReport } from '../models/bugreport.model';
 import { BehaviorSubject } from 'rxjs';
 import { formatDate } from '@angular/common';
 import { Challange } from '../models/challange.model';
+import { Result } from '../models/result';
 
 
 
@@ -112,8 +113,18 @@ export class FirestoreDataService {
      */
     updateFolders(folder: Folder, uid: string) {
         return this.db.collection("folders").doc(uid).update({
-            folders: firebase.firestore.FieldValue.arrayUnion(JSON.parse(JSON.stringify(folder)))
+            folders: firebase.firestore.FieldValue.arrayUnion(folder)
         });
+    }
+
+    async updateResults(user: Student, result: Result) {
+        let ref = await this.db.collectionGroup("users").where("uid","==",user.uid).get();
+        ref.forEach(doc => {
+            doc.ref.update({
+                gameresults: firebase.firestore.FieldValue.arrayUnion(result)
+            });
+        });
+
     }
 
     /** removes folder from a document
@@ -158,7 +169,6 @@ export class FirestoreDataService {
 
     async updateUserPicture(imageURL : string, uid : string) {
         let ref = await this.db.collectionGroup("users").where("uid","==",uid).get();
-        console.log(ref);
         ref.forEach(doc => {
             doc.ref.update({
                 avatarID: imageURL
@@ -168,7 +178,6 @@ export class FirestoreDataService {
 
     async updateStarsAndLoginStreak(stars: number, loginStreak: number, lastReward: number, uid: string) {
         let ref = await this.db.collectionGroup("users").where("uid","==",uid).get();
-        console.log(ref);
         ref.forEach(doc => {
             doc.ref.update({
                 starbalance: stars,
@@ -181,13 +190,32 @@ export class FirestoreDataService {
 
     async updateStarBalance(stars: number, uid: string) {
         let ref = await this.db.collectionGroup("users").where("uid","==",uid).get();
-        console.log(ref);
         ref.forEach(doc => {
             doc.ref.update({
                 starbalance: stars,
             });
         });
     }
+
+    async UpdateClassTargetBalance(stars: number, uid: string) {
+        let ref = await this.db.collectionGroup("users").where("uid","==",uid).get();
+        ref.forEach(doc => {
+            doc.ref.update({
+                classtargetBalance: stars,
+            });
+        });
+    }
+
+    async UpdateClassTargetAchieved(achieved: boolean, uid: string) {
+        let ref = await this.db.collectionGroup("users").where("uid","==",uid).get();
+        console.log(ref);
+        ref.forEach(doc => {
+            doc.ref.update({
+                classtargetAchieved: achieved,
+            });
+        });
+    }
+    
 
     /** temporary result of a finished game
      * 

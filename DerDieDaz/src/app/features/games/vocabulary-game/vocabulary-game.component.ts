@@ -2,7 +2,7 @@ import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { take } from 'rxjs/internal/operators/take';
 import { VocabularyGame } from 'src/app/models/VocabularyGame.model';
-import { User } from 'src/app/models/users.model';
+import { Student, User } from 'src/app/models/users.model';
 import { AppService } from 'src/app/services/app.service';
 import { FirestoreDataService } from 'src/app/services/firestore-data.service';
 import { trigger, transition, style, animate, query, stagger } from '@angular/animations';
@@ -68,7 +68,7 @@ export class VocabularyGameComponent implements OnInit, OnDestroy {
   imageLoaded = false;
   image = new Image();  
   noQuestionsInGame = false;
-  teacherPlaying: boolean;
+  teacherPlaying: boolean = false;
   dockey: string;
   studentmode = true;
   studentmodesubscription;
@@ -258,13 +258,17 @@ export class VocabularyGameComponent implements OnInit, OnDestroy {
 
   }
 
-  finishGames() {
+  async finishGames() {
     if(this.totalNumberOfRounds > 0) {
       this.endtime = Date.now();
       this.duration = this.endtime-this.starttime;
-      if(this.teacherPlaying == false) this.afs.createResult(this.currentUser.uid, this.totalrounds, this.roundsWon, this.folderID, this.duration);
+      let result = []
+      if(this.teacherPlaying == false) {
+        result = await this.userService.finishGame(this.currentUser as Student, this.totalrounds, this.roundsWon, this.folder.name, this.duration, this.folder.stars)
+      }
       this.finished = true;
       this.finalScreen()
+      console.log(result);
     }
     else this.noQuestionsInGame = true;
 

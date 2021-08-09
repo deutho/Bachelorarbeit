@@ -202,7 +202,7 @@ export class MainMenuComponent implements OnInit, OnDestroy {
     
     //create Folder
     if (gameType != null && gameType != undefined)
-    var newFolder = new Folder(newUid, newName, newType, this.currentUser.uid, [], gameType);
+    var newFolder = new Folder(newUid, newName, newType, this.currentUser.uid, [], gameType, 5);
     else newFolder = new Folder(newUid, newName, newType, this.currentUser.uid, []);
 
     //Add the Folder
