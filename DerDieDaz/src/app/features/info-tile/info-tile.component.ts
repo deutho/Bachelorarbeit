@@ -37,7 +37,7 @@ export class InfoTileComponent implements OnInit {
       this.loaded = true
       if(this.image == undefined) this.height -= 190;
       if(this.descriptionFront != undefined) this.height += 40;
-      document.getElementById(this.header + this.image + 'lable').style.height = this.height + 100 + "px"
+      document.getElementById(this.header + this.image + 'lable').style.height = (this.height * 1.5) + "px"
       this.makeAllCardsSameHeight()
     }    
   }
