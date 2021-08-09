@@ -8,6 +8,7 @@ import { FirestoreDataService } from 'src/app/services/firestore-data.service';
 import { trigger, transition, style, animate, query, stagger } from '@angular/animations';
 import { textChangeRangeIsUnchanged } from 'typescript';
 import { Folder } from 'src/app/models/folder.model';
+import { UserService } from 'src/app/services/user.service';
 const starAnimation = trigger('starAnimation', [
   transition('* <=> *', [
     query(':enter',
@@ -73,11 +74,11 @@ export class VocabularyGameComponent implements OnInit, OnDestroy {
   studentmodesubscription;
 
   
-  constructor(private afs: FirestoreDataService, public router: Router, private appService: AppService, private route: ActivatedRoute) {}
+  constructor(private afs: FirestoreDataService, public router: Router, private appService: AppService, private route: ActivatedRoute, private userService: UserService) {}
 
   async ngOnInit(){
 
-    await this.afs.getCurrentUser().then(data => this.currentUser = data[0]);
+    this.afs.currentUserStatus.subscribe(data => this.currentUser = data);
 
     this.folderID = this.route.snapshot.paramMap.get('id');
 

@@ -174,7 +174,6 @@ export class MainMenuComponent implements OnInit {
       console.log(this.currentFolders);
    }
     this.loaded = true;
-    this.userService.checkForChallangesAndLoginStreak(this.currentUser);
   } 
 
   itemclick(item: Folder) {
