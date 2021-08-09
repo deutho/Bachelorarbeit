@@ -16,11 +16,10 @@ export class ChallangesComponent implements OnInit {
 
   async ngOnInit(){
     await this.afs.getCurrentUser().then(data => this.currentUser = data[0]);
-
     this.challanges = await this.afs.getAllChallanges();
     console.log(this.challanges)
-    console.log(this.currentUser)
-
   }
+
+  
 
 }
