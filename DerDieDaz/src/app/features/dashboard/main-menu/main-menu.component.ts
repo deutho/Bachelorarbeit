@@ -87,7 +87,6 @@ export class MainMenuComponent implements OnInit, OnDestroy {
 
   //Segreggated Function to ensure loading of the user first
   startup() {
-    this.userService.depositStarsToUser(this.currentUser, 50);
     //add Element Form
     this.addElementForm = this.fb.group({
       name:  ['', Validators.required],

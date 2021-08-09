@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Teacher } from 'src/app/models/users.model';
+import { Student, Teacher } from 'src/app/models/users.model';
 import { AppService } from 'src/app/services/app.service';
 import { FirestoreDataService } from 'src/app/services/firestore-data.service';
 
@@ -11,8 +11,8 @@ import { FirestoreDataService } from 'src/app/services/firestore-data.service';
 export class ClassgoalComponent implements OnInit, OnDestroy {
 
   currentUserSubscription;
-  currentUser;
-  teacher;
+  currentUser: Student;
+  teacher: Teacher;
   goal: string;
 
   constructor(private app: AppService, private afs: FirestoreDataService) { }
@@ -21,7 +21,7 @@ export class ClassgoalComponent implements OnInit, OnDestroy {
   async ngOnInit() {
     this.app.myHeader("Klassenziel")
     this.currentUserSubscription = this.afs.currentUserStatus.subscribe(data => {
-      this.currentUser = data
+      this.currentUser = data as Student
       if(data != null){
         this.initialize()
       }
@@ -31,14 +31,12 @@ export class ClassgoalComponent implements OnInit, OnDestroy {
 
   async initialize(){
     this.teacher = (await this.afs.getUserPerID(this.currentUser.parent))[0]
-    // this.teacher.classtargets.forEach((value, key) => {
-    //   console.log(key + " " + value)
-    // })
-    // console.log(this.teacher.classtargets.size)
-    // for(let key of this.teacher.classtargets.keys()) {
-    //   console.log(key)
-    // }
-    console.log(this.teacher.classtargets.keys())
+   
+    for (const [key, value] of Object.entries(this.teacher.classtargets)) { 
+      console.log(key, value);
+  }
+
+
   }
 
   ngOnDestroy(): void {
