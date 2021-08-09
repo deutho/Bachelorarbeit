@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import * as moment from "moment";
 import { Folder } from "../models/folder.model";
 import { Result } from "../models/result";
 import { Admin, Student, Teacher } from "../models/users.model";
@@ -18,7 +19,7 @@ export class UserService {
 
         await this.afs.addUser(user, parent);
 
-        this.checkForChallanges(user);
+
         
     }
 
@@ -39,15 +40,43 @@ export class UserService {
     }
 
 
-    async purchaseReward(user: Student, reward: string) {
+    async purchaseReward(user: Student, reward: string) { //reward should eventually become a reward object
         //TODO
     }
+
 
     async finishGame(user: Student, game: Folder, result: Result) {
         //TODO
     }
 
-    checkForChallanges(user: Student) {
+
+    async checkForChallangesAndLoginStreak(user: Student) {
+        let ma = moment(Date.now());
+        let mb = moment(user.lastReward);
+
+        let diff = ma.diff(mb, 'days')
+        console.log(diff)
+
+        if (diff == 1) {
+            let streak = user.loginStreak + 1;
+            user.loginStreak = streak;
+
+            let balance = user.starbalance + user.dailyloginreward;
+            user.starbalance = balance;
+            console.log("Balance increased")
+            user.lastReward = Date.now();
+        } 
+
+        if (diff > 1) {
+            user.loginStreak == 1;
+        }
+
+        
+        
+
+
+
+
         //Win Games
 
 
@@ -66,6 +95,14 @@ export class UserService {
         //Earned a group Target
 
 
+        console.log(user)
+
+        let parent: Teacher = await this.afs.getUserPerID(user.parent);
+
+        await this.afs.addUser(user, parent);
+
     }
+
+
 
 }

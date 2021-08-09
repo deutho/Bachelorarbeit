@@ -73,9 +73,9 @@ export class FirestoreDataService {
      */
     addUser(user: User, parent: User): Promise<void> {
         if (user.role == 2){
-            return this.db.collection("users/"+user.parent+"/users").doc(user.uid).set(JSON.parse(JSON.stringify(user)));
+            return this.db.collection("users/"+user.parent+"/users").doc(user.uid).set(user);
         } else {
-            return this.db.collection("users/"+parent.parent+"/users/"+parent.uid+"/users").doc(user.uid).set(JSON.parse(JSON.stringify(user)));
+            return this.db.collection("users/"+parent.parent+"/users/"+parent.uid+"/users").doc(user.uid).set(user);
         }
     }
 

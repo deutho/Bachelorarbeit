@@ -3,7 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/internal/operators/take';
-import { User } from 'src/app/models/users.model';
+import { Admin, Student, Teacher, User } from 'src/app/models/users.model';
 import { AppService } from 'src/app/services/app.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { FirestoreDataService } from 'src/app/services/firestore-data.service';
@@ -18,7 +18,7 @@ export class MainComponent implements OnInit, OnDestroy {
 
   public header: string;
   studentMode;
-  currentUser: User;
+  currentUser;
   isAuthenticated: firebase.User;
   changedToStudent = false;
   changedToTeacher = false;
@@ -43,6 +43,19 @@ export class MainComponent implements OnInit, OnDestroy {
     this.isDeployment = environment.isDeployment;
     this.authstatusSubscription = this.auth.currentAuthStatus.subscribe(authstatus => this.isAuthenticated = authstatus)
     this.userSubscriptpion = this.afs.currentUserStatus.subscribe(user => this.currentUser = user)
+
+    //Just not typed, so no problem
+    
+    // if (this.currentUser.role == 2) {
+    //   this.currentUser = this.currentUser as Teacher
+    // }
+    // else if (this.currentUser.role == 3) {
+    //   this.currentUser = this.currentUser as Student
+    // }
+    // else{
+    //   this.currentUser = this.currentUser as Admin
+    // }
+
   }
   
   logout() {

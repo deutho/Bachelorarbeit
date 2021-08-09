@@ -11,6 +11,13 @@
         
         <div class="flex-center-row" >
 
+
+            <!-- student star balance -->
+            <div *ngIf = "currentUser.role == 3" class="flex-center-row" >
+                {{currentUser.starbalance}}
+            </div>
+
+
             <!-- teacher/student vision change -->
             <div *ngIf = "currentUser.role == 2" class="flex-center-row" >
                 <div *ngIf = "studentMode == false" class="flex-center-row" (click) = "toggleStudentMode()" > <!-- teacher icon -->

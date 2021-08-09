@@ -8,6 +8,7 @@ import { User } from 'src/app/models/users.model';
 import { AppService } from 'src/app/services/app.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { FirestoreDataService } from 'src/app/services/firestore-data.service';
+import { UserService } from 'src/app/services/user.service';
 import { environment } from 'src/environments/environment';
 import { HighlightSpanKind, textSpanIntersectsWithPosition } from 'typescript';
 import {v4 as uuidv4} from 'uuid';
@@ -19,12 +20,12 @@ import {v4 as uuidv4} from 'uuid';
   styleUrls: ['./main-menu.component.css']
 })
 export class MainMenuComponent implements OnInit {
-  constructor(private fb: FormBuilder, private router: Router, private appService: AppService, private afs: FirestoreDataService, private cboardService: ClipboardService, private auth: AuthService, private route: ActivatedRoute) {
+  constructor(private fb: FormBuilder, private router: Router, private appService: AppService, private afs: FirestoreDataService, private cboardService: ClipboardService, private auth: AuthService, private route: ActivatedRoute, private userService: UserService) {
  
    }
 
   data;
-  currentUser: User;
+  currentUser;
   loaded = false;
   level;
   error;
@@ -172,6 +173,7 @@ export class MainMenuComponent implements OnInit {
       console.log(this.currentFolders);
    }
     this.loaded = true;
+    this.userService.checkForChallangesAndLoginStreak(this.currentUser);
   } 
 
   itemclick(item: Folder) {
