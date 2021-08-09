@@ -100,9 +100,9 @@ export class FirestoreDataService {
      * 
      * @param uid uid of the Document
      */
-    async getFolderElement(uid: string): Promise<Folderelement> {
+    getFolderElement(uid: string): Promise<Folderelement> {
         let ref: AngularFirestoreDocument<Folderelement> = this._afs.collection("folders").doc(uid);
-        return await ref.valueChanges().pipe(take(1)).toPromise()
+        return ref.valueChanges().pipe(take(1)).toPromise()
     }
 
     /** adds a folder within a document
@@ -177,6 +177,16 @@ export class FirestoreDataService {
             });
         });
 
+    }
+
+    async updateStarBalance(stars: number, uid: string) {
+        let ref = await this.db.collectionGroup("users").where("uid","==",uid).get();
+        console.log(ref);
+        ref.forEach(doc => {
+            doc.ref.update({
+                starbalance: stars,
+            });
+        });
     }
 
     /** temporary result of a finished game

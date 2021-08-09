@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClipboardService } from 'ngx-clipboard';
@@ -20,11 +20,11 @@ import {v4 as uuidv4} from 'uuid';
   templateUrl: './main-menu.component.html',
   styleUrls: ['./main-menu.component.css']
 })
-export class MainMenuComponent implements OnInit {
+export class MainMenuComponent implements OnInit, OnDestroy {
   constructor(private alert:AlertService, private fb: FormBuilder, private router: Router, private appService: AppService, private afs: FirestoreDataService, private cboardService: ClipboardService, private auth: AuthService, private route: ActivatedRoute, private userService: UserService) {
  
    }
-
+  
   data;
   currentUser;
   loaded = false;
@@ -62,19 +62,32 @@ export class MainMenuComponent implements OnInit {
   creatingElementError = false;
   isDeployment = false;
   userSubscriptpion;
+  routeSubscription;
   unauthorized: boolean = false;
   currentFolderElement: Folderelement;
   isOwnerOfCurrentFolder: boolean;
   isEditorOfCurrentFolder: boolean;
-
   
 
   async ngOnInit() {
-    //get the currentuser
-    this.afs.currentUserStatus.subscribe(data => this.currentUser = data);
-
     this.isDeployment = environment.isDeployment; // delete when project is done
+    
+    //get the currentuser
+    this.userSubscriptpion = this.afs.currentUserStatus.subscribe(data => {
+      this.currentUser = data
+      if (data != null) this.startup();
+    });
+  }
 
+  ngOnDestroy(): void {
+    this.userSubscriptpion.unsubscribe();
+    this.routeSubscription.unsubscribe();
+  }
+
+
+  //Segreggated Function to ensure loading of the user first
+  startup() {
+    this.userService.depositStarsToUser(this.currentUser, 50);
     //add Element Form
     this.addElementForm = this.fb.group({
       name:  ['', Validators.required],
@@ -82,21 +95,21 @@ export class MainMenuComponent implements OnInit {
     });
 
     //subscription to the active route
-    this.route.params.subscribe(params => {
+    this.routeSubscription = this.route.params.subscribe(params => {
       let id: string = params['id'];
       this.initialize(id);
     });
+
   }
+
 
   //initialize the component after a path change
   async initialize(id) {
     this.isOwnerOfCurrentFolder = false;
     this.isEditorOfCurrentFolder = false;
 
-    console.log(id);
+   
     if (id === " ") {
-      console.log(this.currentUser.role);
-      console.log(this.currentUser)
       if (this.currentUser.role == 3) this.router.navigate([this.currentUser.parent])
       if (this.currentUser.role == 2) this.router.navigate([this.currentUser.uid])
     } else {

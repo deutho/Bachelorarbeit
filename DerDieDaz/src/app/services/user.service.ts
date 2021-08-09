@@ -12,26 +12,15 @@ export class UserService {
 
 
     async depositStarsToUser(user: Student, amount: number) {
-        let newAmount: number = user.starbalance + amount
-        user.starbalance = newAmount
-
-        let parent: Teacher = await this.afs.getUserPerID(user.parent);
-
-        await this.afs.addUser(user, parent);
-
-
+        let currentamount = user.starbalance + amount;
+        this.afs.updateStarBalance(currentamount, user.uid);
+        user.starbalance = currentamount;
+        this.afs.updateUserObservable(user);
         
     }
 
     async depositStarsToClassTarget(user: Student, amount: number) {
-        let parent: Teacher = await this.afs.getUserPerID(user.parent);
-
-        let newAmount: number = parent.classtargetBalance + amount
-        parent.classtargetBalance = newAmount
-
-        let admin: Admin = await this.afs.getUserPerID(parent.parent);
-
-        await this.afs.addUser(parent, admin)
+        //
 
     }
 
