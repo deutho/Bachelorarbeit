@@ -1,3 +1,5 @@
-<div fxLayout="column" fxLayoutAlign="start center">
-    <div  fx *ngIf="message" [ngClass]="message.cssClass">{{message.text}}</div>
+<div class="alert-wrapper">
+    <div *ngIf="message" [ngClass]="message.cssClass">
+        {{message.text}}
+    </div>
 </div>

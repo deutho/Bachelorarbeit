@@ -18,12 +18,14 @@ import { RecordRTCService } from './services/record-rtc.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
 import { MainComponent } from './features/dashboard/main/main.component';
+import { AlertComponent } from './alert/alert.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainComponent
+    MainComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
