@@ -70,7 +70,8 @@ export class MainMenuComponent implements OnInit {
 
   async ngOnInit() {
     //get the currentuser
-    await this.afs.getCurrentUser().then(data => this.currentUser = data[0]);
+    this.afs.currentUserStatus.subscribe(data => this.currentUser = data);
+
     this.isDeployment = environment.isDeployment; // delete when project is done
 
     //add Element Form

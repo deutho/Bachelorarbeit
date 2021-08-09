@@ -95,7 +95,7 @@ export class UserService {
         //Earned a group Target
 
 
-        console.log(user)
+        this.afs.updateUserObservable(user);
 
         let parent: Teacher = await this.afs.getUserPerID(user.parent);
 

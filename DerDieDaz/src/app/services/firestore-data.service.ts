@@ -39,6 +39,14 @@ export class FirestoreDataService {
             }
         })
     }
+
+    updateUserObservable(user: User) {
+        this.currentUser.next(user);
+    }
+
+    get getUser() {
+        return this.currentUser.value;
+    }
    
     /** gets signed in user from DB 
      * 
@@ -156,6 +164,11 @@ export class FirestoreDataService {
                 avatarID: imageURL
             });
         });
+    }
+
+
+    async updateStarsAndLoginStreak(stars: number, loginStreak, uid: string) {
+
     }
 
     /** temporary result of a finished game
