@@ -31,6 +31,7 @@
 
         <!-- Ansicht Schüler -->
         <div *ngIf="currentUser.role == 3">
+            <button (click) = "printPDF()">PDF Erstellen</button>
             <div class="container dropshadow" *ngFor="let item of currentFolders;  index as i">
                 <div class="item-left colouring-{{i%4}} " (click)=itemclick(item)>
                     <svg *ngIf="item.type == 'folder'" style="display:inline-block; margin: 0 auto;" width="30px" height="24" viewBox="0 0 30 24" fill="none" xmlns="http://www.w3.org/2000/svg">
