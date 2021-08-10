@@ -21,6 +21,7 @@ import { PasswordChangeComponent } from './features/dashboard/profile/password-c
 import { ChallangesComponent } from './features/challanges/challanges.component';
 import { ClassgoalComponent } from './features/classgoal/classgoal.component';
 import { AvatarSelectionComponent } from './features/avatar-selection/avatar-selection.component';
+import { ShopComponent } from './features/shop/shop.component';
 
 
 
@@ -72,6 +73,12 @@ const routes: Routes = [
 { 
   path: "classgoal",
   component: ClassgoalComponent,
+  canActivate: [AuthGuard]
+},
+
+  { 
+  path: "shop",
+  component: ShopComponent,
   canActivate: [AuthGuard]
 },
 

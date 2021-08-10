@@ -33,6 +33,7 @@ import { InfoTileComponent } from './info-tile/info-tile.component';
 import { ChallangesComponent } from './challanges/challanges.component';
 import { ClassgoalComponent } from './classgoal/classgoal.component';
 import { AvatarSelectionComponent } from './avatar-selection/avatar-selection.component';
+import { ShopComponent } from './shop/shop.component';
 
 
 
@@ -63,7 +64,8 @@ declarations: [
   InfoTileComponent,
   ChallangesComponent,
   ClassgoalComponent,
-  AvatarSelectionComponent],
+  AvatarSelectionComponent,
+  ShopComponent],
 imports: [
   CommonModule,
   RouterModule,

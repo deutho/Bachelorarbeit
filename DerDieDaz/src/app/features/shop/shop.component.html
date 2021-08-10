@@ -1,0 +1,4 @@
+<div class="info-tile-wrapper">
+    <info-tile *ngIf="currentUser.role == 2" class="info-tile" header="Neue Belohnung erstellen" image="./../../../assets/Images/add.png" buttonText='neue Belohnung erstellen'  buttonAction="createReward"></info-tile>
+    <info-tile *ngFor="let item of itemNames; index as i" class="info-tile" header="{{itemNames[i]}}" image="{{itemImages[i]}}" buttonText='{{itemPrices[i]}}'  buttonAction="buy" alreadyBought="true"></info-tile>
+</div> 
