@@ -115,7 +115,7 @@ export class UserService {
             } 
 
             //when the Streak was lost
-            if (diff > user.lastRewardResetTime + 24) {
+            else if (diff > user.lastRewardResetTime + 24) {
                 user.loginStreak == 1;
                 let balance = user.starbalance + user.dailyloginreward;
                 user.starbalance = balance;
@@ -128,7 +128,7 @@ export class UserService {
                 map.set('streak', 1);
             }
 
-            if (diff < user.lastRewardResetTime) {
+            else if (diff < user.lastRewardResetTime) {
                 map.set('loginreward', false);
                 map.set('streak', user.loginStreak);
             }
