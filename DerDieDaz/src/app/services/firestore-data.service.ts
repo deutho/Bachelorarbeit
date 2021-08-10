@@ -118,7 +118,7 @@ export class FirestoreDataService implements OnDestroy {
      */
     updateFolders(folder: Folder, uid: string) {
         return this.db.collection("folders").doc(uid).update({
-            folders: firebase.firestore.FieldValue.arrayUnion(folder)
+            folders: firebase.firestore.FieldValue.arrayUnion(JSON.parse(JSON.stringify(folder)))
         });
     }
 
