@@ -132,6 +132,16 @@ export class FirestoreDataService implements OnDestroy {
 
     }
 
+    async updateChallanges(user: Student, challanges: string[]) {
+        let ref = await this.db.collectionGroup("users").where("uid","==",user.uid).get();
+        ref.forEach(doc => {
+            doc.ref.update({
+                challangesDone: challanges
+            });
+        });
+
+    }
+
     /** removes folder from a document
      * 
      * @param folder the folder to be removed

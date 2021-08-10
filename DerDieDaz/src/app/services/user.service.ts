@@ -137,28 +137,136 @@ export class UserService {
             }
 
 
-            map.set("test", "test");
-
             //Check for various challanges
 
-
-
             //Earned the first stars
-            
+            let challangedone = false;
+
+            if (user.challangesDone.indexOf("FirstTimeStarsEarned") == -1) {
+                if (user.starbalance > 0) {
+                    map.set("challange1", "FirstTimeStarsEarned");
+                    user.challangesDone.push("FirstTimeStarsEarned");
+                    challangedone = true;
+                }
+            }
 
 
 
 
             //Win Games
+            let wongames =  0
+            for (var i = 0; i<user.gameresults.length; i++) {
+                if(user.gameresults[i].wonRounds >= user.gameresults[i].totalRounds/2) {
+                    wongames++;
+                } 
+            }
+
+            console.log(wongames);
+            
+            if (wongames >= 100 && user.challangesDone.indexOf("Win100Games") == -1) {
+                map.set("challange2", "Win100Games")
+                user.challangesDone.push("Win100Games");
+                challangedone = true;
+            }
+
+            if (wongames >= 50 && user.challangesDone.indexOf("Win50Games") == -1) {
+                map.set("challange3", "Win50Games")
+                user.challangesDone.push("Win50Games");
+                challangedone = true;
+            }
+
+            if (wongames >= 25 && user.challangesDone.indexOf("Win25Games") == -1) {
+                map.set("challange4", "Win25Games")
+                user.challangesDone.push("Win25Games");
+                challangedone = true;
+            }
 
 
-            //WinStreaks
+            //LoginStreak
+            if (user.loginStreak >= 3 && user.challangesDone.indexOf("3dayLoginStreak") == -1) {
+                map.set("challange5", "3dayLoginStreak")
+                user.challangesDone.push("3dayLoginStreak");
+                challangedone = true;
+            }
 
+            if (user.loginStreak >= 7 && user.challangesDone.indexOf("7dayLoginStreak") == -1) {
+                map.set("challange6", "7dayLoginStreak")
+                user.challangesDone.push("7dayLoginStreak");
+                challangedone = true;
+            }
+
+            if (user.loginStreak >= 14 && user.challangesDone.indexOf("14dayLoginStreak") == -1) {
+                map.set("challange7", "14dayLoginStreak")
+                user.challangesDone.push("14dayLoginStreak");
+                challangedone = true;
+            }
 
             //100 Percent Streaks
+            let results: Result[] = user.gameresults;
+
+            results.sort((a,b)=> {
+                return b.datetime-a.datetime;
+            });
+
+            let achieved = false;
+
+            //1 time
+            if (user.challangesDone.indexOf("1x100%WinStreak") == -1) {
+                for (var i = 0; i < 1; i++) {
+                    if (results[i].totalRounds == results[i].wonRounds) achieved = true;
+                    else {
+                        achieved = false;
+                        break;
+                    }
+                }
+            }
+            
+            if (achieved) {
+                map.set("challange8", "1x100%WinStreak")
+                user.challangesDone.push("1x100%WinStreak");
+                challangedone = true;
+                achieved = false;
+            }
+
+            //3 Time
+            if (user.challangesDone.indexOf("3x100%WinStreak") == -1) {
+                for (var i = 0; i < 3; i++) {
+                    if (results[i].totalRounds == results[i].wonRounds) achieved = true;
+                    else {
+                        achieved = false;
+                        break;
+                    }
+                }
+            }
+            
+            if (achieved) {
+                map.set("challange9", "3x100%WinStreak")
+                user.challangesDone.push("3x100%WinStreak");
+                challangedone = true;
+                achieved = false;
+            }
+
+            //10Time 
+            if (user.challangesDone.indexOf("10x100%WinStreak") == -1) {
+                for (var i = 0; i < 10; i++) {
+                    if (results[i].totalRounds == results[i].wonRounds) achieved = true;
+                    else {
+                        achieved = false;
+                        break;
+                    }
+                }
+            }
+            
+            if (achieved) {
+                map.set("challange10", "10x100%WinStreak")
+                user.challangesDone.push("10x100%WinStreak");
+                challangedone = true;
+                achieved = false;
+            }
 
 
             //Lose First Time
+
 
 
             
@@ -170,6 +278,10 @@ export class UserService {
             //update the streak and balance
             this.afs.updateStarsAndLoginStreak(user.starbalance, user.loginStreak, user.lastReward, user.lastRewardResetTime, user.uid);
 
+            //updateChallangesIfOneCompleted
+            if (challangedone) {
+                this.afs.updateChallanges(user, user.challangesDone);
+            }
 
             resolve(map);
 
