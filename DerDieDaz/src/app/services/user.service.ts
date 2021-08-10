@@ -275,7 +275,7 @@ export class UserService {
             }
 
             //Earned a group Target
-            if (user.challangesDone.indexOf("ClassGoalReached")) {
+            if (user.challangesDone.indexOf("ClassGoalReached") == -1) {
                 let teachers: Teacher[] = await this.afs.getUserPerID(user.parent);
 
                 let teacher = teachers[0]
