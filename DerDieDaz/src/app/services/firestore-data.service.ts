@@ -12,6 +12,7 @@ import { BehaviorSubject } from 'rxjs';
 import { formatDate } from '@angular/common';
 import { Challange } from '../models/challange.model';
 import { Result } from '../models/result';
+import { query } from '@angular/animations';
 
 
 
@@ -27,6 +28,7 @@ export class FirestoreDataService {
 
     constructor(public _afs: AngularFirestore, public _auth: AuthService) {
         this.authStatusListener();
+        
     }
 
     
@@ -34,15 +36,11 @@ export class FirestoreDataService {
     authStatusListener() {
         firebase.auth().onAuthStateChanged(async (credential) => {
             if (credential) {
-                await this.getCurrentUser().then(data => this.currentUser.next(data[0]));
+                this.getCurrentUser();
             } else {
                 this.currentUser.next(null);
             }
         })
-    }
-
-    updateUserObservable(user: User) {
-        this.currentUser.next(user);
     }
 
     get getUser() {
@@ -52,16 +50,20 @@ export class FirestoreDataService {
     /** gets signed in user from DB 
      * 
      */
-    getCurrentUser(): Promise<any> {
-        let ref: AngularFirestoreCollectionGroup<any> = this._afs.collectionGroup('users', ref => ref.where('uid', "==", this._auth.getCurrentUser().uid));
-        return ref.valueChanges().pipe(take(1)).toPromise()
+    getCurrentUser() {
+        let ref = this.db.collectionGroup('users').where('uid', "==", this._auth.getCurrentUser().uid );
+        ref.onSnapshot((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                this.currentUser.next(doc.data() as User);
+            });
+        });
     }
     /**gets the user by id
      * 
      * @param uid user id
      */
     getUserPerID(uid: string): Promise<any>  {
-        let ref: AngularFirestoreCollectionGroup<any> =  this._afs.collectionGroup('users', ref => ref.where('uid', "==", uid));
+        let ref =  this._afs.collectionGroup('users', ref => ref.where('uid', "==", uid));
         return ref.valueChanges().pipe(take(1)).toPromise()
     }
 
@@ -70,9 +72,8 @@ export class FirestoreDataService {
      * @param uid 
      */
     async getChildernUserByParentID(uid: string): Promise<User[]>{
-        let ref: AngularFirestoreCollectionGroup<any> = this._afs.collectionGroup('users', ref => ref.where('parent', "==", uid));
-        return await ref.valueChanges().pipe(take(1)).toPromise()
-
+        let ref: AngularFirestoreCollectionGroup<any>  = this._afs.collectionGroup('users', ref => ref.where('parent', "==", uid));
+        return await ref.valueChanges().pipe(take(1)).toPromise();
     }
 
     /**adds a user with id and parent
@@ -176,13 +177,14 @@ export class FirestoreDataService {
         });
     }
 
-    async updateStarsAndLoginStreak(stars: number, loginStreak: number, lastReward: number, uid: string) {
+    async updateStarsAndLoginStreak(stars: number, loginStreak: number, lastReward: number, lastRewardResetTime: number, uid: string) {
         let ref = await this.db.collectionGroup("users").where("uid","==",uid).get();
         ref.forEach(doc => {
             doc.ref.update({
                 starbalance: stars,
                 loginStreak: loginStreak,
                 lastReward: lastReward,
+                lastRewardResetTime: lastRewardResetTime,
             });
         });
 

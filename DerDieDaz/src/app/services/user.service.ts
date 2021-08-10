@@ -16,7 +16,6 @@ export class UserService {
         let currentamount = user.starbalance + amount;
         this.afs.updateStarBalance(currentamount, user.uid);
         user.starbalance = currentamount;
-        this.afs.updateUserObservable(user);
     }
 
     async depositStarsToClassTarget(user: Student, amount: number) {
@@ -67,7 +66,6 @@ export class UserService {
             }
 
             user.gameresults.push(newResult);
-            this.afs.updateUserObservable(user);
 
             console.log(newResult);
             await this.afs.updateResults(user, newResult);
@@ -92,34 +90,45 @@ export class UserService {
             let map = new Map();
             
             //Check and Give out the daily reward for the first game in a day
-            let ma = moment(Date.now());
-            let mb = moment(user.lastReward);
-            let diff = ma.diff(mb, 'days')
-            console.log(diff)
 
+            let now = Date.now()
+
+            let ma = moment(now);
+            let mb = moment(user.lastReward);
+            let diff = ma.diff(mb, 'hours', true)
+
+            
             //When the streak keeps going
-            if (diff == 1) {
+            if (diff > user.lastRewardResetTime && diff < user.lastRewardResetTime + 24) {
                 let streak = user.loginStreak + 1;
                 user.loginStreak = streak;
 
                 let balance = user.starbalance + user.dailyloginreward;
                 user.starbalance = balance;
-                user.lastReward = Date.now();
+                user.lastReward = now;
+
+                let midnight = moment().endOf("day")
+                user.lastRewardResetTime = midnight.diff(ma, 'hours', true)
+
                 map.set('loginreward', true);
                 map.set('streak', streak);
             } 
 
             //when the Streak was lost
-            if (diff > 1) {
+            if (diff > user.lastRewardResetTime + 24) {
                 user.loginStreak == 1;
                 let balance = user.starbalance + user.dailyloginreward;
                 user.starbalance = balance;
-                user.lastReward = Date.now();
+                user.lastReward = now;
+
+                let midnight = moment().endOf("day")
+                user.lastRewardResetTime = midnight.diff(ma, 'hours', true)
+            
                 map.set('loginreward', true);
                 map.set('streak', 1);
             }
 
-            if (diff == 0) {
+            if (diff < user.lastRewardResetTime) {
                 map.set('loginreward', false);
                 map.set('streak', user.loginStreak);
             }
@@ -146,11 +155,8 @@ export class UserService {
 
 
             //update the streak and balance
-            this.afs.updateStarsAndLoginStreak(user.starbalance, user.loginStreak, user.lastReward, user.uid);
+            this.afs.updateStarsAndLoginStreak(user.starbalance, user.loginStreak, user.lastReward, user.lastRewardResetTime, user.uid);
 
-
-            //update the local observable
-            this.afs.updateUserObservable(user);
 
             resolve(map);
 
