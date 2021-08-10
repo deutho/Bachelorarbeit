@@ -11,6 +11,7 @@ import { AppService } from 'src/app/services/app.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { ChallangeRewardService } from 'src/app/services/challangeRewardService';
 import { FirestoreDataService } from 'src/app/services/firestore-data.service';
+import { PDFService } from 'src/app/services/pdfservice';
 import { UserService } from 'src/app/services/user.service';
 import { environment } from 'src/environments/environment';
 import { HighlightSpanKind, textSpanIntersectsWithPosition } from 'typescript';
@@ -23,7 +24,7 @@ import {v4 as uuidv4} from 'uuid';
   styleUrls: ['./main-menu.component.css']
 })
 export class MainMenuComponent implements OnInit, OnDestroy {
-  constructor(private challangeRewartAlert:ChallangeRewardService, private alert:AlertService, private fb: FormBuilder, private router: Router, private appService: AppService, private afs: FirestoreDataService, private cboardService: ClipboardService, private auth: AuthService, private route: ActivatedRoute, private userService: UserService) {
+  constructor(private challangeRewartAlert:ChallangeRewardService, private pdf: PDFService, private alert:AlertService, private fb: FormBuilder, private router: Router, private appService: AppService, private afs: FirestoreDataService, private cboardService: ClipboardService, private auth: AuthService, private route: ActivatedRoute, private userService: UserService) {
  
    }
   
@@ -155,6 +156,10 @@ export class MainMenuComponent implements OnInit, OnDestroy {
         this.getFolders(id)
       }
     }
+  }
+
+  printPDF() {
+    this.pdf.generateExamplePDF();
   }
 
   async getFolders(id: string) {
