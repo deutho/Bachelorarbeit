@@ -214,12 +214,14 @@ export class UserService {
             let achieved = false;
 
             //1 time
-            if (user.challangesDone.indexOf("1x100%WinStreak") == -1) {
-                for (var i = 0; i < 1; i++) {
-                    if (results[i].totalRounds == results[i].wonRounds) achieved = true;
-                    else {
-                        achieved = false;
-                        break;
+            if (results.length >=1) {
+                if (user.challangesDone.indexOf("1x100%WinStreak") == -1) {
+                    for (var i = 0; i < 1; i++) {
+                        if (results[i].totalRounds == results[i].wonRounds) achieved = true;
+                        else {
+                            achieved = false;
+                            break;
+                        }
                     }
                 }
             }
@@ -232,12 +234,14 @@ export class UserService {
             }
 
             //3 Time
-            if (user.challangesDone.indexOf("3x100%WinStreak") == -1) {
-                for (var i = 0; i < 3; i++) {
-                    if (results[i].totalRounds == results[i].wonRounds) achieved = true;
-                    else {
-                        achieved = false;
-                        break;
+            if (results.length >=3) {
+                if (user.challangesDone.indexOf("3x100%WinStreak") == -1) {
+                    for (var i = 0; i < 3; i++) {
+                        if (results[i].totalRounds == results[i].wonRounds) achieved = true;
+                        else {
+                            achieved = false;
+                            break;
+                        }
                     }
                 }
             }
@@ -250,12 +254,14 @@ export class UserService {
             }
 
             //10Time 
-            if (user.challangesDone.indexOf("10x100%WinStreak") == -1) {
-                for (var i = 0; i < 10; i++) {
-                    if (results[i].totalRounds == results[i].wonRounds) achieved = true;
-                    else {
-                        achieved = false;
-                        break;
+            if (results.length >=10) {
+                if (user.challangesDone.indexOf("10x100%WinStreak") == -1) {
+                    for (var i = 0; i < 10; i++) {
+                        if (results[i].totalRounds == results[i].wonRounds) achieved = true;
+                        else {
+                            achieved = false;
+                            break;
+                        }
                     }
                 }
             }
