@@ -29,13 +29,13 @@ export class UserService {
             price = value;
         }
 
+        if (currentamount > price) currentamount = price;
 
         this.afs.UpdateClassTargetBalance(currentamount, teacher.uid);
         
         if (currentamount >= price) {
             this.afs.UpdateClassTargetAchieved(true, teacher.uid);
         }
-
 
     }
 
@@ -85,7 +85,7 @@ export class UserService {
     }
 
     checkForChallangesAndLoginStreak(user: Student) {
-        return new Promise<any>((resolve, reject) => {
+        return new Promise<any>(async (resolve, reject) => {
 
             let map = new Map();
             
@@ -261,16 +261,25 @@ export class UserService {
                 achieved = false;
             }
 
-
             //Lose First Time
-
-
-
-            
-
+            if (user.challangesDone.indexOf("FirstTimeFailure") == -1 && results[0].wonRounds < results[0].totalRounds/2) {
+                map.set("challange11", "FirstTimeFailure")
+                user.challangesDone.push("FirstTimeFailure");
+                challangedone = true;
+            }
 
             //Earned a group Target
+            if (user.challangesDone.indexOf("ClassGoalReached")) {
+                let teachers: Teacher[] = await this.afs.getUserPerID(user.parent);
 
+                let teacher = teachers[0]
+
+                if (teacher.classtargetAchieved) {
+                    map.set("challange12", "ClassGoalReached")
+                    user.challangesDone.push("ClassGoalReached");
+                    challangedone = true;
+                }
+            }
 
             //update the streak and balance
             this.afs.updateStarsAndLoginStreak(user.starbalance, user.loginStreak, user.lastReward, user.lastRewardResetTime, user.uid);
