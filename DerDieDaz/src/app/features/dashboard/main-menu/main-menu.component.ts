@@ -2,12 +2,14 @@ import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClipboardService } from 'ngx-clipboard';
+import { ChallangeRewardAlertComponent } from 'src/app/challange-reward-alert/challange-reward-alert.component';
 import { Folder } from 'src/app/models/folder.model';
 import { Folderelement } from 'src/app/models/folderelement.model';
 import { User } from 'src/app/models/users.model';
 import { AlertService } from 'src/app/services/alertService';
 import { AppService } from 'src/app/services/app.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { ChallangeRewardService } from 'src/app/services/challangeRewardService';
 import { FirestoreDataService } from 'src/app/services/firestore-data.service';
 import { UserService } from 'src/app/services/user.service';
 import { environment } from 'src/environments/environment';
@@ -21,7 +23,7 @@ import {v4 as uuidv4} from 'uuid';
   styleUrls: ['./main-menu.component.css']
 })
 export class MainMenuComponent implements OnInit, OnDestroy {
-  constructor(private alert:AlertService, private fb: FormBuilder, private router: Router, private appService: AppService, private afs: FirestoreDataService, private cboardService: ClipboardService, private auth: AuthService, private route: ActivatedRoute, private userService: UserService) {
+  constructor(private challangeRewartAlert:ChallangeRewardService, private alert:AlertService, private fb: FormBuilder, private router: Router, private appService: AppService, private afs: FirestoreDataService, private cboardService: ClipboardService, private auth: AuthService, private route: ActivatedRoute, private userService: UserService) {
  
    }
   
@@ -71,7 +73,6 @@ export class MainMenuComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
     this.isDeployment = environment.isDeployment; // delete when project is done
-    
     //get the currentuser
     this.userSubscriptpion = this.afs.currentUserStatus.subscribe(data => {
       this.currentUser = data
