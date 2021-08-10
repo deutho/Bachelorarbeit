@@ -78,7 +78,16 @@ export class VocabularyGameComponent implements OnInit, OnDestroy {
 
   async ngOnInit(){
 
-    this.afs.currentUserStatus.subscribe(data => this.currentUser = data);
+    this.afs.currentUserStatus.subscribe(data => {
+      this.currentUser = data
+      if(data != null) this.initialize();
+    });
+
+
+
+  }
+  
+  async initialize() {
 
     this.folderID = this.route.snapshot.paramMap.get('id');
 
@@ -380,49 +389,51 @@ export class VocabularyGameComponent implements OnInit, OnDestroy {
 
   updateColor(id) {
     var text = document.getElementById(id);
-    var str = (<HTMLInputElement>text).value,
-        reg = /red|blue|green/g; //g is to replace all occurances
+    if (text != null) {
+      var str = (<HTMLInputElement>text).value,
+          reg = /red|blue|green/g; //g is to replace all occurances
 
-    //fixing a bit
-    var toStr = String(reg);
-    var color = (toStr.replace('\/g', '|')).substring(1);
+      //fixing a bit
+      var toStr = String(reg);
+      var color = (toStr.replace('\/g', '|')).substring(1);
 
-    //split it baby
-    var colors = color.split("|");
-    if(this.currentGame.coloring == undefined) this.currentGame.coloring = true;
-    if(this.currentGame.coloring) {
-      if (colors.indexOf("red") > -1) {
-        // 
-          str = str.replace(/\bdie(?=^|\s)/g, '<span style="color:red;" >die</span>');
+      //split it baby
+      var colors = color.split("|");
+      if(this.currentGame.coloring == undefined) this.currentGame.coloring = true;
+      if(this.currentGame.coloring) {
+        if (colors.indexOf("red") > -1) {
+          // 
+            str = str.replace(/\bdie(?=^|\s)/g, '<span style="color:red;" >die</span>');
+        }
+
+        if (colors.indexOf("blue") > -1) {
+          // '<span style="color:blue;">der</span>'
+            str = str.replace(/\bder(?=^|\s)/g, '<span style="color:blue;">der</span>');
+        }
+
+        if (colors.indexOf("green") > -1) {
+          // style="color:green;"
+            str = str.replace(/\bdas(?=^|\s)/g, '<span style="color:green;">das</span>');
+        }
+
+        if (colors.indexOf("red") > -1) {
+          // style="color:red;"
+          str = str.replace(/\bDie(?=^|\s)/g, '<span  style="color:red;">Die</span>');
+        }
+
+        if (colors.indexOf("blue") > -1) {
+          // style="color:blue;"
+            str = str.replace(/\bDer(?=^|\s)/g, '<span style="color:blue;">Der</span>');
+        }
+
+        if (colors.indexOf("green") > -1) {
+          // style="color:green;"
+            str = str.replace(/\bDas(?=^|\s)/g, '<span style="color:green;">Das</span>');
+        }
       }
 
-      if (colors.indexOf("blue") > -1) {
-        // '<span style="color:blue;">der</span>'
-          str = str.replace(/\bder(?=^|\s)/g, '<span style="color:blue;">der</span>');
-      }
-
-      if (colors.indexOf("green") > -1) {
-        // style="color:green;"
-          str = str.replace(/\bdas(?=^|\s)/g, '<span style="color:green;">das</span>');
-      }
-
-      if (colors.indexOf("red") > -1) {
-        // style="color:red;"
-        str = str.replace(/\bDie(?=^|\s)/g, '<span  style="color:red;">Die</span>');
-      }
-
-      if (colors.indexOf("blue") > -1) {
-        // style="color:blue;"
-          str = str.replace(/\bDer(?=^|\s)/g, '<span style="color:blue;">Der</span>');
-      }
-
-      if (colors.indexOf("green") > -1) {
-        // style="color:green;"
-          str = str.replace(/\bDas(?=^|\s)/g, '<span style="color:green;">Das</span>');
-      }
+      document.getElementById(id).innerHTML = str;
     }
-
-    document.getElementById(id).innerHTML = str;
   }  
 
   switchMode() {

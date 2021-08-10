@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreCollectionGroup, AngularFirestoreDocument, fromDocRef } from '@angular/fire/firestore';
 import { Student, User } from '../models/users.model';
 import { AuthService } from './auth.service';
@@ -18,10 +18,11 @@ import { query } from '@angular/animations';
 
 
 @Injectable({ providedIn: 'root' })
-export class FirestoreDataService {
+export class FirestoreDataService implements OnDestroy {
     db = firebase.firestore();
     storage = firebase.storage();
     storageRef = this.storage.ref();
+    usersub;
 
     private currentUser: BehaviorSubject<User> = new BehaviorSubject<User>(null);
     currentUserStatus = this.currentUser.asObservable();
@@ -29,6 +30,9 @@ export class FirestoreDataService {
     constructor(public _afs: AngularFirestore, public _auth: AuthService) {
         this.authStatusListener();
         
+    }
+    ngOnDestroy(): void {
+        this.usersub.unsubscribe();
     }
 
     
@@ -51,8 +55,8 @@ export class FirestoreDataService {
      * 
      */
     getCurrentUser() {
-        let ref = this.db.collectionGroup('users').where('uid', "==", this._auth.getCurrentUser().uid );
-        ref.onSnapshot((querySnapshot) => {
+        let ref = this.db.collectionGroup('users').where('uid', "==", this._auth.getCurrentUser().uid);
+        this.usersub = ref.onSnapshot((querySnapshot) => {
             querySnapshot.forEach((doc) => {
                 this.currentUser.next(doc.data() as User);
             });
@@ -210,7 +214,6 @@ export class FirestoreDataService {
 
     async UpdateClassTargetAchieved(achieved: boolean, uid: string) {
         let ref = await this.db.collectionGroup("users").where("uid","==",uid).get();
-        console.log(ref);
         ref.forEach(doc => {
             doc.ref.update({
                 classtargetAchieved: achieved,

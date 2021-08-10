@@ -87,7 +87,13 @@ export class PersonalFormsGameEditComponent implements OnInit, OnDestroy {
 
   async ngOnInit(): Promise<void> {
     //get user
-    this.afs.currentUserStatus.subscribe(data => this.currentUser = data);
+    this.afs.currentUserStatus.subscribe(data => {
+      this.currentUser = data
+      if (data != null) this.initialize();
+    });
+  }
+
+  async initialize() {
 
     if(this.currentUser.role == 3) {
       this.unauthorized = true;

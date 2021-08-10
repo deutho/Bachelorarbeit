@@ -59,7 +59,15 @@ export class VerbPositionGameComponent implements OnInit, OnDestroy {
    studentmodesubscription;
 
   async ngOnInit(): Promise<void> {
-    this.afs.currentUserStatus.subscribe(data => this.currentUser = data);
+    this.afs.currentUserStatus.subscribe(data => {
+      this.currentUser = data
+      if (data != null) this.initialize();
+    });
+
+
+  }
+
+  async initialize() {
 
     this.folderID = this.route.snapshot.paramMap.get('id');
 
