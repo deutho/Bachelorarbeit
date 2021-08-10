@@ -5,5 +5,7 @@
 
 <div *ngIf = "currentUser?.role == 3" class="info-tile-wrapper ">
     <info-tile *ngFor="let avatar of avatars" class="info-tile" header="{{avatar.header}}" buttonText='{{"Als Avatar verwenden"}}' image="{{avatar.imageURL}}" buttonAction="{{'setAvatar'}}" descriptionFront=" " ></info-tile>
-    <!-- <info-tile *ngFor="let challange of challanges" *ngIf="{{currentUser.challangesDone.indexOf(challange.id) != -1}}" class="info-tile" header="{{challange.header}}" buttonText='"Als Avatar verwenden"' image="{{challange.imageURL}}" buttonAction="'setAvatar'" goldBorder="true"></info-tile> -->
+    <ng-container *ngFor="let challange of challanges">
+        <info-tile *ngIf="currentUser.challangesDone.indexOf(challange.id) != -1"  class="info-tile" header="{{challange.header}}" buttonText='Als Avatar verwenden' image="{{challange.imageURL}}" buttonAction="setAvatar" goldBorder="true"></info-tile>
+    </ng-container>
 </div> 
