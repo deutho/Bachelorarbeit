@@ -178,6 +178,12 @@ export class UserService {
                 challangedone = true;
             }
 
+            if (wongames >= 5 && user.challangesDone.indexOf("Win5Games") == -1) {
+                map.set("challange13", "Win5Games")
+                user.challangesDone.push("Win5Games");
+                challangedone = true;
+            }
+
 
             //LoginStreak
             if (user.loginStreak >= 3 && user.challangesDone.indexOf("3dayLoginStreak") == -1) {
