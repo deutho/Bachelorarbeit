@@ -11,9 +11,9 @@ export class PDFService {
         var pdf = new jsPDF();
 
         pdf.setFontSize(18)
-        pdf.text("Beispielpdf",11,8)
+        pdf.text("Hausübungsgutschein",10,30)
 
         pdf.save('Gutschein.pdf')
-        
+
     }
 }
