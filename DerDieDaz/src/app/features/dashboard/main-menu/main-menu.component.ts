@@ -73,9 +73,7 @@ export class MainMenuComponent implements OnInit, OnDestroy {
   
 
   async ngOnInit() {
-    this.challangeRewardAlert.reward("Du hast heute dein erstes Spiel absolviert!","./../../../assets/Avatars/Free/Ape.png","Sammle 50 Sterne ein")
-    this.challangeRewardAlert.reward("Du hast heute dein zweites Spiel absolviert!","./../../../assets/Avatars/Free/Ape.png","Sammle 50 Sterne ein")
-
+ 
     this.isDeployment = environment.isDeployment; // delete when project is done
     //get the currentuser
     this.userSubscriptpion = this.afs.currentUserStatus.subscribe(data => {

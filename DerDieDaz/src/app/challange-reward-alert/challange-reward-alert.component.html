@@ -5,12 +5,12 @@
 </button>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="exampleModalCenter" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
     <div class="modal-header text-center">
         <h5 class="modal-title w-100" id="exampleModalLongTitle">{{header}}</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="deleteMessage()">
         <span aria-hidden="true">&times;</span>
         </button>
     </div>
@@ -25,4 +25,5 @@
 </div>
 
 <!-- call for modals: -->
-<!-- this.challangeRewartAlert.reward("Überschrift","./../../../assets/Avatars/Free/Ape.png","ClickMe")   -->
+<!-- this.challangeRewardAlert.addReward("Unglaublich!!","./../../../assets/Avatars/Free/Ape.png","JUHUUUUU!")
+this.challangeRewardAlert.addReward("Du hast heute dein zweites Spiel absolviert!","./../../../assets/Avatars/Free/Fox.png","Sammle 50 Sterne ein") -->
