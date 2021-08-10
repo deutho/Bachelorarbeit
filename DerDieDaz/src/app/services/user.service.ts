@@ -39,10 +39,6 @@ export class UserService {
 
     }
 
-    async unlockChallange(user: Student, challange: string) {
-        //TODO
-    }
-
 
     async purchaseReward(user: Student, reward: string) { //reward should eventually become a reward object
         //TODO
