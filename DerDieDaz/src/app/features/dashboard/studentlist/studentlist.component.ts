@@ -20,7 +20,7 @@ export class StudentlistComponent implements OnInit {
 
  async ngOnInit() {
    //Get the current teacher
-   await this.afs.getCurrentUser().then(data => this.currentUser = data[0]);
+   this.afs.currentUserStatus.subscribe(data => this.currentUser = data);
 
    this.app.myHeader("Schülerliste")
    this.getStudents();

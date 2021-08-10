@@ -55,7 +55,7 @@ export class AddUserComponent implements OnInit {
     this.success = undefined; 
     this.formSubmitted = true;
 
-    await this.afs.getCurrentUser().then(data => this.currentUser = data[0]);
+    this.afs.currentUserStatus.subscribe(data => this.currentUser = data);
 
     console.log(this.adduserform.valid);
 
@@ -104,6 +104,7 @@ export class AddUserComponent implements OnInit {
           starbalance: 0,
           loginStreak: 0,
           lastReward: 0, //UTC Timestamp
+          lastRewardResetTime: 0,
           gameresults: [],
           dailyloginreward: teacher.dailyloginreward,
           totalGamesWon: 0,

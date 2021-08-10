@@ -18,6 +18,7 @@ export interface Student extends User {
     starbalance: number,
     loginStreak: number,
     lastReward: number,
+    lastRewardResetTime: number,
     gameresults: Result[],
     dailyloginreward: number,
     totalGamesWon: number,

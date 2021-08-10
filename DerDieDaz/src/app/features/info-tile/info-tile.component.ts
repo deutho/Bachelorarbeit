@@ -26,7 +26,7 @@ export class InfoTileComponent implements OnInit {
 
   async ngOnInit() {
     this.loaded = false
-    await this.afs.getCurrentUser().then(data => this.currentUser = data[0]);
+    this.afs.currentUserStatus.subscribe(data => this.currentUser = data);
   }
 
   // calc height of cards by Typescript because CSS can't do it...

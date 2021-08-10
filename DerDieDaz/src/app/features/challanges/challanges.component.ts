@@ -18,7 +18,7 @@ export class ChallangesComponent implements OnInit {
   async ngOnInit(){
     this.app.myHeader("Herausforderungen")
 
-    await this.afs.getCurrentUser().then(data => this.currentUser = data[0]);
+    this.afs.currentUserStatus.subscribe(data => this.currentUser = data);
     this.challanges = await this.afs.getAllChallanges();
     console.log(this.challanges)
     

@@ -30,7 +30,7 @@ export class BugReportComponent implements OnInit {
   async ngOnInit() {
     this.write = true;
     this.posted = false;
-    await this.afs.getCurrentUser().then(data => this.currentUser = data[0]);    
+    this.afs.currentUserStatus.subscribe(data => this.currentUser = data);  
 
     this.app.myHeader("Feedback geben");
     

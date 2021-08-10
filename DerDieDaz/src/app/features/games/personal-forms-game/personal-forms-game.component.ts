@@ -87,7 +87,7 @@ export class PersonalFormsGameComponent implements OnInit, OnDestroy {
   items6 = [];
 
   async ngOnInit(): Promise<void> {
-    await this.afs.getCurrentUser().then(data => this.currentUser = data[0]);
+    this.afs.currentUserStatus.subscribe(data => this.currentUser = data);
 
     this.folderID = this.route.snapshot.paramMap.get('id');
 

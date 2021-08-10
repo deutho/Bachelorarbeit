@@ -23,7 +23,7 @@ export class GameRedirectComponent implements OnInit, OnDestroy {
     let type: string = this.route.snapshot.queryParamMap.get('t');
 
     //get user
-    await this.afs.getCurrentUser().then(data => this.currentUser = data[0]);
+    this.afs.currentUserStatus.subscribe(data => this.currentUser = data);
 
     this.modesubscription = this.appService.myStudentMode$.subscribe((studentMode) => {
       this.studentMode = studentMode;

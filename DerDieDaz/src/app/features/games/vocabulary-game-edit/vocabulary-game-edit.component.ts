@@ -93,7 +93,7 @@ export class VocabularyGameEditComponent implements OnInit, OnDestroy {
 
   
     //get user
-    await this.afs.getCurrentUser().then(data => this.currentUser = data[0]);
+    this.afs.currentUserStatus.subscribe(data => this.currentUser = data);
 
     if(this.currentUser.role == 3) {
       this.unauthorized = true;

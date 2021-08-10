@@ -28,24 +28,28 @@ export class ProfileComponent implements OnInit {
   constructor(public afs: FirestoreDataService, private app: AppService, public router: Router) {
     this.app.myImageURL$.subscribe((data) => {
       this.imageURL = data;
-      // console.log(data)
       this.pictureEdited(data)
     });
   }
   
   async ngOnInit() {
+    this.afs.currentUserStatus.subscribe(data => {
+      this.currentUser = data
+      if (data != null) this.initialize()
+    });
+  }
   
-    await this.afs.getCurrentUser().then(data => this.currentUser = data[0]);
+  initialize() {
     this.currentUser.username = this.currentUser.username.substring(0, this.currentUser.username.lastIndexOf('@'));
 
     if(this.currentUser.role == 1) this.accountTyp = "Adminaccount";
     else if(this.currentUser.role == 2) this.accountTyp = "Lehreraccount";
     else if (this.currentUser.role == 3) this.accountTyp = "Schüler";
+    this.imageURL = this.currentUser.avatarID;
 
     this.app.myHeader("Profil");
-    this.imageURL = this.currentUser.avatarID;
+  
     this.loaded = true;
-
   }
 
   pictureEdited(imageURL?: string) {  
