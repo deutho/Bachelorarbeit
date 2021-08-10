@@ -47,3 +47,7 @@ label {
   .card-height{
       /* this class does only exist for typescript DOM management purpose */
   }
+
+  .gold-border{
+    border: solid 5px gold
+  }

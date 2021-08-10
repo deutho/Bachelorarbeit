@@ -15,6 +15,7 @@ export class InfoTileComponent implements OnInit {
   @Input() public descriptionBack: string;
   @Input() public buttonText: string;
   @Input() public buttonAction: string;
+  @Input() public goldBorder: boolean = false;
   loaded = false
   height = 0;
   currentUser: any;

@@ -293,6 +293,11 @@ export class FirestoreDataService {
         let ref: any = this._afs.collection("challanges");
         return await ref.valueChanges().pipe(take(1)).toPromise()
     }
+
+    async getAllAvatars(): Promise<any[]> {
+        let ref: any = this._afs.collection("avatars");
+        return await ref.valueChanges().pipe(take(1)).toPromise()
+    }
     
 }
 

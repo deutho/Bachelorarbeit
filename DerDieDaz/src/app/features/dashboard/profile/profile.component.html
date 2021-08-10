@@ -17,8 +17,9 @@
                             </div>
                         </div>
                     </div> -->
-                    <div (click)="editingPicture=true" *ngIf = "editingPicture == false" style="text-align: center; cursor: pointer;">
-                        <span>Profilbild ändern   </span>
+                     <!-- <div (click)="editingPicture=true" *ngIf = "editingPicture == false" style="text-align: center; cursor: pointer;"> -->
+                        <div (click)="this.router.navigate(['avatar-selection'])" style="text-align: center; cursor: pointer;">
+                        <span>Profilbild ändern</span>
                         <img class ="img-symbol-style" src = "./../../../assets/Images/pencil.png" >
                     </div>
                 </div> 

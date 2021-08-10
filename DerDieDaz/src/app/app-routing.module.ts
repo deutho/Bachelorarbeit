@@ -20,6 +20,7 @@ import { StudentlistComponent } from './features/dashboard/studentlist/studentli
 import { PasswordChangeComponent } from './features/dashboard/profile/password-change/password-change.component';
 import { ChallangesComponent } from './features/challanges/challanges.component';
 import { ClassgoalComponent } from './features/classgoal/classgoal.component';
+import { AvatarSelectionComponent } from './features/avatar-selection/avatar-selection.component';
 
 
 
@@ -60,6 +61,11 @@ const routes: Routes = [
 
   { path: "challanges",
   component: ChallangesComponent,
+  canActivate: [AuthGuard]
+},
+
+  { path: "avatar-selection",
+  component: AvatarSelectionComponent,
   canActivate: [AuthGuard]
 },
 
