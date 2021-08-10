@@ -29,11 +29,8 @@ export class UserService {
             price = value;
         }
 
-        if (currentamount > price) currentamount = price;
 
-        if (teacher.classtargetAchieved == false) {
-            this.afs.UpdateClassTargetBalance(currentamount, teacher.uid);
-        }
+        this.afs.UpdateClassTargetBalance(currentamount, teacher.uid);
         
         if (currentamount >= price) {
             this.afs.UpdateClassTargetAchieved(true, teacher.uid);
