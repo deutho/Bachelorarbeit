@@ -1,3 +1,8 @@
-<div class="info-tile-wrapper ">
+<div *ngIf = "currentUser?.role == 3" class="info-tile-wrapper ">
+    <info-tile *ngFor="let challange of challanges" [ngClass]="{'not-yet-received': currentUser.challangesDone.indexOf(challange.id) == -1}" class="info-tile" header="{{currentUser.challangesDone.indexOf(challange.id) == -1?'???':challange.header}}" buttonText='{{currentUser.challangesDone.indexOf(challange.id) == -1? "gesperrt":"Als Avatar verwenden"}}' image="{{challange.imageURL}}" buttonAction="{{currentUser.challangesDone.indexOf(challange.id) == -1?'shake':'setAvatar'}}" descriptionBack="{{currentUser.challangesDone.indexOf(challange.id) == -1?challange.descriptionOpen:challange.descriptionDone}}"></info-tile>
+</div> 
+
+
+<div *ngIf = "currentUser?.role == 2" class="info-tile-wrapper ">
     <info-tile *ngFor="let challange of challanges" [ngClass]="{'not-yet-received': currentUser.challangesDone.indexOf(challange.id) == -1}" class="info-tile" header="{{currentUser.challangesDone.indexOf(challange.id) == -1?'???':challange.header}}" buttonText='{{currentUser.challangesDone.indexOf(challange.id) == -1? "gesperrt":"Als Avatar verwenden"}}' image="{{challange.imageURL}}" buttonAction="{{currentUser.challangesDone.indexOf(challange.id) == -1?'shake':'setAvatar'}}" descriptionBack="{{currentUser.challangesDone.indexOf(challange.id) == -1?challange.descriptionOpen:challange.descriptionDone}}"></info-tile>
 </div> 
