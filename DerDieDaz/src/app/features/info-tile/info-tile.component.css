@@ -42,6 +42,7 @@ label {
     /* background-color: dodgerblue;
     color: white; */
     transform: rotateY(180deg);
+    height: 100%;
   }
 
   .card-height{
@@ -57,5 +58,5 @@ label {
     flex-direction: column; 
     align-items: center; 
     justify-content: space-around;
-    min-height: 100%;
+    height: 100%;
   }
