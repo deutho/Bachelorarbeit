@@ -28,6 +28,7 @@ export class ChallangeRewardAlertComponent implements OnInit {
         this.buttonText = this.message.buttonText;
         document.getElementById("openModalButton").click()
       }
+      
     });
   }
 

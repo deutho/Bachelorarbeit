@@ -24,7 +24,7 @@ import {v4 as uuidv4} from 'uuid';
   styleUrls: ['./main-menu.component.css']
 })
 export class MainMenuComponent implements OnInit, OnDestroy {
-  constructor(private challangeRewartAlert:ChallangeRewardService, private pdf: PDFService, private alert:AlertService, private fb: FormBuilder, private router: Router, private appService: AppService, private afs: FirestoreDataService, private cboardService: ClipboardService, private auth: AuthService, private route: ActivatedRoute, private userService: UserService) {
+  constructor(private challangeRewardAlert:ChallangeRewardService, private pdf: PDFService, private alert:AlertService, private fb: FormBuilder, private router: Router, private appService: AppService, private afs: FirestoreDataService, private cboardService: ClipboardService, private auth: AuthService, private route: ActivatedRoute, private userService: UserService) {
  
    }
   
@@ -73,6 +73,9 @@ export class MainMenuComponent implements OnInit, OnDestroy {
   
 
   async ngOnInit() {
+    this.challangeRewardAlert.reward("Du hast heute dein erstes Spiel absolviert!","./../../../assets/Avatars/Free/Ape.png","Sammle 50 Sterne ein")
+    this.challangeRewardAlert.reward("Du hast heute dein zweites Spiel absolviert!","./../../../assets/Avatars/Free/Ape.png","Sammle 50 Sterne ein")
+
     this.isDeployment = environment.isDeployment; // delete when project is done
     //get the currentuser
     this.userSubscriptpion = this.afs.currentUserStatus.subscribe(data => {
