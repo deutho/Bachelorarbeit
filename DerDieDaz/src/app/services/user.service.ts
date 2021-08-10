@@ -29,8 +29,11 @@ export class UserService {
             price = value;
         }
 
+        if (currentamount > price) currentamount = price;
 
-        this.afs.UpdateClassTargetBalance(currentamount, teacher.uid);
+        if (teacher.classtargetAchieved == false) {
+            this.afs.UpdateClassTargetBalance(currentamount, teacher.uid);
+        }
         
         if (currentamount >= price) {
             this.afs.UpdateClassTargetAchieved(true, teacher.uid);
@@ -136,6 +139,16 @@ export class UserService {
 
             map.set("test", "test");
 
+            //Check for various challanges
+
+
+
+            //Earned the first stars
+            
+
+
+
+
             //Win Games
 
 
@@ -148,7 +161,7 @@ export class UserService {
             //Lose First Time
 
 
-            //Earned the first stars
+            
 
 
             //Earned a group Target
