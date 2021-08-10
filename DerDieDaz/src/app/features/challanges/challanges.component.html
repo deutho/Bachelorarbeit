@@ -3,6 +3,7 @@
 </div> 
 
 
-<div *ngIf = "currentUser?.role == 2" class="info-tile-wrapper ">
-    <info-tile *ngFor="let challange of challanges" [ngClass]="{'not-yet-received': currentUser.challangesDone.indexOf(challange.id) == -1}" class="info-tile" header="{{currentUser.challangesDone.indexOf(challange.id) == -1?'???':challange.header}}" buttonText='{{currentUser.challangesDone.indexOf(challange.id) == -1? "gesperrt":"Als Avatar verwenden"}}' image="{{challange.imageURL}}" buttonAction="{{currentUser.challangesDone.indexOf(challange.id) == -1?'shake':'setAvatar'}}" descriptionBack="{{currentUser.challangesDone.indexOf(challange.id) == -1?challange.descriptionOpen:challange.descriptionDone}}"></info-tile>
+<div *ngIf = "currentUser?.role == 2" class="info-tile-wrapper">
+    <div class="dropshadow teacher-header"> <h5>Als Lehrkraft können Sie keine Herausforderungen freischalten, aber sehen, welche Leistung ein Schüler bringen muss, um einen Avatar freizuschalten.</h5></div>
+    <info-tile *ngFor="let challange of challanges" class="info-tile" header="{{challange.header}}" image="{{challange.imageURL}}" descriptionBack="{{challange.descriptionOpen}}"></info-tile>
 </div> 

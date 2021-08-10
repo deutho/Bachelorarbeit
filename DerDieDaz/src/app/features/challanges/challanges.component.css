@@ -10,3 +10,11 @@ div {
         -ms-filter: grayscale(100%);
             filter: grayscale(100%); 
 }
+
+.teacher-header{
+    width: 100%;
+    margin: 20px; 
+    text-align: center; 
+    align-items: center; 
+    justify-content: center;
+}

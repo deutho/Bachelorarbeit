@@ -22,7 +22,7 @@
                             <!-- optional description text -->
                             <p class="card-text" style="margin-top: 10px;">{{descriptionFront}}</p>
                             <!-- Button -->
-                            <div class="w-100" style="margin: 10px auto 0px auto">
+                            <div *ngIf="buttonAction != undefined || buttonText != undefined" class="w-100" style="margin: 10px auto 0px auto">
                                 <button (click)="buttonClick(buttonAction)" class="btn btn-primary">{{buttonText}}</button>
                             </div>
                         </div>
