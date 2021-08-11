@@ -34,6 +34,9 @@ export class ShopComponent implements OnInit {
   }
 
   async initialize(){
+    this.itemNames = [];
+    this.itemImages = [];
+    this.itemPrices = [];
     if(this.parent.individualtargets == undefined) this.parent = this.currentUser
     for (const [head, map] of Object.entries(this.parent.individualtargets)) { 
       for (const [key, value] of Object.entries(this.parent.individualtargets[head])) {

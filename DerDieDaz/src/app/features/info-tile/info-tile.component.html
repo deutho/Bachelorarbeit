@@ -18,7 +18,7 @@
                             <!-- header -->
                             <h5 class="card-title">{{header}}</h5>
                             <!-- optional image -->
-                            <img *ngIf="image != undefined" class="w-75" src="{{image}}">
+                            <img *ngIf="image != undefined" class="w-75" src="{{image}}" onerror="this.onerror=null; this.src='./../../../assets/Images/transparent.png'">
                             <!-- optional description text -->
                             <p class="card-text" style="margin-top: 10px;">{{descriptionFront}}</p>
                             <!-- Button -->
