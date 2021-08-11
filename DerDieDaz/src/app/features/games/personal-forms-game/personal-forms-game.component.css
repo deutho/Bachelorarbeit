@@ -1,3 +1,6 @@
+/* Code frome Codepen */
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700');
+
 .example-container {
   /* width: 20%; */
   max-width: 100%;
@@ -275,8 +278,6 @@ align-items: flex-start;
 flex-direction: column;
 }
 
-/* Code frome Codepen */
-@import url('https://fonts.googleapis.com/css?family=Lato:400,700');
 
 #container {
  position: relative;
