@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AlertComponent } from 'src/app/alert/alert.component';
 import { AlertService } from 'src/app/services/alertService';
 import { FirestoreDataService } from 'src/app/services/firestore-data.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'info-tile',
@@ -23,7 +24,7 @@ export class InfoTileComponent implements OnInit {
   currentUser: any;
 
 
-  constructor(private afs: FirestoreDataService, private alert: AlertService, private router: Router) {
+  constructor(private afs: FirestoreDataService, private alert: AlertService, private router: Router, private userservice: UserService) {
     
    }
 
@@ -54,9 +55,11 @@ export class InfoTileComponent implements OnInit {
       }
       else{
       // stefaaaannnnnn bitte currency abziehen thx :*
+
+
       }
     }
-    else if(buttonAction = "createReward"){
+    else if(buttonAction == "createReward"){
       // redirect? modal? sicke aufwendige drehkarte?
       this.router.navigate(['createReward'])
     }

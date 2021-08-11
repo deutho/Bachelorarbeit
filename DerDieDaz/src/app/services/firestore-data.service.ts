@@ -230,6 +230,15 @@ export class FirestoreDataService implements OnDestroy {
             });
         });
     }
+
+    async UpdateIndividualTargets(map: any, uid: string) {
+        let ref = await this.db.collectionGroup("users").where("uid","==",uid).get();
+        ref.forEach(doc => {
+            doc.ref.update({
+                individualtargets: map,
+            });
+        });
+    }
     
 
     /** temporary result of a finished game
