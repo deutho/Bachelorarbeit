@@ -160,7 +160,7 @@ export class MainMenuComponent implements OnInit, OnDestroy {
   }
 
   printPDF() {
-    this.pdf.generateExamplePDF();
+    this.pdf.generateHomeWorkVoucher("Sabine Musterschülerin");
   }
 
   async getFolders(id: string) {
