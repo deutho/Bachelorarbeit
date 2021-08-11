@@ -274,6 +274,7 @@ export class VocabularyGameComponent implements OnInit, OnDestroy {
       let result = []
       if(this.teacherPlaying == false) {
         result = await this.userService.finishGame(this.currentUser as Student, this.totalrounds, this.roundsWon, this.folder.name, this.duration, this.folder.stars)
+        this.userService.giveAlerts(result[1])
       }
       this.finished = true;
       this.finalScreen()

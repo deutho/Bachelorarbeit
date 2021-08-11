@@ -1,15 +1,17 @@
 import { Injectable } from "@angular/core";
 import * as moment from "moment";
 import { mapTo } from "rxjs/operators";
+import { ChallangeRewardAlertComponent } from "../challange-reward-alert/challange-reward-alert.component";
 import { Folder } from "../models/folder.model";
 import { Result } from "../models/result";
 import { Admin, Student, Teacher, User } from "../models/users.model";
+import { ChallangeRewardService } from "./challangeRewardService";
 import { FirestoreDataService } from "./firestore-data.service";
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
 
-    constructor(private afs: FirestoreDataService){}
+    constructor(private afs: FirestoreDataService, private challangeAlert: ChallangeRewardService){}
 
 
     depositStarsToUser(user: Student, amount: number) {
@@ -300,6 +302,70 @@ export class UserService {
             resolve(map);
 
         });
+    }
+
+
+    giveAlerts(map: Map<any, any>) {
+        map.forEach((value: string, key: string) => {
+            console.log(key, value);
+        })
+
+        if (map.get("loginreward")) {
+            this.challangeAlert.addReward("Du hast deine tägliche Belohnung im Wert von 50 Sternen erhalten! Deine aktuelle Loginserie ist "+ map.get("streak"), "./../../../assets/Images/sanduhr.png", "Bestätigen")
+        }
+
+        if (map.has('challange1')) {
+            this.challangeAlert.addReward("Du hast die Herausforderung 'Gewinne zum ersten Mal Sterne' abgeschlossen!", "./../../../assets/Images/trophy.png", "Bestätigen")
+        }
+
+        if (map.has('challange2')) {
+            this.challangeAlert.addReward("Du hast die Herausforderung 'Gewinne 100 Spiele' abgeschlossen!", "./../../../assets/Images/100.png", "Bestätigen")
+        }
+
+        if (map.has('challange3')) {
+            this.challangeAlert.addReward("Du hast die Herausforderung 'Gewinne 50 Spiele' abgeschlossen!", "./../../../assets/Images/trophy.png", "Bestätigen")
+        }
+
+        if (map.has('challange4')) {
+            this.challangeAlert.addReward("Du hast die Herausforderung 'Gewinne 25 Spiele' abgeschlossen!", "./../../../assets/Images/trophy.png", "Bestätigen")
+        }
+
+        if (map.has('challange13')) {
+            this.challangeAlert.addReward("Du hast die Herausforderung 'Gewinne 5 Spiele' abgeschlossen!", "./../../../assets/Images/trophy.png", "Bestätigen")
+        }
+
+        if (map.has('challange5')) {
+            this.challangeAlert.addReward("Du hast die Herausforderung 'Spiele 3 Tage hintereinander' abgeschlossen!", "./../../../assets/Images/trophy.png", "Bestätigen")
+        }
+
+        if (map.has('challange6')) {
+            this.challangeAlert.addReward("Du hast die Herausforderung 'Spiele 7 Tage hintereinander' abgeschlossen!", "./../../../assets/Images/trophy.png", "Bestätigen")
+        }
+
+        if (map.has('challange7')) {
+            this.challangeAlert.addReward("Du hast die Herausforderung 'Spiele 14 Tage hintereinander' abgeschlossen!", "./../../../assets/Images/trophy.png", "Bestätigen")
+        }
+
+        if (map.has('challange8')) {
+            this.challangeAlert.addReward("Du hast die Herausforderung 'Beantworte alle Fragen eines Spiels richtig' abgeschlossen!", "./../../../assets/Images/trophy.png", "Bestätigen")
+        }
+
+        if (map.has('challange9')) {
+            this.challangeAlert.addReward("Du hast die Herausforderung 'Beantworte 3 Mal in Folge alle Fragen eines Spiels richtig' abgeschlossen!", "./../../../assets/Images/trophy.png", "Bestätigen")
+        }
+
+        if (map.has('challange10')) {
+            this.challangeAlert.addReward("Du hast die Herausforderung 'Beantworte 10 Mal in Folge alle Fragen eines Spiels richtig' abgeschlossen!", "./../../../assets/Images/trophy.png", "Bestätigen")
+        }
+
+        if (map.has('challange11')) {
+            this.challangeAlert.addReward("Du hast die Herausforderung 'Verliere ein Spiel' abgeschlossen!", "./../../../assets/Images/trophy.png", "Bestätigen")
+        }
+
+        if (map.has('challange12')) {
+            this.challangeAlert.addReward("Du hast die Herausforderung 'Erreiche mit deiner Klasse das Klassenziel' abgeschlossen!", "./../../../assets/Images/trophy.png", "Bestätigen")
+        }
+
     }
 
 
