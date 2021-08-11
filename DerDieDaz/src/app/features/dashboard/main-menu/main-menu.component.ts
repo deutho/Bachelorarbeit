@@ -73,7 +73,6 @@ export class MainMenuComponent implements OnInit, OnDestroy {
   
 
   async ngOnInit() {
- 
     this.isDeployment = environment.isDeployment; // delete when project is done
     //get the currentuser
     this.userSubscriptpion = this.afs.currentUserStatus.subscribe(data => {
@@ -109,7 +108,6 @@ export class MainMenuComponent implements OnInit, OnDestroy {
   async initialize(id) {
     this.isOwnerOfCurrentFolder = false;
     this.isEditorOfCurrentFolder = false;
-    this.challangeRewardAlert.addReward("Du hast deine tägliche Belohnung im Wert von 50 Sternen erhalten!", "./../../../assets/Images/sanduhr.png", "Bestätigen")
    
     if (id === " ") {
       if (this.currentUser.role == 3) this.router.navigate([this.currentUser.parent])

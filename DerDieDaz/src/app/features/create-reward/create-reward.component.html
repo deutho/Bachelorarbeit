@@ -1,0 +1,17 @@
+<form [formGroup]="addRewardForm" (ngSubmit) = "addReward()">
+    <div>
+        <h6>Bezeichnung</h6>
+        <input [ngClass]="{'form-submitted': formSubmitted}" type="text" class="form-control" name = "object" formControlName ="object">
+    </div>
+    <div>
+        <h6>imageURL</h6>
+        <input type="text" class="form-control" [ngClass]="{'form-submitted': formSubmitted}" name = "imageURL" formControlName ="imageURL">
+    </div>
+    <div>
+        <h6>Preis</h6>
+        <input type="text" class="form-control" [ngClass]="{'form-submitted': formSubmitted}" name = "price" formControlName ="price">
+    </div>
+    <div>
+        <input type="submit" value="Belohnung hinzufügen"   class="btn login-button-style center">
+    </div>    
+</form>

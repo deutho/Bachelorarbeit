@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { AlertComponent } from 'src/app/alert/alert.component';
 import { AlertService } from 'src/app/services/alertService';
 import { FirestoreDataService } from 'src/app/services/firestore-data.service';
@@ -22,7 +23,7 @@ export class InfoTileComponent implements OnInit {
   currentUser: any;
 
 
-  constructor(private afs: FirestoreDataService, private alert: AlertService) {
+  constructor(private afs: FirestoreDataService, private alert: AlertService, private router: Router) {
     
    }
 
@@ -57,6 +58,7 @@ export class InfoTileComponent implements OnInit {
     }
     else if(buttonAction = "createReward"){
       // redirect? modal? sicke aufwendige drehkarte?
+      this.router.navigate(['createReward'])
     }
   }
 
