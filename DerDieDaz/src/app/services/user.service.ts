@@ -17,7 +17,6 @@ export class UserService {
     depositStarsToUser(user: Student, amount: number) {
         let currentamount = user.starbalance + amount;
         this.afs.updateStarBalance(currentamount, user.uid);
-        
     }
 
     withdrawStarsFromUser(user: Student, amount: number) {
@@ -311,7 +310,7 @@ export class UserService {
             }
 
             //update the streak and balance
-            this.afs.updateStarsAndLoginStreak(user.starbalance, user.loginStreak, user.lastReward, user.lastRewardResetTime, user.uid);
+            this.afs.updateLoginStreak(user.loginStreak, user.lastReward, user.lastRewardResetTime, user.uid);
 
             //updateChallangesIfOneCompleted
             if (challangedone) {

@@ -211,11 +211,10 @@ export class FirestoreDataService implements OnDestroy {
         });
     }
 
-    async updateStarsAndLoginStreak(stars: number, loginStreak: number, lastReward: number, lastRewardResetTime: number, uid: string) {
+    async updateLoginStreak(loginStreak: number, lastReward: number, lastRewardResetTime: number, uid: string) {
         let ref = await this.db.collectionGroup("users").where("uid","==",uid).get();
         ref.forEach(doc => {
             doc.ref.update({
-                starbalance: stars,
                 loginStreak: loginStreak,
                 lastReward: lastReward,
                 lastRewardResetTime: lastRewardResetTime,
