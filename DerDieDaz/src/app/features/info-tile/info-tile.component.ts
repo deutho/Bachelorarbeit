@@ -31,7 +31,7 @@ export class InfoTileComponent implements OnInit {
   async ngOnInit() {
     this.loaded = false
     this.afs.currentUserStatus.subscribe(data => this.currentUser = data);
-    console.log(this.buttonText)
+    // console.log(this.buttonText)
   }
 
   async buttonClick(buttonAction){
@@ -67,6 +67,5 @@ export class InfoTileComponent implements OnInit {
       // redirect? modal? sicke aufwendige drehkarte?
       this.router.navigate(['createReward'])
     }
-  }
-
+  }  
 }
