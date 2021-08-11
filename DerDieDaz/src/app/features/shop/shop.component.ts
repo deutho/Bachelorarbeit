@@ -20,6 +20,7 @@ export class ShopComponent implements OnInit, OnDestroy {
   itemNames = [];
   itemImages = [];
   itemPrices = [];
+  fullArray = [];
   purchaes: Purchase[] = []
   objects: string[] = []
 
@@ -74,9 +75,18 @@ export class ShopComponent implements OnInit, OnDestroy {
         }
         else if(key == "price"){
           this.itemPrices.push(value)
-        }
+        }   
       }
     }
+
+    for( var i=0; i<this.itemNames.length; i++ ) {
+      this.fullArray.push( [] );
+    }
+    for(let i = 0; i<this.itemNames.length; i++){
+      this.fullArray[i].push(this.itemNames[i],this.itemImages[i],this.itemPrices[i])
+    }
+    this.fullArray.sort(this.sortFunction);
+    console.log(this.fullArray)   
   console.log("namen:")
   console.log(this.itemImages)
   console.log(this.itemNames)
@@ -85,5 +95,14 @@ export class ShopComponent implements OnInit, OnDestroy {
 
   
   }
+
+  sortFunction(a, b) {
+    if (a[2] === b[2]) {
+        return 0;
+    }
+    else {
+        return (a[2] < b[2]) ? 1 : -1;
+    }
+}
 
 }

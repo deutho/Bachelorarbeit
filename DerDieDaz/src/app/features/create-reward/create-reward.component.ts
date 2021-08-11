@@ -41,11 +41,9 @@ export class CreateRewardComponent implements OnInit {
 
   addReward(){
     this.formSubmitted = true;
-    console.log(this.imageURL)
     if(this.addRewardForm.valid){
       
       if(this.imageURL == "") {
-        console.log("no imageurl")
         this.alert.error("Es wurde kein Bild für die Belohnung gewählt.")
         return
       }
@@ -56,6 +54,7 @@ export class CreateRewardComponent implements OnInit {
       console.log("payload:"+payload)
       this.currentUser.individualtargets[this.uid]= payload
       this.afs.UpdateIndividualTargets(this.currentUser.individualtargets, this.currentUser.uid).then(()=>{
+        this.imageURL = ""
         this.router.navigate(['shop'])
       }).catch(()=>{
         this.alert.error("Belohnung konnte aufgrund von Netzwerkproblemen nicht erstellt werden.")

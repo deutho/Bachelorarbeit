@@ -1,6 +1,6 @@
 <div *ngIf = "currentUser?.role == 2" class="info-tile-wrapper">
     <info-tile *ngFor="let avatar of avatars" class="info-tile" header="{{avatar.header}}" buttonText='{{"Als Avatar verwenden"}}' image="{{avatar.imageURL}}" buttonAction="{{'setAvatar'}}" descriptionFront=" " ></info-tile>
-    <info-tile *ngFor="let challange of challanges" class="info-tile" header="{{challange.header}}" buttonText="'Als Avatar verwenden'" image="{{challange.imageURL}}" buttonAction="'setAvatar'" goldBorder="true"></info-tile>
+    <info-tile *ngFor="let challange of challanges" class="info-tile" header="{{challange.header}}" buttonText="Als Avatar verwenden" image="{{challange.imageURL}}" buttonAction="'setAvatar'" goldBorder="true"></info-tile>
 </div> 
 
 <div *ngIf = "currentUser?.role == 3" class="info-tile-wrapper ">
