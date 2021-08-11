@@ -46,7 +46,7 @@ export class PDFService {
 
         var image2 = new Image()
         image2.src = "./../../../assets/Images/logo.png";
-        pdf.addImage(image2, 'PNG', 190,280,15,15)
+        pdf.addImage(image2, 'PNG', 193,280,15,15)
 
 
         pdf.save('Gutschein '+student+' '+formatDate(new Date(), 'ddMMyyyy', 'en')+'.pdf');

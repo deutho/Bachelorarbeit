@@ -22,6 +22,7 @@ import { ChallangesComponent } from './features/challanges/challanges.component'
 import { ClassgoalComponent } from './features/classgoal/classgoal.component';
 import { AvatarSelectionComponent } from './features/avatar-selection/avatar-selection.component';
 import { ShopComponent } from './features/shop/shop.component';
+import { CreateRewardComponent } from './features/create-reward/create-reward.component';
 
 
 
@@ -79,6 +80,11 @@ const routes: Routes = [
   { 
   path: "shop",
   component: ShopComponent,
+  canActivate: [AuthGuard]
+},
+{ 
+  path: "createReward",
+  component: CreateRewardComponent,
   canActivate: [AuthGuard]
 },
 

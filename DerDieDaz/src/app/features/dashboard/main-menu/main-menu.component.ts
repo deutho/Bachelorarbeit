@@ -73,7 +73,6 @@ export class MainMenuComponent implements OnInit, OnDestroy {
   
 
   async ngOnInit() {
- 
     this.isDeployment = environment.isDeployment; // delete when project is done
     //get the currentuser
     this.userSubscriptpion = this.afs.currentUserStatus.subscribe(data => {
