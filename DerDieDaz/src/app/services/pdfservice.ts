@@ -9,7 +9,7 @@ export class PDFService {
     constructor(private font: JsPDFFontService) {}
     
 
-    generateHomeWorkVoucher(student: string) {
+    generateHomeWorkVoucher(student: string, gender: string) {
         var pdf = new jsPDF();
 
         this.font.AddFont(pdf);
@@ -18,7 +18,10 @@ export class PDFService {
         pdf.text("Hausübungsgutschein", 40, 35)
 
         pdf.setFontSize(16);
-        pdf.text("Liebe " + student +"!", 5, 100);
+        if(gender == "FEMALE") pdf.text("Liebe " + student +"!", 5, 100);
+        else if (gender == "MALE") pdf.text("Lieber " + student +"!", 5, 100);
+        else if (gender == "OTHER") pdf.text("Liebe(r) " + student +"!", 5, 100);
+        
         pdf.text("Wir bei derdieDAZ gratulieren dir herzlich zu deinen herausragenden Leistungen!", 5, 110)
 
 

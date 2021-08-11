@@ -10,6 +10,7 @@ export interface User {
     parent: string,
     schoolclass: string,
     school: string,
+    gender: string
 }
 
 
