@@ -34,7 +34,7 @@ export class InfoTileComponent implements OnInit {
     console.log(this.buttonText)
   }
 
-  buttonClick(buttonAction){
+  async buttonClick(buttonAction){
     if(buttonAction =="print") {
       console.log("click")
       console.log(this.header)      
@@ -55,7 +55,11 @@ export class InfoTileComponent implements OnInit {
       }
       else{
       // stefaaaannnnnn bitte currency abziehen thx :*
-
+        this.userservice.purchaseReward(this.header, this.buttonText, this.currentUser).then((message) => {
+          this.alert.success(message);
+        }).catch((message) => {
+          this.alert.error(message)
+        });
 
       }
     }

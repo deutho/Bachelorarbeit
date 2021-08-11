@@ -311,6 +311,16 @@ export class FirestoreDataService implements OnDestroy {
         });
     }
 
+    addPurchaseDocument(objectID: string, price: number, studentID: string, teacherID: string) {
+        this.db.collection("purchases").add({
+            buyDate: firebase.firestore.FieldValue.serverTimestamp(),
+            objectID: objectID,
+            price: price,
+            studentID: studentID,
+            teacherID: teacherID
+        });
+    }
+
     async getAllChallanges(): Promise<Challange[]> {
         let ref: any = this._afs.collection("challanges");
         return await ref.valueChanges().pipe(take(1)).toPromise()

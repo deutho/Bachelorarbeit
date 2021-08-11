@@ -17,7 +17,13 @@ export class UserService {
     depositStarsToUser(user: Student, amount: number) {
         let currentamount = user.starbalance + amount;
         this.afs.updateStarBalance(currentamount, user.uid);
-        user.starbalance = currentamount;
+        
+    }
+
+    withdrawStarsFromUser(user: Student, amount: number) {
+        let currentamount = user.starbalance - amount;
+        this.afs.updateStarBalance(currentamount, user.uid);
+        
     }
 
     async depositStarsToClassTarget(user: Student, amount: number) {
@@ -42,8 +48,21 @@ export class UserService {
     }
 
 
-    async purchaseReward(user: Student, reward: string) { //reward should eventually become a reward object
-        //TODO
+    async purchaseReward(rewardname: string, price: string, user: Student) { //reward should eventually become a reward object
+        return new Promise<any>((resolve, reject) => {
+            if (user.starbalance < parseInt(price)) reject("Du hast nicht genügend Sterne für diese Belohnung. Übe weiter!")
+            
+            else {
+                this.withdrawStarsFromUser(user, parseInt(price));
+                this.afs.addPurchaseDocument(rewardname, parseInt(price),user.uid, user.parent);
+
+                resolve("Belohnung wurde gekauft")
+
+            }
+
+
+
+        });
     }
 
 
