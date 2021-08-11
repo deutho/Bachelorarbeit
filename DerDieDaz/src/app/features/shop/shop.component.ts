@@ -16,6 +16,7 @@ export class ShopComponent implements OnInit {
   itemNames = [];
   itemImages = [];
   itemPrices = [];
+  fullArray = [];
 
   constructor(private afs: FirestoreDataService, private app: AppService) { }
 
@@ -50,13 +51,27 @@ export class ShopComponent implements OnInit {
         }
         else if(key == "price"){
           this.itemPrices.push(value)
-        }
+        }   
       }
     }
-  console.log("namen:")
-  console.log(this.itemImages)
-  
-  
+
+    for( var i=0; i<this.itemNames.length; i++ ) {
+      this.fullArray.push( [] );
+    }
+    for(let i = 0; i<this.itemNames.length; i++){
+      this.fullArray[i].push(this.itemNames[i],this.itemImages[i],this.itemPrices[i])
+    }
+    this.fullArray.sort(this.sortFunction);
+    console.log(this.fullArray)   
   }
+
+  sortFunction(a, b) {
+    if (a[2] === b[2]) {
+        return 0;
+    }
+    else {
+        return (a[2] < b[2]) ? 1 : -1;
+    }
+}
 
 }
