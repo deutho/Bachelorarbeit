@@ -84,6 +84,7 @@ export class AddUserComponent implements OnInit {
           classtargetAchieved: false,
           individualtargets: new Map<string, number>(),
           dailyloginreward: 50,
+          gender: "MALE"
         };
       } 
       else{
@@ -108,6 +109,7 @@ export class AddUserComponent implements OnInit {
           gameresults: [],
           dailyloginreward: teacher.dailyloginreward,
           totalGamesWon: 0,
+          gender: "MALE"
         };
       } 
 
