@@ -1,3 +1,6 @@
+/* Code frome Codepen */
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700');
+
 #h1{
   font-size: 25px;
   font-family: Arial;
@@ -226,8 +229,7 @@ align-items: flex-start;
 flex-direction: column;
 }
 
-/* Code frome Codepen */
-@import url('https://fonts.googleapis.com/css?family=Lato:400,700');
+
 
 #container {
  position: relative;

@@ -1,3 +1,7 @@
+/* Code frome Codepen */
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700');
+
+
 .item-question {
     grid-area: question;    
     }
@@ -156,8 +160,7 @@
 	flex-direction: column;
 }
 
-/* Code frome Codepen */
-@import url('https://fonts.googleapis.com/css?family=Lato:400,700');
+
 
  #container {
 	 position: relative;
