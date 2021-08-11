@@ -315,55 +315,55 @@ export class UserService {
         }
 
         if (map.has('challange1')) {
-            this.challangeAlert.addReward("Du hast die Herausforderung 'Gewinne zum ersten Mal Sterne' abgeschlossen!", "./../../../assets/Images/trophy.png", "Bestätigen")
+            this.challangeAlert.addReward("Du hast die Herausforderung 'Gewinne zum ersten Mal Sterne' abgeschlossen!", ".\..\..\..\assets\Avatars\Challange Rewards\Donkey.png", "Bestätigen")
         }
 
         if (map.has('challange2')) {
-            this.challangeAlert.addReward("Du hast die Herausforderung 'Gewinne 100 Spiele' abgeschlossen!", "./../../../assets/Images/100.png", "Bestätigen")
+            this.challangeAlert.addReward("Du hast die Herausforderung 'Gewinne 100 Spiele' abgeschlossen!", ".\..\..\..\assets\Avatars\Challange Rewards\Monkey.png", "Bestätigen")
         }
 
         if (map.has('challange3')) {
-            this.challangeAlert.addReward("Du hast die Herausforderung 'Gewinne 50 Spiele' abgeschlossen!", "./../../../assets/Images/trophy.png", "Bestätigen")
+            this.challangeAlert.addReward("Du hast die Herausforderung 'Gewinne 50 Spiele' abgeschlossen!", ".\..\..\..\assets\Avatars\Challange Rewards\Penguin.png", "Bestätigen")
         }
 
         if (map.has('challange4')) {
-            this.challangeAlert.addReward("Du hast die Herausforderung 'Gewinne 25 Spiele' abgeschlossen!", "./../../../assets/Images/trophy.png", "Bestätigen")
+            this.challangeAlert.addReward("Du hast die Herausforderung 'Gewinne 25 Spiele' abgeschlossen!", ".\..\..\..\assets\Avatars\Challange Rewards\Panda.png", "Bestätigen")
         }
 
         if (map.has('challange13')) {
-            this.challangeAlert.addReward("Du hast die Herausforderung 'Gewinne 5 Spiele' abgeschlossen!", "./../../../assets/Images/trophy.png", "Bestätigen")
+            this.challangeAlert.addReward("Du hast die Herausforderung 'Gewinne 5 Spiele' abgeschlossen!", ".\..\..\..\assets\Avatars\Challange Rewards\Dog.png", "Bestätigen")
         }
 
         if (map.has('challange5')) {
-            this.challangeAlert.addReward("Du hast die Herausforderung 'Spiele 3 Tage hintereinander' abgeschlossen!", "./../../../assets/Images/trophy.png", "Bestätigen")
+            this.challangeAlert.addReward("Du hast die Herausforderung 'Spiele 3 Tage hintereinander' abgeschlossen!", ".\..\..\..\assets\Avatars\Challange Rewards\Chicken.png", "Bestätigen")
         }
 
         if (map.has('challange6')) {
-            this.challangeAlert.addReward("Du hast die Herausforderung 'Spiele 7 Tage hintereinander' abgeschlossen!", "./../../../assets/Images/trophy.png", "Bestätigen")
+            this.challangeAlert.addReward("Du hast die Herausforderung 'Spiele 7 Tage hintereinander' abgeschlossen!", ".\..\..\..\assets\Avatars\Challange Rewards\Horse.png", "Bestätigen")
         }
 
         if (map.has('challange7')) {
-            this.challangeAlert.addReward("Du hast die Herausforderung 'Spiele 14 Tage hintereinander' abgeschlossen!", "./../../../assets/Images/trophy.png", "Bestätigen")
+            this.challangeAlert.addReward("Du hast die Herausforderung 'Spiele 14 Tage hintereinander' abgeschlossen!", ".\..\..\..\assets\Avatars\Challange Rewards\Unicorn.png", "Bestätigen")
         }
 
         if (map.has('challange8')) {
-            this.challangeAlert.addReward("Du hast die Herausforderung 'Beantworte alle Fragen eines Spiels richtig' abgeschlossen!", "./../../../assets/Images/trophy.png", "Bestätigen")
+            this.challangeAlert.addReward("Du hast die Herausforderung 'Beantworte alle Fragen eines Spiels richtig' abgeschlossen!", ".\..\..\..\assets\Avatars\Challange Rewards\Dog2.png", "Bestätigen")
         }
 
         if (map.has('challange9')) {
-            this.challangeAlert.addReward("Du hast die Herausforderung 'Beantworte 3 Mal in Folge alle Fragen eines Spiels richtig' abgeschlossen!", "./../../../assets/Images/trophy.png", "Bestätigen")
+            this.challangeAlert.addReward("Du hast die Herausforderung 'Beantworte 3 Mal in Folge alle Fragen eines Spiels richtig' abgeschlossen!", ".\..\..\..\assets\Avatars\Challange Rewards\Pig.png", "Bestätigen")
         }
 
         if (map.has('challange10')) {
-            this.challangeAlert.addReward("Du hast die Herausforderung 'Beantworte 10 Mal in Folge alle Fragen eines Spiels richtig' abgeschlossen!", "./../../../assets/Images/trophy.png", "Bestätigen")
+            this.challangeAlert.addReward("Du hast die Herausforderung 'Beantworte 10 Mal in Folge alle Fragen eines Spiels richtig' abgeschlossen!", ".\..\..\..\assets\Avatars\Challange Rewards\Unicorn2.png", "Bestätigen")
         }
 
         if (map.has('challange11')) {
-            this.challangeAlert.addReward("Du hast die Herausforderung 'Verliere ein Spiel' abgeschlossen!", "./../../../assets/Images/trophy.png", "Bestätigen")
+            this.challangeAlert.addReward("Du hast die Herausforderung 'Verliere ein Spiel' abgeschlossen!", ".\..\..\..\assets\Avatars\Challange Rewards\Cat.png", "Bestätigen")
         }
 
         if (map.has('challange12')) {
-            this.challangeAlert.addReward("Du hast die Herausforderung 'Erreiche mit deiner Klasse das Klassenziel' abgeschlossen!", "./../../../assets/Images/trophy.png", "Bestätigen")
+            this.challangeAlert.addReward("Du hast die Herausforderung 'Erreiche mit deiner Klasse das Klassenziel' abgeschlossen!", ".\..\..\..\assets\Avatars\Challange Rewards\Deer.png", "Bestätigen")
         }
 
     }
