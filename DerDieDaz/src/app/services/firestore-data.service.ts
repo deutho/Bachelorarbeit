@@ -13,6 +13,7 @@ import { formatDate } from '@angular/common';
 import { Challange } from '../models/challange.model';
 import { Result } from '../models/result';
 import { query } from '@angular/animations';
+import { Purchase } from '../models/purchase.model';
 
 
 
@@ -23,9 +24,13 @@ export class FirestoreDataService implements OnDestroy {
     storage = firebase.storage();
     storageRef = this.storage.ref();
     usersub;
+    purchasesub;
 
     private currentUser: BehaviorSubject<User> = new BehaviorSubject<User>(null);
     currentUserStatus = this.currentUser.asObservable();
+
+    private purchases: BehaviorSubject<Purchase[]> = new BehaviorSubject<Purchase[]>(null);
+    purchasesStatus = this.purchases.asObservable();
 
     constructor(public _afs: AngularFirestore, public _auth: AuthService) {
         this.authStatusListener();
@@ -41,6 +46,7 @@ export class FirestoreDataService implements OnDestroy {
         firebase.auth().onAuthStateChanged(async (credential) => {
             if (credential) {
                 this.getCurrentUser();
+                this.getPurchasesFromUser();
             } else {
                 this.currentUser.next(null);
             }
@@ -62,6 +68,20 @@ export class FirestoreDataService implements OnDestroy {
             });
         });
     }
+
+    getPurchasesFromUser() {
+
+        let ref = this.db.collection('purchases').where('studentID', "==", this._auth.getCurrentUser().uid);
+        let data: Purchase[] = [];
+        this.purchasesub = ref.onSnapshot((querySnapshot) => {
+            data = [];
+            querySnapshot.forEach((doc) => {
+                data.push(doc.data() as Purchase)
+            });
+            this.purchases.next(data);
+        });
+    }
+
     /**gets the user by id
      * 
      * @param uid user id
@@ -205,6 +225,7 @@ export class FirestoreDataService implements OnDestroy {
     }
 
     async updateStarBalance(stars: number, uid: string) {
+        console.log(stars)
         let ref = await this.db.collectionGroup("users").where("uid","==",uid).get();
         ref.forEach(doc => {
             doc.ref.update({
