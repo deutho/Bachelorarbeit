@@ -26,7 +26,7 @@ export class ShopComponent implements OnInit, OnDestroy {
   constructor(private afs: FirestoreDataService, private app: AppService) { }
   ngOnDestroy(): void {
     this.currentUserSubscription.unsubscribe();
-    this.purchaseSubscription.unsubscribe();
+    if (this.currentUser.role == 3) this.purchaseSubscription.unsubscribe();
   }
 
   async ngOnInit(){
