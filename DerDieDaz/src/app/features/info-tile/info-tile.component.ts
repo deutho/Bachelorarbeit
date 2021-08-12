@@ -56,7 +56,7 @@ export class InfoTileComponent implements OnInit {
         this.alert.error("Als Lehrkraft kann man keine Belohnungen kaufen.")
       }
       else{
-        this.userservice.purchaseReward(this.shopItemID, this.buttonText, this.currentUser).then((message) => {
+        this.userservice.purchaseReward(this.header, this.shopItemID, this.buttonText, this.currentUser).then((message) => {
           this.alert.success(message);
         }).catch((message) => {
           this.alert.error(message)

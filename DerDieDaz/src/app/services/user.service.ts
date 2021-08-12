@@ -47,13 +47,13 @@ export class UserService {
     }
 
 
-    async purchaseReward(rewardname: string, price: string, user: Student) { //reward should eventually become a reward object
+    async purchaseReward(clearname: string, rewardname: string, price: string, user: Student) { //reward should eventually become a reward object
         return new Promise<any>((resolve, reject) => {
             if (user.starbalance < parseInt(price)) reject("Du hast nicht genügend Sterne für diese Belohnung. Übe weiter!")
             
             else {
                 this.withdrawStarsFromUser(user, parseInt(price));
-                this.afs.addPurchaseDocument(rewardname, parseInt(price),user.uid, user.parent);
+                this.afs.addPurchaseDocument(clearname, user.firstname + " " + user.lastname, rewardname, parseInt(price), user.uid, user.parent);
 
                 resolve("Belohnung wurde gekauft")
 

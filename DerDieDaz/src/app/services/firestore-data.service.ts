@@ -69,7 +69,6 @@ export class FirestoreDataService {
     }
 
     getPurchasesFromUser() {
-
         let ref = this.db.collection('purchases').where('studentID', "==", this._auth.getCurrentUser().uid);
         let data: Purchase[] = [];
         this.purchasesub = ref.onSnapshot((querySnapshot) => {
@@ -79,6 +78,18 @@ export class FirestoreDataService {
             });
             this.purchases.next(data);
         });
+    }
+
+    getPurchasesFromTecher(): Purchase[] {
+
+        let ref = this.db.collection("purchases").where('teacherID', '==', this._auth.getCurrentUser().uid);
+        let data: Purchase[] = []
+        ref.get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                data.push(doc.data() as Purchase)
+            });
+        });
+        return data;
     }
 
     /**gets the user by id
@@ -266,7 +277,7 @@ export class FirestoreDataService {
         let ref = await this.db.collectionGroup("users").where("uid","==",uid).get();
         let achieved = true;
         if (progress < price) achieved = false;
-
+        
         let map = {};
         map[desc] = price;
 
@@ -359,13 +370,15 @@ export class FirestoreDataService {
         });
     }
 
-    addPurchaseDocument(objectID: string, price: number, studentID: string, teacherID: string) {
+    addPurchaseDocument(objectname: string, username: string, objectID: string, price: number, studentID: string, teacherID: string) {
         this.db.collection("purchases").add({
             buyDate: firebase.firestore.FieldValue.serverTimestamp(),
             objectID: objectID,
             price: price,
             studentID: studentID,
-            teacherID: teacherID
+            teacherID: teacherID,
+            studentName: username,
+            objectname: objectname
         });
     }
 
