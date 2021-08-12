@@ -2,3 +2,9 @@
     <info-tile *ngIf="currentUser?.role == 2" class="info-tile" header="Neue Belohnung erstellen" image="./../../../assets/Images/add.png" buttonText='neue Belohnung erstellen'  buttonAction="createReward"></info-tile>
     <info-tile *ngFor="let item of itemNames; index as i" class="info-tile" header="{{fullArray[i][0]}}" image="{{fullArray[i][1]}}" buttonText='{{fullArray[i][2]}}'  buttonAction="buy" alreadyBought ="{{objects.indexOf(fullArray[i][3]) != -1?true:''}}" shopItemID="{{fullArray[i][3]}}"></info-tile>
 </div> 
+
+<!-- <div class="info-tile-wrapper">
+    <info-tile *ngIf="currentUser?.role == 2" class="info-tile" header="Neue Belohnung erstellen" image="./../../../assets/Images/add.png" buttonText='neue Belohnung erstellen'  buttonAction="createReward"></info-tile>
+    <info-tile *ngFor="let reward of rewards; index as i" class="info-tile" header="{{reward.name}}" image="{{reward.imageURL}}" buttonText='{{reward.price}}'  buttonAction="buy" alreadyBought ="{{objects.indexOf(reward.uid) != -1?true:''}}" rewarduid = {{reward.uid}} ></info-tile>
+</div>  -->
+    

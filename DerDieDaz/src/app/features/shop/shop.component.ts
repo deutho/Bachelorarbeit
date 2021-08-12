@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ObjectUnsubscribedError } from 'rxjs';
 import { Purchase } from 'src/app/models/purchase.model';
+import { Reward } from 'src/app/models/reward.model';
 import { AppService } from 'src/app/services/app.service';
 import { FirestoreDataService } from 'src/app/services/firestore-data.service';
 import { HighlightSpanKind } from 'typescript';
@@ -22,6 +23,7 @@ export class ShopComponent implements OnInit, OnDestroy {
   itemPrices = [];
   fullArray = [];
   purchaes: Purchase[] = []
+  rewards: Reward[] = []
   objects: string[] = []
   itemID: any = [];
 
@@ -104,5 +106,25 @@ export class ShopComponent implements OnInit, OnDestroy {
         return (a[2] < b[2]) ? 1 : -1;
     }
   }
+
+  // async initialize() {
+  //   if (this.currentUser.role == 3) this.rewards = this.parent.individualtargets;
+  //   if (this.currentUser.role == 2) this.rewards = this.currentUser.individualtargets;
+
+  //   this.rewards.sort((reward1, reward2) => {
+  //     if (reward1.price === reward2.price) {
+  //       return reward2.name < reward1.name?-1:1
+  //     }else {
+  //       return reward2.price - reward1.price;
+  //     }
+  //   });
+
+  //}
+
+
+
+
+
+  
 
 }

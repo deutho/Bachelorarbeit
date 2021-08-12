@@ -19,6 +19,7 @@ export class InfoTileComponent implements OnInit {
   @Input() public buttonAction: string;
   @Input() public goldBorder: boolean = false;
   @Input() public alreadyBought: boolean = false;
+  @Input() public rewarduid: string
   @Input() public shopItemID: string;
   loaded = false
   height = 0;
@@ -32,7 +33,7 @@ export class InfoTileComponent implements OnInit {
   async ngOnInit() {
     this.loaded = false
     this.afs.currentUserStatus.subscribe(data => this.currentUser = data);
-    // console.log(this.buttonText)
+    console.log(this.buttonText)
   }
 
   async buttonClick(buttonAction){
@@ -67,5 +68,6 @@ export class InfoTileComponent implements OnInit {
       // redirect? modal? sicke aufwendige drehkarte?
       this.router.navigate(['createReward'])
     }
-  }  
+  }
+
 }
