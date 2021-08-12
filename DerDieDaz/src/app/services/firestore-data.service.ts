@@ -267,9 +267,12 @@ export class FirestoreDataService {
         let achieved = true;
         if (progress < price) achieved = false;
 
+        let map = new Map()
+        map.set(desc, price);
+
         ref.forEach(doc => {
             return doc.ref.update({
-                classtargets: { desc : price },
+                classtargets: map,
                 classtargetBalance: progress,
                 classtargetAchieved: achieved,
             });
