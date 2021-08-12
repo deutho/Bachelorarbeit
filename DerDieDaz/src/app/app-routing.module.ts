@@ -23,6 +23,7 @@ import { ClassgoalComponent } from './features/classgoal/classgoal.component';
 import { AvatarSelectionComponent } from './features/avatar-selection/avatar-selection.component';
 import { ShopComponent } from './features/shop/shop.component';
 import { CreateRewardComponent } from './features/create-reward/create-reward.component';
+import { PurchaseListComponent } from './features/purchase-list/purchase-list.component';
 
 
 
@@ -74,6 +75,12 @@ const routes: Routes = [
 { 
   path: "classgoal",
   component: ClassgoalComponent,
+  canActivate: [AuthGuard]
+},
+
+{ 
+  path: "purchaselist",
+  component: PurchaseListComponent,
   canActivate: [AuthGuard]
 },
 

@@ -1,0 +1,20 @@
+<div  class="pageContent">
+
+    <div class="listContainer">
+        <div class="header">Einkäufe der Schüler im Shop</div>
+
+        <div *ngFor="let purchase of purchases;  index as i" class="listOfStudents">
+            <div class="row">
+                <div class="studentInfo"> 
+                    <div class="studentInfoItem">{{purchase.buyDate.toMillis() | date:'dd.MM.yyyy HH:mm'}} </div> 
+                    <div class="studentInfoItem">{{purchase.studentName}}</div> 
+                    <div class="studentInfoItem">{{purchase.objectname}}</div> 
+                    <div class="studentInfoItem">{{purchase.price}} Sterne</div> 
+                    
+                </div>
+            </div>
+
+            <div class="divider"></div>
+        </div>
+    </div>
+</div>

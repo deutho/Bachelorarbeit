@@ -35,6 +35,7 @@ import { ClassgoalComponent } from './classgoal/classgoal.component';
 import { AvatarSelectionComponent } from './avatar-selection/avatar-selection.component';
 import { ShopComponent } from './shop/shop.component';
 import { CreateRewardComponent } from './create-reward/create-reward.component';
+import { PurchaseListComponent } from './purchase-list/purchase-list.component';
 
 
 
@@ -67,7 +68,8 @@ declarations: [
   ClassgoalComponent,
   AvatarSelectionComponent,
   ShopComponent,
-  CreateRewardComponent],
+  CreateRewardComponent,
+  PurchaseListComponent],
 imports: [
   CommonModule,
   RouterModule,
