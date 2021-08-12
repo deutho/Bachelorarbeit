@@ -19,6 +19,7 @@ export class InfoTileComponent implements OnInit {
   @Input() public buttonAction: string;
   @Input() public goldBorder: boolean = false;
   @Input() public alreadyBought: boolean = false;
+  @Input() public shopItemID: string;
   loaded = false
   height = 0;
   currentUser: any;
@@ -54,8 +55,7 @@ export class InfoTileComponent implements OnInit {
         this.alert.error("Als Lehrkraft kann man keine Belohnungen kaufen.")
       }
       else{
-      // stefaaaannnnnn bitte currency abziehen thx :*
-        this.userservice.purchaseReward(this.header, this.buttonText, this.currentUser).then((message) => {
+        this.userservice.purchaseReward(this.shopItemID, this.buttonText, this.currentUser).then((message) => {
           this.alert.success(message);
         }).catch((message) => {
           this.alert.error(message)
