@@ -107,6 +107,10 @@ export class ClassgoalComponent implements OnInit, OnDestroy {
     let inputGoalDesc = this.updateClassGoalForm.get('goalDesc').value
     let inputGoalPrice = this.updateClassGoalForm.get('goalPrice').value
     let inputProgressPrice = this.updateClassGoalForm.get('progressPrice').value
+    if(inputProgressPrice>inputGoalPrice) {
+      this.alert.error("Der Fortschritt der Klasse muss kleiner sein als das Klassenziel.")
+      return
+    }
     if(inputGoalDesc != this.goalText || inputGoalPrice != this.goalPrice || inputProgressPrice != this.teacher.classtargetBalance){
       // update classgoal
       this.afs.updateClassTarget(inputGoalDesc, inputGoalPrice, inputProgressPrice, this.teacher.uid).then(() => {
