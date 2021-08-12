@@ -204,11 +204,11 @@ export class MainMenuComponent implements OnInit, OnDestroy {
     }
   }
 
-  addFolder(newUid: string, newName: string, newType: string, gameType?: string) {
+  addFolder(newUid: string, newName: string, newType: string, gameType?: string, starsForGame?: number) {
     
     //create Folder
     if (gameType != null && gameType != undefined)
-    var newFolder = new Folder(newUid, newName, newType, this.currentUser.uid, [], gameType, 5);
+    var newFolder = new Folder(newUid, newName, newType, this.currentUser.uid, [], gameType, starsForGame);
     else newFolder = new Folder(newUid, newName, newType, this.currentUser.uid, []);
 
     //Add the Folder
@@ -299,13 +299,15 @@ export class MainMenuComponent implements OnInit, OnDestroy {
       }
       else {
         let game :string = (<HTMLSelectElement>document.getElementById('gameTypeSelector')).value
-        if(name == '' || game == '') {
+        let starsForGame= (<HTMLInputElement>document.getElementById('amountOfStarts')).value
+        if(name == '' || game == '' || starsForGame == '' || parseInt(starsForGame) < 0) {
           //error response
           this.creatingElementError = true;
           setTimeout(() => this.creatingElementError = false, 2500);
         }
         else {
-          this.addFolder(uid, name, 'task', game)
+
+          this.addFolder(uid, name, 'task', game, parseInt(starsForGame))
           successfulCreated = true;
         }
       }    

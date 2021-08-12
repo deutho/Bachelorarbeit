@@ -279,6 +279,16 @@ export class FirestoreDataService {
         });
     }
     
+    async updateDailyLoginReward(amount: number, uid: string): Promise<void> {
+        let ref = await this.db.collectionGroup("users").where("uid","==",uid).get();
+        ref.forEach(doc => {
+            return doc.ref.update({
+                dailyloginreward: amount
+            });
+        });
+    }
+
+
     /** temporary result of a finished game
      * 
      * @param uid uid of user (student)

@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { take, tap } from 'rxjs/operators';
 import { User } from 'src/app/models/users.model';
+import { AlertService } from 'src/app/services/alertService';
 import { AppService } from 'src/app/services/app.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { FirestoreDataService } from 'src/app/services/firestore-data.service';
@@ -18,14 +19,15 @@ export class ProfileComponent implements OnInit {
 
   
 
-  currentUser: User;
+  currentUser: any;
   accountTyp: String;
   imageURL = "";
   editingPicture: boolean = false;
   loaded: boolean = false;
+  editingLoginReward: boolean = false;
   
   
-  constructor(public afs: FirestoreDataService, private app: AppService, public router: Router) {
+  constructor(public afs: FirestoreDataService, private app: AppService, public router: Router, private alert: AlertService) {
     this.app.myImageURL$.subscribe((data) => {
       this.imageURL = data;
       this.pictureEdited(data)
@@ -73,5 +75,24 @@ export class ProfileComponent implements OnInit {
     this.imageURL = this.currentUser.avatarID;
   }
 
+  editingLoginRewardSubmit(){
+    console.log("editing")
+    if(parseInt((<HTMLInputElement>document.getElementById("newDailyLoginReward")).value) < 0){
+      this.alert.error("Tägliche Belohnung muss positiv sein")
+    }
+    else{
+      this.afs.updateDailyLoginReward(parseInt((<HTMLInputElement>document.getElementById("newDailyLoginReward")).value), this.currentUser.uid).then(()=>{
+        this.alert.success("Belohnung der Schüler für tägliches Spielen aktualisiert.")
+      }).catch(()=>{
+        this.alert.error("Belohnung konnte nicht aktualisiert werden.")
+      })
+      this.editingLoginReward = false;
+    }
+  }
+
+
+
 
 }
+
+
