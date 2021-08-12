@@ -267,8 +267,8 @@ export class FirestoreDataService {
         let achieved = true;
         if (progress < price) achieved = false;
 
-        let map = new Map()
-        map.set(desc, price);
+        let map = {};
+        map[desc] = price;
 
         ref.forEach(doc => {
             return doc.ref.update({
