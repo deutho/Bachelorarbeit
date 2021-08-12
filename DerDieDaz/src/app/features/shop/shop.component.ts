@@ -104,7 +104,7 @@ export class ShopComponent implements OnInit, OnDestroy {
     else {
         return (a[2] < b[2]) ? 1 : -1;
     }
-}
+  }
 
   // async initialize() {
   //   if (this.currentUser.role == 3) this.rewards = this.parent.individualtargets;

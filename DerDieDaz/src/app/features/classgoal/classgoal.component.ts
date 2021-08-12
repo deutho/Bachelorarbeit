@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Student, Teacher } from 'src/app/models/users.model';
+import { Student, Teacher, User } from 'src/app/models/users.model';
 import { AppService } from 'src/app/services/app.service';
 import { FirestoreDataService } from 'src/app/services/firestore-data.service';
 
@@ -11,7 +11,7 @@ import { FirestoreDataService } from 'src/app/services/firestore-data.service';
 export class ClassgoalComponent implements OnInit, OnDestroy {
 
   currentUserSubscription;
-  currentUser: Student;
+  currentUser: User;
   teacher: Teacher;
   goalText: string;
   goalPrice: number;
@@ -23,7 +23,7 @@ export class ClassgoalComponent implements OnInit, OnDestroy {
   async ngOnInit() {
     this.app.myHeader("Klassenziel")
     this.currentUserSubscription = this.afs.currentUserStatus.subscribe(data => {
-      this.currentUser = data as Student
+      this.currentUser = data
       if(data != null){
         this.initialize()
       }
@@ -33,7 +33,8 @@ export class ClassgoalComponent implements OnInit, OnDestroy {
 
   async initialize(){
     this.numbers = Array(100).fill(1).map((x,i)=>i);
-    this.teacher = (await this.afs.getUserPerID(this.currentUser.parent))[0]
+    if(this.currentUser.role == 3) this.teacher = (await this.afs.getUserPerID(this.currentUser.parent))[0]
+    if(this.currentUser.role == 2) this.teacher = this.currentUser as Teacher
     console.log(this.teacher)
     var tempKeys: string[] = [];
     var tempValues: number[] = [];
