@@ -130,3 +130,8 @@
     justify-content: center
 }
 
+
+.crossed{
+    text-decoration: line-through;
+}
+
