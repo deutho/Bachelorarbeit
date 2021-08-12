@@ -10,7 +10,6 @@
     align-items: center;
     /* align-content: center; */
     text-align: center;
-
 }
 
 .listContainer {
@@ -93,6 +92,9 @@
     text-decoration: underline;
     padding: 0px 20px;
 }
+.strong{
+    font-weight: bold
+}
 
 @media screen and (max-width: 800px) {
     .studentInfo {
@@ -122,3 +124,9 @@
         min-width: 100px;
     }
 }
+.button{
+    text-align: center; 
+    margin-top: 10px; 
+    justify-content: center
+}
+
