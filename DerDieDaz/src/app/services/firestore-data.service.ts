@@ -262,7 +262,7 @@ export class FirestoreDataService {
     }
 
 
-    async updateClassTarget(desc: string, price: number, progress: number, uid: string) {
+    async updateClassTarget(desc: string, price: number, progress: number, uid: string): Promise<void> {
         let ref = await this.db.collectionGroup("users").where("uid","==",uid).get();
         ref.forEach(doc => {
             return doc.ref.update({
