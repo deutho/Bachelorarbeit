@@ -103,6 +103,6 @@ export class ShopComponent implements OnInit, OnDestroy {
     else {
         return (a[2] < b[2]) ? 1 : -1;
     }
-}
+  }
 
 }
