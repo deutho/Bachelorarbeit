@@ -49,6 +49,7 @@ export class MainMenuComponent implements OnInit, OnDestroy {
   emptyMessage: string = "Keine Elemente in diesem Ordner";
   creating = false;
   editing = false;
+  editingStars = false;
   deleting = false;
   standard = false;
   redirectdata: string[] = [];
@@ -223,6 +224,7 @@ export class MainMenuComponent implements OnInit, OnDestroy {
   editElement(item) {
     this.editElementForm = this.fb.group({
       name:  [item.name, Validators.required],
+      price:  [item.stars, ],
     });
     this.folderToChange = item;
     this.editing = true;
@@ -230,13 +232,22 @@ export class MainMenuComponent implements OnInit, OnDestroy {
   }
 
   async edit() {
-    if (this.editElementForm.valid && this.editElementForm.get('name').value != this.folderToChange.name) {
+    console.log(this.folderToChange.stars);
+    console.log(this.editElementForm.get('price').value)
+    if (this.folderToChange.stars != null && (this.editElementForm.get('price').value == null || parseInt(this.editElementForm.get('price').value) < 0)){
+      this.alert.error("Es muss ein positiver Wert für die zu erhaltenden Sterne eingegeben werden")
+      return;
+    }
+    if (this.editElementForm.valid) {
       
       //delte the current folder
       await this.afs.deleteFolder(this.folderToChange, this.currentDocKey);
       
       //change the name
       this.folderToChange.name = this.editElementForm.get('name').value;
+      if(this.folderToChange.stars != null){
+        this.folderToChange.stars = parseInt(this.editElementForm.get('price').value)
+      }
 
       //add the folder again
       await this.afs.updateFolders(this.folderToChange, this.currentDocKey);
