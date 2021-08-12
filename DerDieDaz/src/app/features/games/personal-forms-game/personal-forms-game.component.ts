@@ -4,11 +4,12 @@ import { PersonalFormsGame } from 'src/app/models/PersonalFormsGame.model';
 import { supportsPassiveEventListeners } from '@angular/cdk/platform';
 import { FirestoreDataService } from 'src/app/services/firestore-data.service';
 import { take } from 'rxjs/internal/operators/take';
-import { User } from 'src/app/models/users.model';
+import { Student, User } from 'src/app/models/users.model';
 import { AppService } from 'src/app/services/app.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Folder } from 'src/app/models/folder.model';
 import { trigger, transition, style, animate, query, stagger } from '@angular/animations';
+import { UserService } from 'src/app/services/user.service';
 const starAnimation = trigger('starAnimation', [
   transition('* <=> *', [
     query(':enter',
@@ -31,7 +32,7 @@ const starAnimation = trigger('starAnimation', [
 })
 export class PersonalFormsGameComponent implements OnInit, OnDestroy {
 
-  constructor(private afs: FirestoreDataService, private appService: AppService, private route: ActivatedRoute, private router: Router) {}
+  constructor(private afs: FirestoreDataService, private appService: AppService, private route: ActivatedRoute, private router: Router, private userService: UserService) {}
 
   
   Games: PersonalFormsGame[] = []
@@ -368,11 +369,16 @@ export class PersonalFormsGameComponent implements OnInit, OnDestroy {
     }
   }
 
-  finishGame() {
+  async finishGame() {
     if(this.totalNumberOfRounds > 0) {
-      // this.endtime = Date.now();
-      // this.duration = this.endtime-this.starttime;
-      // this.afs.createResult(this.currentUser.uid, this.totalrounds, this.roundsWon, this.folderID, this.duration);
+      let result = []
+      if(this.teacherPlaying == false) {
+        let result = await this.userService.finishGame(this.currentUser as Student, this.totalNumberOfRounds, this.roundsWon, this.folder.name, 0, this.folder.stars)
+        this.userService.giveAlerts(result[1])
+      }
+      this.finished = true;
+      this.finalScreen()
+      console.log(result);
       this.finished = true;
       this.finalScreen()
     }
