@@ -1,3 +1,8 @@
+h6 {
+    margin-top: 20px;
+}
+
+
 .donation-meter {
     position: fixed;
     left: 0;
@@ -102,6 +107,7 @@ strong {
     position: absolute;
     height: 90%;
     width: 100%;
+    z-index: 2;
   }
 .confetti {
     width: 15px;
@@ -122,3 +128,29 @@ strong {
     75% { transform: rotateZ(5deg) rotateY(1080deg) translate(-10vw,80vh); }
     100% { transform: rotateZ(15deg) rotateY(1440deg) translate(10vw,100vh); }
   }
+
+  .center{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.button-row{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.ng-valid:not(form) {
+    border: solid 2px lightgreen;
+  }
+  
+.ng-invalid:not(form).form-submitted {
+border: solid 2px lightcoral;
+}
+
+/* form {
+    width: 60%;
+    margin: 0 auto;
+} */

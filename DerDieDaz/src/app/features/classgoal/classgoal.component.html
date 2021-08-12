@@ -1,5 +1,5 @@
 <div class="donation-meter">
-    <strong>{{goalText}}</strong>
+    <strong >{{goalText}}</strong>
     <strong class="goal">{{goalPrice}} Sterne</strong>
     <div class="thermometer-wrapper">
         <span class="glass">
@@ -11,8 +11,7 @@
             <span class="filler" ></span>
         </div>
     </div>
-
-    <button class="btn btn-success" style="margin-left: -30px;">Klassenziel festlegen</button>
+    <button *ngIf="currentUser?.role == 2" class="btn btn-success" style="margin-left: -30px;" id="openModalButton" type="button" data-toggle="modal" data-target="#editClassGoalModal" (click)="setInputFieldValues()">Klassenziel festlegen</button>
 </div>
 
 
@@ -22,3 +21,34 @@
     <div *ngFor="let number of numbers; index as i" class="confetti" id="confetti-{{i}}">
     </div>
 </div>
+
+
+<!-- modal for changing classgoal -->
+<div class="modal fade" id="editClassGoalModal" tabindex="-1" role="dialog" aria-labelledby="editClassGoalModal" aria-hidden="true" [formGroup]="updateClassGoalForm" (ngSubmit) = "onSubmit()">
+    <div class="modal-dialog modal-dialog-centered" role="document" >
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title center" id="exampleModalLongTitle">Klassenziel ändern</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body center">
+            <div>
+                <h6>Klassenzielbeschreibung:</h6>
+                <input [ngClass]="{'form-submitted': formSubmitted}" type="text" class="form-control" formControlName ="goalDesc">
+                <h6>Klassenzielpreis:</h6>
+                <input [ngClass]="{'form-submitted': formSubmitted}" type="number" class="form-control" formControlName ="goalPrice">
+                <h6>Fortschritt:</h6>
+                <input [ngClass]="{'form-submitted': formSubmitted}" type="number" class="form-control" formControlName ="progressPrice">
+            </div>
+        </div>
+        <div class="modal-footer center">
+            <div class="button-row">
+                <button id="abortButton" type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+                <input value="Speichern"  type="submit" class="btn btn-primary" (click)="onSubmit()">
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
