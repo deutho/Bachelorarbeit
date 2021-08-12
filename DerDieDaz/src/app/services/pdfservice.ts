@@ -10,45 +10,27 @@ export class PDFService {
     
 
     generateHomeWorkVoucher(student: string, gender: string) {
-        var pdf = new jsPDF();
+        var pdf = new jsPDF("l",'mm', [297,210]);
 
         this.font.AddFont(pdf);
 
-        pdf.setFontSize(25);
-        pdf.text("Hausübungsgutschein", 40, 35)
+        var image0 = new Image()
+        image0.src = "./../../../assets/Images/Gutschein.jpg";
+        pdf.addImage(image0, 'JPG', 0, 0, 297, 210);
 
-        pdf.setFontSize(16);
-        if(gender == "FEMALE") pdf.text("Liebe " + student +"!", 5, 100);
-        else if (gender == "MALE") pdf.text("Lieber " + student +"!", 5, 100);
-        else if (gender == "OTHER") pdf.text("Liebe(r) " + student +"!", 5, 100);
-        
-        pdf.text("Wir bei derdieDAZ gratulieren dir herzlich zu deinen herausragenden Leistungen!", 5, 110)
+        pdf.setFontSize(24);
 
+        let text = ""
 
+        if(gender == "FEMALE") text = "Liebe " + student +"!";
+        else if (gender == "MALE") text ="Lieber " + student +"!"
+        else if (gender == "OTHER") text = "Liebe(r) " + student +"!"
 
-        pdf.setFontSize(19)
-        pdf.text("Dieser Gutschein berechtigt dich eine beliebige Hausübung auszulassen.", 5, 150);
+        pdf.text(text, 148-text.length*3/2, 100)
 
-        pdf.setFontSize(17)
-        pdf.text("Ausgestellt am "+formatDate(new Date(), 'dd.MM.yyyy', 'en'),5, 180)
-        pdf.text("Eingelöst am: ",5, 190)
-        pdf.text("Unterschrift der Lehrkraft: ", 5, 200)
-
-
-
-        pdf.setFontSize(15)
-        pdf.text("(Nur gültig an deiner Schule und bei deiner derdieDAZ-Lehrkraft.)", 5, 290)
-
-
-        var image1 = new Image()
-        image1.src = "./../../../assets/Images/Logo-derdiedaz.png";
-        pdf.addImage(image1, 'PNG', 130, 0, 80, 80);
-
-        var image2 = new Image()
-        image2.src = "./../../../assets/Images/logo.png";
-        pdf.addImage(image2, 'PNG', 193,280,15,15)
-
-
+        pdf.setFontSize(18)
+        pdf.text(formatDate(new Date(), 'dd.MM.yyyy', 'en'), 158, 146)
+       
         pdf.save('Gutschein '+student+' '+formatDate(new Date(), 'ddMMyyyy', 'en')+'.pdf');
 
     }
