@@ -299,6 +299,24 @@ export class FirestoreDataService {
         });
     }
 
+    async updateHomeworkVoucherPrice(amount: number, uid: string): Promise<void> {
+        let ref = await this.db.collectionGroup("users").where("uid","==",uid).get();
+        ref.forEach(doc => {
+            return doc.ref.update({
+                homeworkVoucherPrice: amount
+            });
+        });
+    }
+
+    async toggleHomeWorkVoucherStatus(status: boolean, uid: string): Promise<void> {
+        let ref = await this.db.collectionGroup("users").where("uid","==",uid).get();
+        ref.forEach(doc => {
+            return doc.ref.update({
+                activatedHomeworkVoucher: !status
+            });
+        });
+    }
+
 
     /** temporary result of a finished game
      * 

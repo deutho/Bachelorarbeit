@@ -99,7 +99,7 @@ export class ShopComponent implements OnInit, OnDestroy {
   sortFunction(a, b) {
     // if same price sort by first letter alphabetically, else sort by price descending
     if (a[2] === b[2]) {
-        return a[0][0] < b[0][0] ? -1 : 1;
+        return a[0] < b[0] ? -1 : 1;
     }
     else {
         return (a[2] < b[2]) ? 1 : -1;

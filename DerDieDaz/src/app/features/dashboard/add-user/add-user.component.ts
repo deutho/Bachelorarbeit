@@ -84,7 +84,9 @@ export class AddUserComponent implements OnInit {
           classtargetAchieved: false,
           individualtargets: new Map<string, number>(),
           dailyloginreward: 50,
-          gender: "MALE"
+          gender: "MALE",
+          activatedHomeworkVoucher: false,
+          homeworkVoucherPrice: 100
         };
       } 
       else{

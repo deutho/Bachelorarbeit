@@ -25,7 +25,7 @@ export class ProfileComponent implements OnInit {
   editingPicture: boolean = false;
   loaded: boolean = false;
   editingLoginReward: boolean = false;
-  
+  editingHomeworkPrice: boolean = false;
   
   constructor(public afs: FirestoreDataService, private app: AppService, public router: Router, private alert: AlertService) {
     this.app.myImageURL$.subscribe((data) => {
@@ -76,7 +76,6 @@ export class ProfileComponent implements OnInit {
   }
 
   editingLoginRewardSubmit(){
-    console.log("editing")
     if(parseInt((<HTMLInputElement>document.getElementById("newDailyLoginReward")).value) < 0){
       this.alert.error("Tägliche Belohnung muss positiv sein")
     }
@@ -87,6 +86,20 @@ export class ProfileComponent implements OnInit {
         this.alert.error("Belohnung konnte nicht aktualisiert werden.")
       })
       this.editingLoginReward = false;
+    }
+  }
+
+  editingHomeworkPriceSubmit(){
+    if(parseInt((<HTMLInputElement>document.getElementById("newHomeworkPrice")).value) < 0){
+      this.alert.error("Preis für tägliche Belohnung muss positiv sein")
+    }
+    else{
+      this.afs.updateHomeworkVoucherPrice(parseInt((<HTMLInputElement>document.getElementById("newHomeworkPrice")).value), this.currentUser.uid).then(()=>{
+        this.alert.success("Preis des Hausübungsgutscheines wurde aktualisiert.")
+      }).catch(()=>{
+        this.alert.error("Preis des Hausübungsgutscheines konnte nicht aktualisiert werden.")
+      })
+      this.editingHomeworkPrice = false;
     }
   }
 

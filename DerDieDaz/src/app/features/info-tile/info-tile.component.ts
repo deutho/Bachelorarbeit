@@ -55,6 +55,13 @@ export class InfoTileComponent implements OnInit {
       if(this.currentUser.role == 2){
         this.alert.error("Als Lehrkraft kann man keine Belohnungen kaufen.")
       }
+      else if(this.header == "Hausübungsgutschein"){
+        this.userservice.purchaseReward(this.header, "Hausübungsgutschein-"+this.currentUser.uid, this.buttonText, this.currentUser).then((message) => {
+          this.alert.success(message);
+        }).catch((message) => {
+          this.alert.error(message)
+        });
+      }
       else{
         this.userservice.purchaseReward(this.header, this.shopItemID, this.buttonText, this.currentUser).then((message) => {
           this.alert.success(message);
@@ -67,6 +74,9 @@ export class InfoTileComponent implements OnInit {
     else if(buttonAction == "createReward"){
       // redirect? modal? sicke aufwendige drehkarte?
       this.router.navigate(['createReward'])
+    }
+    else if(buttonAction == "toggleHomeworkVoucher"){
+      this.afs.toggleHomeWorkVoucherStatus(this.currentUser.activatedHomeworkVoucher, this.currentUser.uid)
     }
   }
 
