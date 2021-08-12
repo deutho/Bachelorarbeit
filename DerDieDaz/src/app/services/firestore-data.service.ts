@@ -14,12 +14,14 @@ import { Challange } from '../models/challange.model';
 import { Result } from '../models/result';
 import { query } from '@angular/animations';
 import { Purchase } from '../models/purchase.model';
+import { FeaturesModule } from '../features/features.module';
+import { AppModule } from '../app.module';
 
 
 
 
-@Injectable({ providedIn: 'root' })
-export class FirestoreDataService implements OnDestroy {
+@Injectable({ providedIn: "root" })
+export class FirestoreDataService {
     db = firebase.firestore();
     storage = firebase.storage();
     storageRef = this.storage.ref();
@@ -36,11 +38,6 @@ export class FirestoreDataService implements OnDestroy {
         this.authStatusListener();
         
     }
-    ngOnDestroy(): void {
-        this.usersub.unsubscribe();
-    }
-
-    
     //Auth Change Listener for the user observable
     authStatusListener() {
         firebase.auth().onAuthStateChanged(async (credential) => {
@@ -49,6 +46,8 @@ export class FirestoreDataService implements OnDestroy {
                 this.getPurchasesFromUser();
             } else {
                 this.currentUser.next(null);
+                if (this.usersub != null) this.usersub();
+                if (this.usersub != null) this.purchasesub();
             }
         })
     }
@@ -162,6 +161,8 @@ export class FirestoreDataService implements OnDestroy {
 
     }
 
+    
+
     /** removes folder from a document
      * 
      * @param folder the folder to be removed
@@ -259,8 +260,18 @@ export class FirestoreDataService implements OnDestroy {
             })
         });
     }
-    
 
+
+    async updateClassTarget(desc: string, price: number, progress: number, uid: string) {
+        let ref = await this.db.collectionGroup("users").where("uid","==",uid).get();
+        ref.forEach(doc => {
+            return doc.ref.update({
+                classtargets: {desc:price},
+                classtargetBalance: progress,
+            });
+        });
+    }
+    
     /** temporary result of a finished game
      * 
      * @param uid uid of user (student)

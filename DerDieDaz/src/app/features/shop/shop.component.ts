@@ -30,7 +30,7 @@ export class ShopComponent implements OnInit, OnDestroy {
   constructor(private afs: FirestoreDataService, private app: AppService) { }
   ngOnDestroy(): void {
     this.currentUserSubscription.unsubscribe();
-    if (this.currentUser.role == 3) this.purchaseSubscription.unsubscribe();
+    if (this.purchaseSubscription != null) this.purchaseSubscription.unsubscribe();
   }
 
   async ngOnInit(){
@@ -47,8 +47,6 @@ export class ShopComponent implements OnInit, OnDestroy {
               this.purchaes.forEach((purchase) => {
                 this.objects.push(purchase.objectID);
               });
-              console.log('objects:');
-              console.log(this.objects)
             }
           });
         }
@@ -63,6 +61,7 @@ export class ShopComponent implements OnInit, OnDestroy {
 
   async initialize(){
     // reset arrays in case user Object does change in database (starbalance changed by buying)
+
     this.itemNames = [];
     this.itemImages = [];
     this.itemPrices = [];

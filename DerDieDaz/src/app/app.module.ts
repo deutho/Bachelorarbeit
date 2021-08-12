@@ -32,7 +32,6 @@ import { ChallangeRewardAlertComponent } from './challange-reward-alert/challang
   imports: [
     BrowserModule,
     AppRoutingModule, 
-    LoginModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
@@ -43,7 +42,8 @@ import { ChallangeRewardAlertComponent } from './challange-reward-alert/challang
     NgbModule,
     NgbPaginationModule, 
     NgbAlertModule,
-    FeaturesModule
+    FeaturesModule,
+    LoginModule
   ],
   providers: [ 
     AngularFirestore,
