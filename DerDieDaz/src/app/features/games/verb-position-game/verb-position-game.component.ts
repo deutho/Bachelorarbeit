@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { User } from 'src/app/models/users.model';
+import { Student, User } from 'src/app/models/users.model';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import { VerbPositionGame } from 'src/app/models/VerbPositionGame.model';
 import { FirestoreDataService } from 'src/app/services/firestore-data.service';
@@ -7,6 +7,8 @@ import { AppService } from 'src/app/services/app.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Folder } from 'src/app/models/folder.model';
 import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
+import { UserService } from 'src/app/services/user.service';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 const starAnimation = trigger('starAnimation', [
   transition('* <=> *', [
     query(':enter',
@@ -28,7 +30,7 @@ const starAnimation = trigger('starAnimation', [
 })
 export class VerbPositionGameComponent implements OnInit, OnDestroy {
   
-  constructor(private afs: FirestoreDataService, private appService: AppService, private route: ActivatedRoute, private router: Router) {
+  constructor(private afs: FirestoreDataService, private appService: AppService, private route: ActivatedRoute, private router: Router, private userService: UserService) {
    }
 
    finito: boolean = false
@@ -51,7 +53,7 @@ export class VerbPositionGameComponent implements OnInit, OnDestroy {
    roundsWonAnimation = [];
    roundsLostAnimation = [];
    noQuestionsInGame = false;
-   teacherPlaying: boolean;
+   teacherPlaying: boolean = false;
    audio = new Audio("");
    wrongAnwserNotification: boolean = false;
    studentmode: boolean = true;
@@ -89,7 +91,7 @@ export class VerbPositionGameComponent implements OnInit, OnDestroy {
       this.appService.myHeader(this.folder.name);
 
       //evaluate if teacher is playing
-      if (this.currentUser.role == 2) this.teacherPlaying == true;
+      if (this.currentUser.role == 2) this.teacherPlaying = true;
 
       await this.afs.getTasksPerID(this.folderID).then(data => this.Games = data);
       this.sentence = [];
@@ -239,10 +241,18 @@ export class VerbPositionGameComponent implements OnInit, OnDestroy {
     this.sentence[this.sentence.length-1] = wordPluspoint   
   }
 
-  finishGame() {
+  async finishGame() {
+    console.log(this.totalNumberOfRounds)
     if(this.totalNumberOfRounds > 0){
+      let result = []
+      console.log(this.teacherPlaying)
+      if(this.teacherPlaying == false) {
+        let result = await this.userService.finishGame(this.currentUser as Student, this.totalNumberOfRounds, this.roundsWon, this.folder.name, 0, this.folder.stars)
+        this.userService.giveAlerts(result[1])
+      }
       this.finished = true;
       this.finalScreen()
+      console.log(result);
     }else{
       this.noQuestionsInGame = true;
       console.log("no questions included")
