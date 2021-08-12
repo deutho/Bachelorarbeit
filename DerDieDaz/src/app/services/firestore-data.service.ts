@@ -272,6 +272,24 @@ export class FirestoreDataService {
         });
     }
 
+    async updatePurchaseGiven(purchase: Purchase) {
+    let ref = await this.db.collection("purchases").where("objectID", "==", purchase.objectID).where("studentID", "==", purchase.studentID).get()
+        ref.forEach(doc => {
+            doc.ref.update({
+                given: purchase.given
+            });
+        });
+    }
+
+    async deletePurchaseDocument(purchase: Purchase) {
+        let ref = await this.db.collection("purchases").where("objectID", "==", purchase.objectID).where("studentID", "==", purchase.studentID).get()
+        ref.forEach(doc => {
+            doc.ref.delete();
+        });
+    }
+
+    
+
 
     async updateClassTarget(desc: string, price: number, progress: number, uid: string): Promise<void> {
         let ref = await this.db.collectionGroup("users").where("uid","==",uid).get();
@@ -370,7 +388,7 @@ export class FirestoreDataService {
         });
     }
 
-    addPurchaseDocument(objectname: string, username: string, objectID: string, price: number, studentID: string, teacherID: string) {
+    addPurchaseDocument(objectname: string, username: string, objectID: string, price: number, studentID: string, teacherID: string, given: boolean) {
         this.db.collection("purchases").add({
             buyDate: firebase.firestore.FieldValue.serverTimestamp(),
             objectID: objectID,
@@ -378,7 +396,8 @@ export class FirestoreDataService {
             studentID: studentID,
             teacherID: teacherID,
             studentName: username,
-            objectname: objectname
+            objectname: objectname,
+            given: given
         });
     }
 
@@ -391,6 +410,8 @@ export class FirestoreDataService {
         let ref: any = this._afs.collection("avatars");
         return await ref.valueChanges().pipe(take(1)).toPromise()
     }
+
+    
     
 }
 

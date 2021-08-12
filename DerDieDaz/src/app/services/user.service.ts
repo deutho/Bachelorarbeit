@@ -53,7 +53,7 @@ export class UserService {
             
             else {
                 this.withdrawStarsFromUser(user, parseInt(price));
-                this.afs.addPurchaseDocument(clearname, user.firstname + " " + user.lastname, rewardname, parseInt(price), user.uid, user.parent);
+                this.afs.addPurchaseDocument(clearname, user.firstname + " " + user.lastname, rewardname, parseInt(price), user.uid, user.parent, false);
 
                 resolve("Belohnung wurde gekauft")
 
