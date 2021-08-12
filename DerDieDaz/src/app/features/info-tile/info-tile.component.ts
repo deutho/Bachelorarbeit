@@ -19,6 +19,8 @@ export class InfoTileComponent implements OnInit {
   @Input() public buttonAction: string;
   @Input() public goldBorder: boolean = false;
   @Input() public alreadyBought: boolean = false;
+  @Input() public rewarduid: string
+  
   loaded = false
   height = 0;
   currentUser: any;
@@ -31,7 +33,7 @@ export class InfoTileComponent implements OnInit {
   async ngOnInit() {
     this.loaded = false
     this.afs.currentUserStatus.subscribe(data => this.currentUser = data);
-    // console.log(this.buttonText)
+    console.log(this.buttonText)
   }
 
   async buttonClick(buttonAction){
@@ -55,7 +57,7 @@ export class InfoTileComponent implements OnInit {
       }
       else{
       // stefaaaannnnnn bitte currency abziehen thx :*
-        this.userservice.purchaseReward(this.header, this.buttonText, this.currentUser).then((message) => {
+        this.userservice.purchaseReward(this.rewarduid, this.buttonText, this.currentUser).then((message) => {
           this.alert.success(message);
         }).catch((message) => {
           this.alert.error(message)
@@ -67,5 +69,6 @@ export class InfoTileComponent implements OnInit {
       // redirect? modal? sicke aufwendige drehkarte?
       this.router.navigate(['createReward'])
     }
-  }  
+  }
+
 }

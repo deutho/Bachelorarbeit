@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Reward } from 'src/app/models/reward.model';
 import { Teacher } from 'src/app/models/users.model';
 import { AlertService } from 'src/app/services/alertService';
 import { AppService } from 'src/app/services/app.service';
@@ -60,6 +61,39 @@ export class CreateRewardComponent implements OnInit {
         this.alert.error("Belohnung konnte aufgrund von Netzwerkproblemen nicht erstellt werden.")
       })
     }
+
+
+  // addReward(){
+  //   this.formSubmitted = true;
+  //   if(this.addRewardForm.valid){
+      
+  //     if(this.imageURL == "") {
+  //       this.alert.error("Es wurde kein Bild für die Belohnung gewählt.")
+  //       return
+  //     }
+  //     let object :string = this.addRewardForm.get('object').value
+  //     let imageURL :string = this.imageURL
+  //     let price :string = this.addRewardForm.get('price').value
+
+  //     let newReward = <Reward> {
+  //       uid: this.uid,
+  //       imageURL: imageURL,
+  //       price: parseInt(price),
+  //       name: object
+  //     }
+      
+  //     let currRewards: Reward[] = this.currentUser.individualtargets;
+  //     currRewards.push(newReward);
+
+  //     this.afs.UpdateIndividualTargets(this.currentUser.individualtargets, this.currentUser.uid).then(()=>{
+  //       this.imageURL = ""
+  //       this.router.navigate(['shop'])
+  //     }).catch(()=>{
+  //       this.alert.error("Belohnung konnte aufgrund von Netzwerkproblemen nicht erstellt werden.")
+  //     })
+  //   }
+
+
 
 
 
