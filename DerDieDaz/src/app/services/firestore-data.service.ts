@@ -47,7 +47,7 @@ export class FirestoreDataService {
             } else {
                 this.currentUser.next(null);
                 if (this.usersub != null) this.usersub();
-                if (this.usersub != null) this.purchasesub();
+                if (this.purchasesub != null) this.purchasesub();
             }
         })
     }
