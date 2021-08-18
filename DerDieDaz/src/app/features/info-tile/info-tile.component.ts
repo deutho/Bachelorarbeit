@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertComponent } from 'src/app/alert/alert.component';
 import { AlertService } from 'src/app/services/alertService';
@@ -10,7 +10,7 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './info-tile.component.html',
   styleUrls: ['./info-tile.component.css']
 })
-export class InfoTileComponent implements OnInit {
+export class InfoTileComponent implements OnInit, OnDestroy {
   @Input() public header: string;
   @Input() public image: string;
   @Input() public descriptionFront: string;
@@ -24,15 +24,19 @@ export class InfoTileComponent implements OnInit {
   loaded = false
   height = 0;
   currentUser: any;
+  usersubscription
 
 
   constructor(private afs: FirestoreDataService, private alert: AlertService, private router: Router, private userservice: UserService) {
     
    }
+  ngOnDestroy(): void {
+    this.usersubscription.unsubscribe();
+  }
 
   async ngOnInit() {
     this.loaded = false
-    this.afs.currentUserStatus.subscribe(data => this.currentUser = data);
+    this.usersubscription = this.afs.currentUserStatus.subscribe(data => this.currentUser = data);
     console.log(this.buttonText)
   }
 

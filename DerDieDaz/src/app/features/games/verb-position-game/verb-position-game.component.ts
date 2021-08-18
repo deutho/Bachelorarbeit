@@ -59,9 +59,10 @@ export class VerbPositionGameComponent implements OnInit, OnDestroy {
    studentmode: boolean = true;
    dockey: string;
    studentmodesubscription;
+   usersubscription
 
   async ngOnInit(): Promise<void> {
-    this.afs.currentUserStatus.subscribe(data => {
+    this.usersubscription = this.afs.currentUserStatus.subscribe(data => {
       this.currentUser = data
       if (data != null) this.initialize();
     });
@@ -333,6 +334,7 @@ export class VerbPositionGameComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     if (this.studentmodesubscription != undefined) this.studentmodesubscription.unsubscribe(); 
+    this.usersubscription.unsubscribe();
    }
 
 }

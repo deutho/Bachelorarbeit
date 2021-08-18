@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { User } from 'src/app/models/users.model';
 import { AppService } from 'src/app/services/app.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -9,19 +9,25 @@ import { FirestoreDataService } from 'src/app/services/firestore-data.service';
   templateUrl: './studentlist.component.html',
   styleUrls: ['./studentlist.component.css']
 })
-export class StudentlistComponent implements OnInit {
+export class StudentlistComponent implements OnInit, OnDestroy {
 
   currentUser: User;
   studentList: User[];
   loading: boolean;
+  subscription;
 
 
   constructor(private afs: FirestoreDataService, private auth: AuthService, private app: AppService) { }
 
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
  async ngOnInit() {
    //Get the current teacher
    this.app.myHeader("Schülerliste")
-   this.afs.currentUserStatus.subscribe(data => {
+   this.subscription = this.afs.currentUserStatus.subscribe(data => {
      this.currentUser = data
      this.getStudents();
     });

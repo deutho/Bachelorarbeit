@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { take, tap } from 'rxjs/operators';
@@ -15,7 +15,7 @@ import {MainComponent} from '../main/main.component';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
 
   
 
@@ -26,16 +26,24 @@ export class ProfileComponent implements OnInit {
   loaded: boolean = false;
   editingLoginReward: boolean = false;
   editingHomeworkPrice: boolean = false;
+  ImageSubscription;
+  UserSubscription;
   
   constructor(public afs: FirestoreDataService, private app: AppService, public router: Router, private alert: AlertService) {
-    this.app.myImageURL$.subscribe((data) => {
+    this.ImageSubscription = this.app.myImageURL$.subscribe((data) => {
       this.imageURL = data;
       this.pictureEdited(data)
     });
   }
+
+
+  ngOnDestroy(): void {
+   this.ImageSubscription.unsubscribe();
+   this.UserSubscription.unsubscribe();
+  }
   
   async ngOnInit() {
-    this.afs.currentUserStatus.subscribe(data => {
+    this.UserSubscription = this.afs.currentUserStatus.subscribe(data => {
       this.currentUser = data
       if (data != null) this.initialize()
     });

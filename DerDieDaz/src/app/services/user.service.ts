@@ -132,7 +132,7 @@ export class UserService {
 
             //when the Streak was lost
             else if (diff > user.lastRewardResetTime + 24) {
-                user.loginStreak == 1;
+                user.loginStreak = 1;
                 let balance = user.starbalance + user.dailyloginreward;
                 user.starbalance = balance;
                 user.lastReward = now;

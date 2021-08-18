@@ -59,6 +59,7 @@ export class PersonalFormsGameComponent implements OnInit, OnDestroy {
   studentmode: boolean = true;
   dockey: string;
   studentmodesubscription;
+  usersubscription;
 
 
   // boolean to detect if list already contains a string
@@ -88,7 +89,7 @@ export class PersonalFormsGameComponent implements OnInit, OnDestroy {
   items6 = [];
 
   async ngOnInit(): Promise<void> {
-    this.afs.currentUserStatus.subscribe(data => {
+    this.usersubscription = this.afs.currentUserStatus.subscribe(data => {
       this.currentUser = data
       if (data != null) this.initialize();
     });
@@ -444,5 +445,6 @@ export class PersonalFormsGameComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     if (this.studentmodesubscription != undefined) this.studentmodesubscription.unsubscribe(); 
+    this.usersubscription.unsubscribe();
   }
 }

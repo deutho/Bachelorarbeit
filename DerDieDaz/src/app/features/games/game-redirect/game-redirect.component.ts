@@ -14,6 +14,7 @@ export class GameRedirectComponent implements OnInit, OnDestroy {
   currentUser: User;
   studentMode: boolean;
   modesubscription;
+  userSubscription;
 
   constructor(private route: ActivatedRoute, private router: Router, private afs: FirestoreDataService, private appService: AppService) { }
 
@@ -23,7 +24,7 @@ export class GameRedirectComponent implements OnInit, OnDestroy {
     let type: string = this.route.snapshot.queryParamMap.get('t');
 
     //get user
-    this.afs.currentUserStatus.subscribe(data => this.currentUser = data);
+    this.userSubscription = this.afs.currentUserStatus.subscribe(data => this.currentUser = data);
 
     this.modesubscription = this.appService.myStudentMode$.subscribe((studentMode) => {
       this.studentMode = studentMode;
@@ -41,5 +42,6 @@ export class GameRedirectComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.modesubscription.unsubscribe();
+    this.userSubscription.unsubscribe();
   }
 }

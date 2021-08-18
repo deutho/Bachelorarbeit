@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {AngularFireAuth} from '@angular/fire/auth';
 import { Router } from '@angular/router';
@@ -17,7 +17,7 @@ import { AppService } from 'src/app/services/app.service';
   templateUrl: './add-user.component.html',
   styleUrls: ['./add-user.component.css']
 })
-export class AddUserComponent implements OnInit {
+export class AddUserComponent implements OnInit, OnDestroy {
 
   adduserform: FormGroup;
   formSubmitted = false;
@@ -28,7 +28,15 @@ export class AddUserComponent implements OnInit {
   newUser: User;
   currentUser: User;
   roleAddingUser: Number;
+  subscription;
+
   constructor(private fb: FormBuilder, private afs: FirestoreDataService, private auth_service: AuthService, private app: AppService) { }
+
+
+  
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 
   ngOnInit(): void {
     this.adduserform = this.fb.group({
@@ -55,7 +63,7 @@ export class AddUserComponent implements OnInit {
     this.success = undefined; 
     this.formSubmitted = true;
 
-    this.afs.currentUserStatus.subscribe(data => this.currentUser = data);
+    this.subscription = this.afs.currentUserStatus.subscribe(data => this.currentUser = data);
 
     console.log(this.adduserform.valid);
 

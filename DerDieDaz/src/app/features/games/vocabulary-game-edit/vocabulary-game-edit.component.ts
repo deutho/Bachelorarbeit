@@ -8,6 +8,7 @@ import { FirestoreDataService } from 'src/app/services/firestore-data.service';
 import {v4 as uuidv4} from 'uuid';
 import { RecordRTCService } from 'src/app/services/record-rtc.service';
 import { Folder } from 'src/app/models/folder.model';
+import { AsyncKeyword } from 'typescript';
 
 @Component({
   selector: 'app-vocabulary-game-edit',
@@ -71,7 +72,7 @@ export class VocabularyGameEditComponent implements OnInit, OnDestroy {
   studentmodesubscription;
   audioURLSubscription: any;
   imageURLSubscription: any;
-
+  userSubscription: any;
   constructor(private afs: FirestoreDataService, private router: Router, private appService: AppService, public _recordRTC:RecordRTCService, private route: ActivatedRoute) {
     
     this.imageURLSubscription = this.appService.myImageURL$.subscribe((data) => {
@@ -93,7 +94,7 @@ export class VocabularyGameEditComponent implements OnInit, OnDestroy {
 
   
     //get user
-    this.afs.currentUserStatus.subscribe(data => {
+    this.userSubscription = this.afs.currentUserStatus.subscribe(data => {
       this.currentUser = data
       if (data != null) this.initialize();
     });
@@ -593,6 +594,7 @@ export class VocabularyGameEditComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     if (this.studentmodesubscription != undefined) this.studentmodesubscription.unsubscribe(); 
+    this.userSubscription.unsubscribe();
     this.audioURLSubscription.unsubscribe(); 
     this.imageURLSubscription.unsubscribe(); 
    }
