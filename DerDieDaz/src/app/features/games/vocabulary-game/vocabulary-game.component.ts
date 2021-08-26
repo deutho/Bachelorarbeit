@@ -278,8 +278,7 @@ export class VocabularyGameComponent implements OnInit, OnDestroy {
         this.userService.giveAlerts(result[1])
       }
       this.finished = true;
-      this.finalScreen()
-      console.log(result);
+      this.finalScreen(result[0].earnedStars)
     }
     else this.noQuestionsInGame = true;
 
@@ -450,9 +449,9 @@ export class VocabularyGameComponent implements OnInit, OnDestroy {
     this.audio.play();
   }
 
-  finalScreen() {
-    this.roundsWonAnimation = [].constructor(this.roundsWon);
-    this.roundsLostAnimation = [].constructor(this.totalrounds - this.roundsWon);
+  finalScreen(stars: any) {
+    this.roundsWonAnimation = [].constructor(stars);
+    //this.roundsLostAnimation = [].constructor(this.totalrounds - this.roundsWon);
   }
 
   happyFace() {

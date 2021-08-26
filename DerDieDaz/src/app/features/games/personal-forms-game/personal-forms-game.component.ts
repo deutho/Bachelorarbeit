@@ -378,17 +378,14 @@ export class PersonalFormsGameComponent implements OnInit, OnDestroy {
         this.userService.giveAlerts(result[1])
       }
       this.finished = true;
-      this.finalScreen()
-      console.log(result);
-      this.finished = true;
-      this.finalScreen()
+      this.finalScreen(result[0].earnedStars);
     }
     else this.noQuestionsInGame = true;
   }
 
-  finalScreen(){
-    this.roundsWonAnimation = [].constructor(this.roundsWon);
-    this.roundsLostAnimation = [].constructor(this.roundsLost);
+  finalScreen(stars: any){
+    this.roundsWonAnimation = [].constructor(stars);
+    //this.roundsLostAnimation = [].constructor(this.roundsLost);
   }
 
   happyFace() {
