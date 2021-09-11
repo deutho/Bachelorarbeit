@@ -59,7 +59,8 @@ export class VerbPositionGameComponent implements OnInit, OnDestroy {
    studentmode: boolean = true;
    dockey: string;
    studentmodesubscription;
-   usersubscription
+   usersubscription;
+   image = new Image();  
 
   async ngOnInit(): Promise<void> {
     this.usersubscription = this.afs.currentUserStatus.subscribe(data => {
@@ -132,6 +133,14 @@ export class VerbPositionGameComponent implements OnInit, OnDestroy {
         this.answerIsCorrect = false;
         this.imageURL = this.currentGame.photoID;
         if(this.imageURL == './../../../../assets/Images/Placeholder-Image/north_blur_Text.png') this.imageURL = './../../../../assets/Images/imageNotFound.jpg'
+        
+        this.image.addEventListener('load', (event) => {
+          document.getElementById("image").style.display = "initial"
+        });
+        this.image.src=this.imageURL;
+        this.image.addEventListener('error', (event) => {
+          document.getElementById("image").style.display = "none"
+        });
         this.removeColor()        
     }
     else {
