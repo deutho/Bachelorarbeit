@@ -117,7 +117,6 @@ export class AddUserComponent implements OnInit, OnDestroy {
           lastReward: 0, //UTC Timestamp
           lastRewardResetTime: 0,
           gameresults: [],
-          dailyloginreward: teacher.dailyloginreward,
           totalGamesWon: 0,
           gender: "MALE"
         };

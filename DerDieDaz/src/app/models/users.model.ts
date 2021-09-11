@@ -21,7 +21,6 @@ export interface Student extends User {
     lastReward: number,
     lastRewardResetTime: number,
     gameresults: Result[],
-    dailyloginreward: number,
     totalGamesWon: number,
 }
 
