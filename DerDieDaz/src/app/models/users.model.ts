@@ -25,7 +25,7 @@ export interface Student extends User {
 }
 
 export interface Teacher extends User {
-    classtargets: Map<string, number>,
+    classtargets: {[key: string]: number},
     classtargetBalance: number,
     classtargetAchieved: boolean,
     individualtargets: any,
