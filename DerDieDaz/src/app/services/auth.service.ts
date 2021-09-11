@@ -41,9 +41,10 @@ export class AuthService {
     }
 
     signIn(email, password): Promise<any> {
-        this.redirectURL;
+        this.redirectURL = undefined;
         let params = this.route.snapshot.queryParams;
             if (params['redirectURL']) {
+                console.log("redirect")
                 this.redirectURL = params['redirectURL'];
             }
         console.log (this.redirectURL)
