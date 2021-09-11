@@ -21,7 +21,6 @@ import { UploadTaskComponent } from './upload-task/upload-task.component';
 import { DropzoneDirective } from './dropzone.directive';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AppComponent } from '../app.component';
-import { RedirectComponent } from './redirect/redirect.component';
 import { ClipboardModule } from 'ngx-clipboard';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NotFoundComponent } from './not-found/not-found.component';
@@ -57,7 +56,6 @@ declarations: [
   UploaderComponent,
   UploadTaskComponent,
   DropzoneDirective,
-  RedirectComponent,
   NotFoundComponent,
   AccessDeniedComponent,
   GameRedirectComponent,

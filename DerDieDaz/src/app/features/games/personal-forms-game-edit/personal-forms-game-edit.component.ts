@@ -71,6 +71,7 @@ export class PersonalFormsGameEditComponent implements OnInit, OnDestroy {
   dockey: string;
   studentmodesubscription;
   audioURLSubscription: any;
+  usersubscription;
 
 
   constructor(private router: Router, private afs: FirestoreDataService, private appService: AppService, public _recordRTC:RecordRTCService, private route: ActivatedRoute) { 
@@ -87,7 +88,7 @@ export class PersonalFormsGameEditComponent implements OnInit, OnDestroy {
 
   async ngOnInit(): Promise<void> {
     //get user
-    this.afs.currentUserStatus.subscribe(data => {
+    this.usersubscription = this.afs.currentUserStatus.subscribe(data => {
       this.currentUser = data
       if (data != null) this.initialize();
     });
@@ -489,5 +490,6 @@ loadCurrentValues(){
   ngOnDestroy() {
     if (this.studentmodesubscription != undefined) this.studentmodesubscription.unsubscribe(); 
     this.audioURLSubscription.unsubscribe(); 
+    this.usersubscription.unsubscribe();
    }
 }

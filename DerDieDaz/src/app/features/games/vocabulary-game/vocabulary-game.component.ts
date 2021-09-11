@@ -72,13 +72,14 @@ export class VocabularyGameComponent implements OnInit, OnDestroy {
   dockey: string;
   studentmode = true;
   studentmodesubscription;
+  usersubscription
 
   
   constructor(private afs: FirestoreDataService, public router: Router, private appService: AppService, private route: ActivatedRoute, private userService: UserService) {}
 
   async ngOnInit(){
 
-    this.afs.currentUserStatus.subscribe(data => {
+    this.usersubscription = this.afs.currentUserStatus.subscribe(data => {
       this.currentUser = data
       if(data != null) this.initialize();
     });
@@ -277,8 +278,7 @@ export class VocabularyGameComponent implements OnInit, OnDestroy {
         this.userService.giveAlerts(result[1])
       }
       this.finished = true;
-      this.finalScreen()
-      console.log(result);
+      this.finalScreen(result[0].earnedStars)
     }
     else this.noQuestionsInGame = true;
 
@@ -449,9 +449,9 @@ export class VocabularyGameComponent implements OnInit, OnDestroy {
     this.audio.play();
   }
 
-  finalScreen() {
-    this.roundsWonAnimation = [].constructor(this.roundsWon);
-    this.roundsLostAnimation = [].constructor(this.totalrounds - this.roundsWon);
+  finalScreen(stars: any) {
+    this.roundsWonAnimation = [].constructor(stars);
+    //this.roundsLostAnimation = [].constructor(this.totalrounds - this.roundsWon);
   }
 
   happyFace() {
@@ -465,6 +465,7 @@ export class VocabularyGameComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     if (this.studentmodesubscription != undefined) this.studentmodesubscription.unsubscribe(); 
+    this.usersubscription.unsubscribe();
    }
 
 

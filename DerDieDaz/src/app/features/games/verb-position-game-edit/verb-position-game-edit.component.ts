@@ -83,6 +83,7 @@ export class VerbPositionGameEditComponent implements OnInit, OnDestroy {
   studentmodesubscription;
   imageURLSubscription: any;
   audioURLSubscription: any;
+  usersubscription
 
 
   constructor(private router: Router, private afs: FirestoreDataService, private appService: AppService, public _recordRTC:RecordRTCService, private route: ActivatedRoute) { 
@@ -110,7 +111,7 @@ export class VerbPositionGameEditComponent implements OnInit, OnDestroy {
     this.ctx.font='16px Times, Serif';
 
     //get user
-    this.afs.currentUserStatus.subscribe(data => {
+    this.usersubscription = this.afs.currentUserStatus.subscribe(data => {
       this.currentUser = data
       if (data != null) this.initialize();
     });
@@ -568,6 +569,7 @@ export class VerbPositionGameEditComponent implements OnInit, OnDestroy {
     if (this.studentmodesubscription != undefined) this.studentmodesubscription.unsubscribe(); 
     this.audioURLSubscription.unsubscribe(); 
     this.imageURLSubscription.unsubscribe(); 
+    this.usersubscription.unsubscribe();
    }
 
 

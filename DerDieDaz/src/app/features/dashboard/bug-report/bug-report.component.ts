@@ -1,5 +1,5 @@
 import { createUrlResolverWithoutPackagePrefix, ThrowStmt } from '@angular/compiler';
-import { HostListener } from '@angular/core';
+import { HostListener, OnDestroy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestoreCollection } from '@angular/fire/firestore';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -14,7 +14,7 @@ import { FirestoreDataService } from 'src/app/services/firestore-data.service';
   templateUrl: './bug-report.component.html',
   styleUrls: ['./bug-report.component.css']
 })
-export class BugReportComponent implements OnInit {
+export class BugReportComponent implements OnInit, OnDestroy {
 
   response;
   success;
@@ -24,13 +24,19 @@ export class BugReportComponent implements OnInit {
   bugreports: BugReport[];
   ids: String[] = [];
   dates: String[] = [];
+  subscription;
 
   constructor(private afs: FirestoreDataService, private app: AppService) { }
+
+
+  ngOnDestroy(): void {
+   this.subscription.unsubscribe();
+  }
 
   async ngOnInit() {
     this.write = true;
     this.posted = false;
-    this.afs.currentUserStatus.subscribe(data => this.currentUser = data);  
+    this.subscription = this.afs.currentUserStatus.subscribe(data => this.currentUser = data);  
 
     this.app.myHeader("Feedback geben");
     

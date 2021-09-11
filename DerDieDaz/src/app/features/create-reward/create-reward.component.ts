@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Reward } from 'src/app/models/reward.model';
@@ -13,7 +13,7 @@ import {v4 as uuidv4} from 'uuid';
   templateUrl: './create-reward.component.html',
   styleUrls: ['./create-reward.component.css']
 })
-export class CreateRewardComponent implements OnInit {
+export class CreateRewardComponent implements OnInit, OnDestroy {
   
   formSubmitted = false;
   addRewardForm: FormGroup;
@@ -22,6 +22,7 @@ export class CreateRewardComponent implements OnInit {
   editingPicture=false;
   uid = uuidv4();
   imageURLSubscription;
+  userSubscription;
 
   constructor(private router: Router, private fb: FormBuilder, private afs: FirestoreDataService, private alert: AlertService, private app: AppService) {
     this.imageURLSubscription = this.app.myImageURL$.subscribe((data) => {
@@ -31,8 +32,14 @@ export class CreateRewardComponent implements OnInit {
     });
    }
 
+
+  ngOnDestroy(): void {
+    this.imageURLSubscription.unsubscribe();
+    this.userSubscription.unsubscribe();
+  }
+
   ngOnInit(): void {
-    this.afs.currentUserStatus.subscribe(data => this.currentUser = data as Teacher);
+    this.userSubscription = this.afs.currentUserStatus.subscribe(data => this.currentUser = data as Teacher);
     this.addRewardForm = this.fb.group({
       object:  ['', Validators.required],
       // imageURL: ['', Validators.required],

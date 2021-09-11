@@ -59,9 +59,10 @@ export class VerbPositionGameComponent implements OnInit, OnDestroy {
    studentmode: boolean = true;
    dockey: string;
    studentmodesubscription;
+   usersubscription
 
   async ngOnInit(): Promise<void> {
-    this.afs.currentUserStatus.subscribe(data => {
+    this.usersubscription = this.afs.currentUserStatus.subscribe(data => {
       this.currentUser = data
       if (data != null) this.initialize();
     });
@@ -251,8 +252,8 @@ export class VerbPositionGameComponent implements OnInit, OnDestroy {
         this.userService.giveAlerts(result[1])
       }
       this.finished = true;
-      this.finalScreen()
-      console.log(result);
+      this.finalScreen(result[0].earnedStars)
+      
     }else{
       this.noQuestionsInGame = true;
       console.log("no questions included")
@@ -314,9 +315,9 @@ export class VerbPositionGameComponent implements OnInit, OnDestroy {
     else return false;
   }
 
-  finalScreen() {
-    this.roundsWonAnimation = [].constructor(this.roundsWon);
-    this.roundsLostAnimation = [].constructor(this.totalNumberOfRounds - this.roundsWon);
+  finalScreen(stars: any) {
+    this.roundsWonAnimation = [].constructor(stars);
+    //this.roundsLostAnimation = [].constructor(this.totalNumberOfRounds - this.roundsWon);
   }
 
   goBack() {
@@ -333,6 +334,7 @@ export class VerbPositionGameComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     if (this.studentmodesubscription != undefined) this.studentmodesubscription.unsubscribe(); 
+    this.usersubscription.unsubscribe();
    }
 
 }

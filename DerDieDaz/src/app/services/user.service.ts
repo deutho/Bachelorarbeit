@@ -47,7 +47,7 @@ export class UserService {
     }
 
 
-    async purchaseReward(clearname: string, rewardname: string, price: string, user: Student) { //reward should eventually become a reward object
+    async purchaseReward(clearname: string, rewardname: string, price: string, user: Student) {
         return new Promise<any>((resolve, reject) => {
             if (user.starbalance < parseInt(price)) reject("Du hast nicht genügend Sterne für diese Belohnung. Übe weiter!")
             
@@ -58,8 +58,6 @@ export class UserService {
                 resolve("Belohnung wurde gekauft")
 
             }
-
-
 
         });
     }
@@ -132,7 +130,7 @@ export class UserService {
 
             //when the Streak was lost
             else if (diff > user.lastRewardResetTime + 24) {
-                user.loginStreak == 1;
+                user.loginStreak = 1;
                 let balance = user.starbalance + user.dailyloginreward;
                 user.starbalance = balance;
                 user.lastReward = now;
