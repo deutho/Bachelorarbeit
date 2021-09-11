@@ -11,6 +11,7 @@ import { FirestoreDataService } from "./firestore-data.service";
 @Injectable({ providedIn: 'root' })
 export class UserService {
 
+
     constructor(private afs: FirestoreDataService, private challangeAlert: ChallangeRewardService){}
 
 
@@ -117,8 +118,6 @@ export class UserService {
                 let streak = user.loginStreak + 1;
                 user.loginStreak = streak;
 
-                let balance = user.starbalance + user.dailyloginreward;
-                user.starbalance = balance;
                 user.lastReward = now;
 
                 let midnight = moment().endOf("day")
@@ -126,13 +125,15 @@ export class UserService {
 
                 map.set('loginreward', true);
                 map.set('streak', streak);
+                
+                let teachers: Teacher[] = await this.afs.getUserPerID(user.parent);
+                let teacher = teachers[0];
+                this.depositStarsToUser(user, teacher.dailyloginreward);
             } 
 
             //when the Streak was lost
             else if (diff > user.lastRewardResetTime + 24) {
                 user.loginStreak = 1;
-                let balance = user.starbalance + user.dailyloginreward;
-                user.starbalance = balance;
                 user.lastReward = now;
 
                 let midnight = moment().endOf("day")
@@ -140,6 +141,9 @@ export class UserService {
             
                 map.set('loginreward', true);
                 map.set('streak', 1);
+                let teachers: Teacher[] = await this.afs.getUserPerID(user.parent);
+                let teacher = teachers[0];
+                this.depositStarsToUser(user, teacher.dailyloginreward);
             }
 
             else if (diff < user.lastRewardResetTime) {
@@ -321,13 +325,17 @@ export class UserService {
     }
 
 
-    giveAlerts(map: Map<any, any>) {
+    async giveAlerts(map: Map<any, any>, user?) {
+
         map.forEach((value: string, key: string) => {
             console.log(key, value);
         })
-
-        if (map.get("loginreward")) {
-            this.challangeAlert.addReward("Du hast deine tägliche Belohnung im Wert von 0 Sternen erhalten! Deine aktuelle Loginserie ist "+ map.get("streak"), "./../../../assets/Images/sanduhr.png", "Bestätigen")
+        if(user != null) {
+            let teachers: Teacher[] = await this.afs.getUserPerID(user.parent);
+            let teacher = teachers[0];
+            if (map.get("loginreward")) {
+                this.challangeAlert.addReward("Du hast deine tägliche Belohnung im Wert von " + teacher.dailyloginreward + " Sternen erhalten! Deine aktuelle Loginserie ist "+ map.get("streak"), "./../../../assets/Images/sanduhr.png", "Bestätigen")
+            }
         }
 
         if (map.has('challange1')) {

@@ -454,12 +454,12 @@ export class VocabularyGameEditComponent implements OnInit, OnDestroy {
 
   abortPictureEdit() {
     //Delete the Uploaded Picture in case the Process was aborted
-    if ((<HTMLInputElement>document.getElementById('URL')).value.search("firebasestorage.googleapis.com") != -1) {
-      this.afs.deleteFromStorageByUrl((<HTMLInputElement>document.getElementById('URL')).value).catch((err) => {
-        console.log(err.errorMessage);
+    // if ((<HTMLInputElement>document.getElementById('URL')).value.search("firebasestorage.googleapis.com") != -1) {
+    //   this.afs.deleteFromStorageByUrl((<HTMLInputElement>document.getElementById('URL')).value).catch((err) => {
+    //     console.log(err.errorMessage);
         //Give Warning that Delete Operation was not successful
-      });
-    }
+      // });
+    // }
     this.editingPicture = false;
     this.imageURL = this.currentGame.photoID;
   }

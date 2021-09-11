@@ -375,7 +375,7 @@ export class PersonalFormsGameComponent implements OnInit, OnDestroy {
       let result = []
       if(this.teacherPlaying == false) {
         let result = await this.userService.finishGame(this.currentUser as Student, this.totalNumberOfRounds, this.roundsWon, this.folder.name, 0, this.folder.stars)
-        this.userService.giveAlerts(result[1])
+        this.userService.giveAlerts(result[1], this.currentUser)
       }
       this.finished = true;
       this.finalScreen(result[0].earnedStars);
