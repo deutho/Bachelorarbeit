@@ -162,6 +162,11 @@ export class VocabularyGameComponent implements OnInit, OnDestroy {
           this.checkIfContentIsLoaded();
         });
         this.image.src=this.imageURL;
+        this.image.addEventListener('error', (event) => {
+          this.imageURL = "./../../../../assets/Images/imageNotFound.jpg";
+          this.imageLoaded = true;
+          this.checkIfContentIsLoaded();
+        });
         this.checkIfContentIsLoaded();
     }else {
       this.finishGames() 
@@ -246,7 +251,7 @@ export class VocabularyGameComponent implements OnInit, OnDestroy {
   shuffleAnswers() {
     this.answers = [this.currentGame.answer1, this.currentGame.answer2, this.currentGame.answer3, this.currentGame.rightAnswer];
     if(this.currentGame.photoID == null){
-      this.currentGame.photoID = "https://www.thermaxglobal.com/wp-content/uploads/2020/05/image-not-found.jpg"
+      this.currentGame.photoID = "./../../../../assets/Images/imageNotFound.jpg"
     }
     this.imageURL = this.currentGame.photoID; //in the meantime set the URL
     if(this.imageURL == './../../../../assets/Images/Placeholder-Image/north_blur_Text.png') this.imageURL = './../../../../assets/Images/imageNotFound.jpg'
@@ -468,7 +473,10 @@ export class VocabularyGameComponent implements OnInit, OnDestroy {
     this.usersubscription.unsubscribe();
    }
 
-
+   imageError(){
+     alert("Test")
+  //   this.src='./../../../../assets/Images/imageNotFound.jpg'; this.imageLoaded=true; checkIfContentIsLoaded(); console.log('fuuuucckkkk')
+   }
 }
 
 
