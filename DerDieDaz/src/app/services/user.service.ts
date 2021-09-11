@@ -311,7 +311,7 @@ export class UserService {
 
             //update the streak and balance
             this.afs.updateLoginStreak(user.loginStreak, user.lastReward, user.lastRewardResetTime, user.uid);
-
+            
             //updateChallangesIfOneCompleted
             if (challangedone) {
                 this.afs.updateChallanges(user, user.challangesDone);
@@ -329,7 +329,7 @@ export class UserService {
         })
 
         if (map.get("loginreward")) {
-            this.challangeAlert.addReward("Du hast deine tägliche Belohnung im Wert von 50 Sternen erhalten! Deine aktuelle Loginserie ist "+ map.get("streak"), "./../../../assets/Images/sanduhr.png", "Bestätigen")
+            this.challangeAlert.addReward("Du hast deine tägliche Belohnung im Wert von 0 Sternen erhalten! Deine aktuelle Loginserie ist "+ map.get("streak"), "./../../../assets/Images/sanduhr.png", "Bestätigen")
         }
 
         if (map.has('challange1')) {
