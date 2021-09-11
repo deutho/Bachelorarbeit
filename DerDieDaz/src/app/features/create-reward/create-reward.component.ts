@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Reward } from 'src/app/models/reward.model';
 import { Teacher } from 'src/app/models/users.model';
 import { AlertService } from 'src/app/services/alertService';
@@ -23,8 +23,13 @@ export class CreateRewardComponent implements OnInit, OnDestroy {
   uid = uuidv4();
   imageURLSubscription;
   userSubscription;
+  sub;
+  id: string;
+  header: string;
+  image: string;
+  price: number;
 
-  constructor(private router: Router, private fb: FormBuilder, private afs: FirestoreDataService, private alert: AlertService, private app: AppService) {
+  constructor(private router: Router, private route: ActivatedRoute, private fb: FormBuilder, private afs: FirestoreDataService, private alert: AlertService, private app: AppService) {
     this.imageURLSubscription = this.app.myImageURL$.subscribe((data) => {
       this.imageURL = data;
       console.log(this.imageURL)
@@ -36,15 +41,25 @@ export class CreateRewardComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.imageURLSubscription.unsubscribe();
     this.userSubscription.unsubscribe();
+    this.sub.unsubscribe();
   }
 
   ngOnInit(): void {
     this.userSubscription = this.afs.currentUserStatus.subscribe(data => this.currentUser = data as Teacher);
+    this.sub = this.route.queryParams.subscribe(params => {
+      this.id = params['id'];
+      this.header = params['Description'];
+      this.imageURL = params['image']
+      this.price = +params['price']
+      console.log(params['Description'])
+      // In a real app: dispatch action to load the details here.
+   });
     this.addRewardForm = this.fb.group({
-      object:  ['', Validators.required],
+      object:  [this.header, Validators.required],
       // imageURL: ['', Validators.required],
-      price: ['', Validators.required],
+      price: [this.price, Validators.required],
     })
+    
   }
 
   addReward(){
@@ -60,7 +75,8 @@ export class CreateRewardComponent implements OnInit, OnDestroy {
       let price :string = this.addRewardForm.get('price').value
       let payload = {"object": object,"imageURL": imageURL, "price": price};
       console.log("payload:"+payload)
-      this.currentUser.individualtargets[this.uid]= payload
+      if(this.id == null) this.currentUser.individualtargets[this.uid]= payload
+      else this.currentUser.individualtargets[this.id]= payload
       this.afs.UpdateIndividualTargets(this.currentUser.individualtargets, this.currentUser.uid).then(()=>{
         this.imageURL = ""
         this.router.navigate(['shop'])
@@ -120,6 +136,16 @@ export class CreateRewardComponent implements OnInit, OnDestroy {
 
   abortPictureEdit() {
     this.editingPicture = false;
+  }
+
+  deleteShopItem(){
+    delete this.currentUser.individualtargets[this.id]
+    this.afs.UpdateIndividualTargets(this.currentUser.individualtargets, this.currentUser.uid).then(()=>{
+      this.imageURL = ""
+      this.router.navigate(['shop'])
+    }).catch(()=>{
+      this.alert.error("Belohnung konnte aufgrund von Netzwerkproblemen nicht erstellt werden.")
+    })
   }
 
 }

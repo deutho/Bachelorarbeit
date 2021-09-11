@@ -17,10 +17,13 @@ export class InfoTileComponent implements OnInit, OnDestroy {
   @Input() public descriptionBack: string;
   @Input() public buttonText: string;
   @Input() public buttonAction: string;
+  @Input() public button2Text: string;
+  @Input() public button2Action: string;
   @Input() public goldBorder: boolean = false;
   @Input() public alreadyBought: boolean = false;
   @Input() public rewarduid: string
   @Input() public shopItemID: string;
+
   loaded = false
   height = 0;
   currentUser: any;
@@ -84,4 +87,10 @@ export class InfoTileComponent implements OnInit, OnDestroy {
     }
   }
 
+  async button2Click(button2Action){
+    if(button2Action =="editShopItem"){
+      // do stuff
+      this.router.navigate(['createReward'], { queryParams: {id: this.shopItemID, Description: this.header, image: this.image, price: this.buttonText} })
+    }
+  }
 }

@@ -3,7 +3,7 @@
     <info-tile *ngIf="currentUser?.role == 2 && currentUser?.activatedHomeworkVoucher == true" class="info-tile" header="Hausübungsgutschein" image="./../../../assets/Images/voucher.png" buttonText='Kaufbar'  buttonAction="toggleHomeworkVoucher"></info-tile>
     <info-tile *ngIf="currentUser?.role == 2 && currentUser?.activatedHomeworkVoucher == false" class="info-tile deactivated" header="Hausübungsgutschein" image="./../../../assets/Images/voucher.png" buttonText='Nicht Kaufbar'  buttonAction="toggleHomeworkVoucher"></info-tile>
     <info-tile *ngIf="currentUser?.role == 3 && (parent?.activatedHomeworkVoucher == true || objects.indexOf('Hausübungsgutschein-'+currentUser.uid) != -1)" class="info-tile" header="Hausübungsgutschein" image="./../../../assets/Images/voucher.png" buttonText='{{parent.homeworkVoucherPrice}}' alreadyBought ="{{objects.indexOf('Hausübungsgutschein-'+currentUser.uid) != -1?true:''}}"  buttonAction="buy"></info-tile>
-    <info-tile *ngFor="let item of itemNames; index as i" class="info-tile" header="{{fullArray[i][0]}}" image="{{fullArray[i][1]}}" buttonText='{{fullArray[i][2]}}'  buttonAction="buy" alreadyBought ="{{objects.indexOf(fullArray[i][3]) != -1?true:''}}" shopItemID="{{fullArray[i][3]}}"></info-tile>
+    <info-tile *ngFor="let item of itemNames; index as i" class="info-tile" header="{{fullArray[i][0]}}" image="{{fullArray[i][1]}}" buttonText='{{fullArray[i][2]}}'  buttonAction="buy" button2Text="Bearbeiten" button2Action="editShopItem" alreadyBought ="{{objects.indexOf(fullArray[i][3]) != -1?true:''}}" shopItemID="{{fullArray[i][3]}}" ></info-tile>
 </div> 
 
 <!-- <div class="info-tile-wrapper">

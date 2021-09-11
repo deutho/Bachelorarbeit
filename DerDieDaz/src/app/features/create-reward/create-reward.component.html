@@ -1,7 +1,7 @@
 <form [formGroup]="addRewardForm" (ngSubmit) = "addReward()">
     <div class="padded-top">
         <h6 >Bezeichnung</h6>
-        <input [ngClass]="{'form-submitted': formSubmitted}" type="text" class="form-control" name = "object" formControlName ="object">
+        <input [ngClass]="{'form-submitted': formSubmitted}" type="text" class="form-control" name = "object" formControlName ="object" >
     </div>
     <div class="padded-top">
         <div class="image-wrapper" >          
@@ -25,9 +25,11 @@
     </div>
     <div class="padded-top">
         <h6>Preis der Belohnung</h6>
-        <input type="number" class="form-control" [ngClass]="{'form-submitted': formSubmitted}" name = "price" formControlName ="price">
+        <input type="number" class="form-control" [ngClass]="{'form-submitted': formSubmitted}" name = "price" formControlName ="price" >
     </div>
-    <div class="padded-top">
-        <input type="submit" value="Belohnung hinzufügen"   class="btn login-button-style center">
+    <div class="padded-top" style="display: flex; flex-direction: row;">
+        <input *ngIf="id == null" type="submit" value="Belohnung hinzufügen"   class="btn login-button-style center">
+        <input *ngIf="id != null" type="submit" value="Speicher"   class="btn login-button-style ">
+        <input *ngIf="id != null" (click)="deleteShopItem()" value="Löschen"   class="btn login-button-style " style="background-color: red;">
     </div>    
 </form>

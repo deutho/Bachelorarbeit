@@ -272,6 +272,13 @@ export class FirestoreDataService {
         });
     }
 
+    // async deleteIndividualTargets(targetId: string, uid: string) {
+    //     let ref = await this.db.collectionGroup("users").where("uid","==",uid).get()
+    //     ref.forEach(doc => {
+    //         doc.ref.delete();
+    //     });
+    // }
+
     async updatePurchaseGiven(purchase: Purchase) {
     let ref = await this.db.collection("purchases").where("objectID", "==", purchase.objectID).where("studentID", "==", purchase.studentID).get()
         ref.forEach(doc => {
