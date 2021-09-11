@@ -48,12 +48,12 @@
 
 .item-actionBar1 {
     grid-area: actionBar1;
-    margin-top: -150px;
+    margin-top: -100px;
 }
 
 .item-actionBar2 {
     grid-area: actionBar2;
-    margin-top: -130px;
+    margin-top: 0px;
 }
 
 .item-mid {
