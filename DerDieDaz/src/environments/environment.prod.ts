@@ -12,6 +12,6 @@ export const environment = {
   },
 
 
-  shareableURL: 'www.derdiedaz.at',
+  shareableURL: 'https://kids-8b916.web.app/',
   isDeployment: true
 };
